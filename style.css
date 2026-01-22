@@ -1,0 +1,208 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f8fd;
+  color: #0f172a;
+}
+
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* HEADER */
+.siteHeader {
+  background: #ffffff;
+  border-bottom: 1px solid #dbeafe;
+  position: sticky;
+  top: 0;
+}
+
+.headerRow {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 18px;
+  color: #1e40af;
+}
+
+.nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: #1e3a8a;
+}
+
+.nav a.active {
+  background: #e0ecff;
+  font-weight: 700;
+}
+
+/* BUTTONS */
+.btnPrimary {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.btnOutline {
+  background: #ffffff;
+  color: #2563eb;
+  border: 1px solid #93c5fd;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+/* MAIN */
+.pageMain {
+  padding: 32px 0;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(180deg, #eaf2ff, #f8fbff);
+  padding: 40px 0;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+}
+
+.heroText h1 {
+  font-size: 42px;
+  line-height: 1.15;
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.muted {
+  color: #475569;
+}
+
+.heroCtas {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+
+.heroMeta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: #e0ecff;
+  color: #1e3a8a;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* CARD */
+.heroCard {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+}
+
+.heroCard h2 {
+  margin: 0 0 8px;
+  color: #1e3a8a;
+}
+
+.cardActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.smallMuted {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 14px;
+}
+
+/* STEPS */
+.section {
+  padding: 36px 0;
+}
+
+.steps {
+  margin-top: 16px;
+  padding-left: 18px;
+}
+
+.steps li {
+  margin: 14px 0;
+}
+
+.stepTitle {
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+/* FOOTER */
+.siteFooter {
+  background: #ffffff;
+  border-top: 1px solid #dbeafe;
+  padding: 20px 0;
+}
+
+.footerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.footerLinks {
+  display: flex;
+  gap: 14px;
+}
+
+.brandSmall {
+  font-weight: 800;
+  color: #1e40af;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroText h1 {
+    font-size: 32px;
+  }
+}
