@@ -1,445 +1,1579 @@
-<!-- orders.html (revised) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Orders | EssaysPros.com</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My orders</title>
 
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #000; color: #fff; }
-    a { color: #f1c40f; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    header, footer { background: #2c3e50; text-align: center; padding: 1.6rem 1rem; }
-    header h1 { margin: 0; font-size: 2rem; }
-    header p { margin: .25rem 0 0; opacity: .9; font-size: .9rem; }
-
-    main { max-width: 1180px; margin: auto; padding: 2rem 1.25rem 3rem; }
-
-    .topbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-    .muted { opacity: .85; font-size: 13px; line-height: 1.5; }
-
-    .tabs { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 16px; }
-    .tab {
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      color: #fff;
-      padding: 10px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 900;
-    }
-    .tab.active { background: #f1c40f; color: #000; border-color: #f1c40f; }
-
-    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .card {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 12px;
-      padding: 14px;
+    :root{
+      --bg:#f3f6fb;
+      --card:#ffffff;
+      --line:#e5e7eb;
+      --text:#0f172a;
+      --muted:#64748b;
+      --blue:#2563eb;
+      --blue2:#1d4ed8;
+      --chip:#e9eef8;
+      --chipText:#334155;
+      --shadow:0 14px 44px rgba(15,23,42,.10);
+      --radius:18px;
     }
 
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 12px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-    }
-    .badge.ongoing { border-color: rgba(241,196,15,.35); background: rgba(241,196,15,.10); }
-    .badge.delivered { border-color: rgba(76,175,80,.35); background: rgba(76,175,80,.12); }
-    .badge.completed { border-color: rgba(33,150,243,.35); background: rgba(33,150,243,.12); }
-    .badge.revision { border-color: rgba(233, 30, 99, .35); background: rgba(233, 30, 99, .14); }
-    .badge.unpaid { border-color: rgba(255,152,0,.45); background: rgba(255,152,0,.14); }
-
-    label { display: block; font-size: 13px; margin: 10px 0 6px; opacity: .9; }
-    input, textarea, select {
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color: #fff;
-      outline: none;
-      font-size: 14px;
-    }
-    textarea { min-height: 120px; resize: vertical; }
-
-    .btnbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-weight: 900;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .primary { background: #f1c40f; color: #000; }
-    .ghost { background: rgba(255,255,255,.06); color: #fff; border: 1px solid rgba(255,255,255,.14); }
-    .danger { background: rgba(233, 30, 99, .18); color: #fff; border: 1px solid rgba(233, 30, 99, .35); }
-    .success { background: rgba(76,175,80,.18); color: #fff; border: 1px solid rgba(76,175,80,.35); }
-
-    .hr { height: 1px; background: rgba(255,255,255,.12); margin: 12px 0; }
-
-    .notice {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 12px;
-      padding: 14px;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
     }
 
-    @media (max-width: 920px) {
-      .row, .row3 { grid-template-columns: 1fr; }
+    .wrap{
+      max-width:1180px;
+      margin:0 auto;
+      padding:18px 18px 36px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .topLeft{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .menuBtn{
+      width:44px;height:44px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.70);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+    }
+
+    .menuBtn span{
+      width:18px;height:2px;background:#334155;display:block;position:relative;border-radius:999px;
+    }
+    .menuBtn span:before,.menuBtn span:after{
+      content:"";
+      position:absolute;left:0;right:0;height:2px;background:#334155;border-radius:999px;
+    }
+    .menuBtn span:before{top:-6px}
+    .menuBtn span:after{top:6px}
+
+    .title{
+      font-size:44px;
+      font-weight:900;
+      letter-spacing:-.6px;
+      margin:0;
+    }
+
+    .topRight{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.72);
+      color:var(--muted);
+      font-weight:800;
+      font-size:13px;
+    }
+
+    .btn{
+      border:0;
+      cursor:pointer;
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:900;
+      background:#ffffff;
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+    .btn:hover{filter:brightness(0.98)}
+    .btnPrimary{
+      background:linear-gradient(90deg,var(--blue2),var(--blue));
+      border-color:transparent;
+      color:#ffffff;
+      padding:12px 16px;
+    }
+
+    .tabsRow{
+      display:flex;
+      align-items:flex-end;
+      gap:28px;
+      margin-top:6px;
+    }
+
+    .tabBtn{
+      background:transparent;
+      border:0;
+      cursor:pointer;
+      font-weight:900;
+      font-size:22px;
+      color:#64748b;
+      padding:12px 0;
+      position:relative;
+    }
+
+    .tabBtn.active{color:var(--blue)}
+    .tabBtn.active:after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-8px;
+      width:84px;
+      height:2px;
+      background:var(--blue);
+      border-radius:999px;
+    }
+
+    .tabsLine{
+      height:1px;
+      background:var(--line);
+      margin-top:10px;
+    }
+
+    .controlsRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:18px 0 6px;
+    }
+
+    .sortRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-weight:800;
+    }
+
+    select{
+      border:1px solid var(--line);
+      background:#ffffff;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:800;
+      color:#334155;
+      outline:none;
+      min-width:220px;
+    }
+
+    .searchBox{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:10px 14px;
+      min-width:320px;
+    }
+    .searchBox input{
+      border:0;
+      outline:none;
+      width:100%;
+      font-weight:700;
+      color:#334155;
+      background:transparent;
+    }
+
+    .panel{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    .empty{
+      min-height:420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:24px;
+    }
+
+    .emptyInner{
+      max-width:520px;
+    }
+
+    .emptyIcon{
+      width:170px;height:170px;
+      margin:0 auto 14px;
+      border-radius:50%;
+      background:radial-gradient(circle at 40% 35%, #f1f5ff, #e8eefc);
+      display:grid;
+      place-items:center;
+      border:1px solid #e6eaf5;
+    }
+
+    .emptyIcon svg{width:84px;height:84px;fill:#98a2b3}
+
+    .emptyTitle{
+      font-size:42px;
+      margin:0 0 14px;
+      font-weight:900;
+      color:#334155;
+    }
+
+    .ctaRow{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:0;
+      margin-top:12px;
+    }
+
+    .ctaBtn{
+      border:0;
+      cursor:pointer;
+      border-radius:14px;
+      padding:14px 22px;
+      font-weight:900;
+      font-size:20px;
+      color:#ffffff;
+      background:linear-gradient(90deg,var(--blue2),var(--blue));
+      box-shadow:0 12px 22px rgba(37,99,235,.25);
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .ctaBtn .plus{
+      width:44px;height:44px;
+      border-radius:12px;
+      background:rgba(255,255,255,.18);
+      display:grid;
+      place-items:center;
+      font-size:26px;
+      font-weight:900;
+      line-height:1;
+    }
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(15,23,42,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+
+    .modal{
+      width:min(980px,100%);
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:18px 18px 12px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .modalTitle{
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:-.4px;
+      margin:0;
+    }
+
+    .closeBtn{
+      width:46px;height:46px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#ffffff;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      font-size:22px;
+      font-weight:900;
+      color:#0f172a;
+    }
+
+    .modalBody{
+      padding:16px 18px 18px;
+      background:#f7f9fe;
+    }
+
+    .stepsBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 14px 10px;
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:16px;
+    }
+
+    .stepItem{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      color:#94a3b8;
+      font-weight:900;
+    }
+
+    .stepDot{
+      width:12px;height:12px;border-radius:50%;
+      background:#cbd5e1;
+    }
+
+    .stepItem.on{color:#0f172a}
+    .stepItem.on .stepDot{background:var(--blue)}
+    .stepItem.done{color:#334155}
+    .stepItem.done .stepDot{background:#64748b}
+
+    .stage{
+      margin-top:14px;
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+    }
+
+    .stageTitle{
+      margin:0 0 12px;
+      font-size:44px;
+      font-weight:900;
+      letter-spacing:-.6px;
+      color:#334155;
+    }
+
+    .chipRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .chipBtn{
+      border:0;
+      cursor:pointer;
+      border-radius:12px;
+      padding:12px 16px;
+      font-weight:900;
+      background:var(--chip);
+      color:var(--chipText);
+      border:1px solid #dbeafe;
+    }
+    .chipBtn.active{
+      background:rgba(37,99,235,.10);
+      border-color:rgba(37,99,235,.35);
+      color:#1e3a8a;
+    }
+
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      align-items:center;
+      margin-top:12px;
+    }
+
+    .field{
+      min-width:260px;
+      flex:1;
+    }
+
+    .label{
+      display:block;
+      font-size:13px;
+      font-weight:900;
+      color:#64748b;
+      margin-bottom:8px;
+    }
+
+    .input, .select{
+      width:100%;
+      border:1px solid var(--line);
+      background:#f3f4f6;
+      border-radius:12px;
+      padding:14px 14px;
+      font-weight:800;
+      font-size:16px;
+      outline:none;
+      color:#334155;
+    }
+
+    .input:focus, .select:focus{
+      border-color:rgba(37,99,235,.45);
+      box-shadow:0 0 0 3px rgba(37,99,235,.10);
+      background:#ffffff;
+    }
+
+    .twoCol{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .sizeToggle{
+      display:flex;
+      align-items:center;
+      background:#eef2ff;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      padding:6px;
+      gap:6px;
+      width:260px;
+    }
+    .sizeToggle button{
+      flex:1;
+      border:0;
+      cursor:pointer;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:900;
+      background:transparent;
+      color:#475569;
+    }
+    .sizeToggle button.active{
+      background:#0f172a;
+      color:#ffffff;
+    }
+
+    .counter{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border:1px solid var(--line);
+      background:#f3f4f6;
+      border-radius:14px;
+      padding:12px 14px;
+      width:320px;
+    }
+    .counter button{
+      width:42px;height:42px;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+      background:#ffffff;
+      cursor:pointer;
+      font-weight:900;
+      font-size:20px;
+      color:#334155;
+    }
+    .counter .val{
+      font-weight:900;
+      font-size:20px;
+      color:#334155;
+      min-width:36px;
+      text-align:center;
+    }
+
+    .hint{
+      color:#64748b;
+      font-weight:800;
+      margin-top:8px;
+    }
+
+    .warnBox{
+      margin-top:14px;
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#9a3412;
+      border-radius:14px;
+      padding:12px 14px;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    textarea{
+      width:100%;
+      min-height:160px;
+      border-radius:14px;
+      border:1px solid rgba(37,99,235,.45);
+      outline:none;
+      padding:14px;
+      font-weight:800;
+      font-size:16px;
+      background:#ffffff;
+      color:#334155;
+    }
+
+    .uploadBox{
+      margin-top:12px;
+      border-radius:14px;
+      border:2px dashed #cbd5e1;
+      background:#f8fafc;
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .uploadBox .left{
+      display:flex;align-items:center;gap:12px;
+      color:#334155;
+      font-weight:900;
+    }
+    .uploadBox .right{
+      color:#64748b;
+      font-weight:800;
+    }
+    .fileInput{display:none}
+
+    .footerBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .nextBtn{
+      border:0;
+      cursor:pointer;
+      border-radius:14px;
+      padding:14px 18px;
+      font-weight:900;
+      font-size:18px;
+      background:linear-gradient(90deg,var(--blue2),var(--blue));
+      color:#ffffff;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .nextBtn:disabled{
+      cursor:not-allowed;
+      filter:grayscale(1);
+      opacity:.45;
+    }
+
+    .nextBtn .arrow{
+      width:44px;height:44px;
+      border-radius:12px;
+      background:rgba(255,255,255,.18);
+      display:grid;
+      place-items:center;
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .backBtn{
+      border:1px solid var(--line);
+      background:#ffffff;
+      cursor:pointer;
+      border-radius:14px;
+      padding:14px 16px;
+      font-weight:900;
+      color:#0f172a;
+    }
+
+    .payCard{
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      display:grid;
+      gap:10px;
+    }
+    .payRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-weight:900;
+      color:#334155;
+    }
+    .payRow .muted{color:#64748b}
+    .stripeBtn{
+      border:0;
+      cursor:pointer;
+      border-radius:14px;
+      padding:14px 16px;
+      font-weight:900;
+      font-size:18px;
+      background:#635bff;
+      color:#ffffff;
+    }
+    .stripeBtn:hover{filter:brightness(1.03)}
+
+    @media (max-width:900px){
+      .title{font-size:34px}
+      .modalTitle{font-size:26px}
+      .stageTitle{font-size:34px}
+      .searchBox{min-width:220px}
+      .twoCol{grid-template-columns:1fr}
     }
   </style>
 </head>
 
 <body>
-<header>
-  <h1>EssaysPros.com</h1>
-  <p>Orders</p>
-</header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="topLeft">
+        <button class="menuBtn" type="button" aria-label="Menu">
+          <span></span>
+        </button>
+        <h1 class="title">My orders</h1>
+      </div>
 
-<main>
-  <div class="topbar">
-    <div class="muted">
-      Logged in email: <span id="activeEmail">Not set</span>
-      <div>Support: <a href="mailto:support@essayspros.com">support@essayspros.com</a></div>
-    </div>
-    <div class="btnbar">
-      <a class="ghost" href="write.html" style="display:inline-block; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#fff; font-weight:900;">New order</a>
-      <button class="ghost" type="button" id="logoutBtn">Log out</button>
-      
-    </div>
-  </div>
-
-  <div id="authGate" class="notice" style="display:none;">
-    <div style="font-weight:900; font-size:16px;">Authentication required</div>
-    <div class="muted" style="margin-top:6px;">Please log in to view your orders.</div>
-    <div class="btnbar" style="margin-top:10px;">
-      <a class="primary" href="login.html" style="display:inline-block; padding:12px 14px; border-radius:10px; background:#f1c40f; color:#000; font-weight:900;">Log in</a>
-      <a class="ghost" href="signup.html" style="display:inline-block; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#fff; font-weight:900;">Sign up</a>
-    </div>
-  </div>
-
-  <div id="contentArea" style="display:none;">
-    <div class="tabs">
-      <button class="tab active" id="tabCurrent" type="button">Current orders</button>
-      <button class="tab" id="tabAll" type="button">All orders</button>
+      <div class="topRight">
+        <div class="pill" id="authPill">Signed out</div>
+        <button class="btn" type="button" id="loginBtn">Log in</button>
+        <button class="btn" type="button" id="signupBtn">Sign up</button>
+        <button class="btn btnPrimary" type="button" id="newOrderTopBtn">New order</button>
+        <button class="btn" type="button" id="logoutBtn" style="display:none">Log out</button>
+      </div>
     </div>
 
-    <div class="grid" id="ordersGrid"></div>
-
-    <div class="muted" style="margin-top:14px">
-      Demonstration note: payment, delivery, and revision are simulated. For production payments, implement Stripe Checkout and PayPal Checkout using server side endpoints.
+    <div class="tabsRow" role="tablist" aria-label="Orders">
+      <button class="tabBtn active" type="button" dataTab="active">Active</button>
+      <button class="tabBtn" type="button" dataTab="drafts">Drafts</button>
+      <button class="tabBtn" type="button" dataTab="closed">Closed</button>
     </div>
-  </div>
-</main>
+    <div class="tabsLine"></div>
 
-<footer>
-  &copy; <span id="year"></span> EssaysPros.com. All rights reserved.
-</footer>
+    <div class="controlsRow">
+      <div class="sortRow">
+        <span>Sort by</span>
+        <select id="sortSelect">
+          <option value="deadlineLatest">Deadline, latest</option>
+          <option value="deadlineSoonest">Deadline, soonest</option>
+          <option value="createdLatest">Created, latest</option>
+          <option value="createdOldest">Created, oldest</option>
+        </select>
+      </div>
 
-<script>
-(function () {
-  document.getElementById("year").textContent = new Date().getFullYear();
+      <div class="searchBox">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="#64748b" stroke-width="2"/>
+          <path d="M16.5 16.5 21 21" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="searchInput" type="text" placeholder="Search" />
+      </div>
+    </div>
 
-  const authGate = document.getElementById("authGate");
-  const contentArea = document.getElementById("contentArea");
-
-  const activeEmail = (localStorage.getItem("essayspros_active_email") || "").trim();
-  document.getElementById("activeEmail").textContent = activeEmail ? activeEmail : "Not set";
-
-  if (!activeEmail) {
-    authGate.style.display = "block";
-    contentArea.style.display = "none";
-    document.getElementById("logoutBtn").style.display = "none";
-    return;
-  } else {
-    authGate.style.display = "none";
-    contentArea.style.display = "block";
-  }
-
-  function loadOrders() {
-    try { return JSON.parse(localStorage.getItem("essayspros_orders") || "[]"); }
-    catch (e) { return []; }
-  }
-
-  function saveOrders(list) {
-    localStorage.setItem("essayspros_orders", JSON.stringify(list));
-  }
-
-  function escapeHtml(s) {
-    return String(s == null ? "" : s)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-  function badge(status, revisionRequested, approved, paid) {
-    if (!paid) return '<span class="badge unpaid">Unpaid</span>';
-    if (approved) return '<span class="badge completed">Completed</span>';
-    if (revisionRequested) return '<span class="badge revision">Revision requested</span>';
-    if (status === "Delivered") return '<span class="badge delivered">Delivered</span>';
-    return '<span class="badge ongoing">Ongoing</span>';
-  }
-
-  function fmtDate(iso) {
-    if (!iso) return "Not set";
-    const d = new Date(iso);
-    if (isNaN(d.getTime())) return "Not set";
-    return d.toLocaleString();
-  }
-
-  function unitsLine(o) {
-    if (o.taskType === "paper") return (o.pages || 0) + " pages";
-    if (o.taskType === "slides") return (o.slides || 0) + " slides";
-    if (o.taskType === "programming") return (o.hours || 0) + " hours";
-    return "";
-  }
-
-  function render(filterCurrentOnly) {
-    const grid = document.getElementById("ordersGrid");
-    const orders = loadOrders();
-
-    let list = orders.filter(o => (o.customerEmail || "").toLowerCase() === activeEmail.toLowerCase());
-    if (filterCurrentOnly) list = list.filter(o => !o.approved);
-
-    if (list.length === 0) {
-      grid.innerHTML = '<div class="card"><div class="muted">No orders found. Create a new order from the New order button.</div></div>';
-      return;
-    }
-
-    grid.innerHTML = list.map(o => {
-      const id = escapeHtml(o.id);
-      const paid = Boolean(o.paid);
-      const showDeliveredActions = (o.status === "Delivered" && !o.approved && paid);
-      const showOngoingActions = (o.status === "Ongoing" && !o.approved && paid);
-
-      const total = Number(o.total || 0);
-      const currency = escapeHtml(o.currency || "USD");
-
-      return `
-        <div class="card" data-id="${id}">
-          <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center;">
-            <div>
-              <div style="font-weight:900; font-size:16px;">Order ${id}</div>
-              <div class="muted">Created: ${fmtDate(o.createdAt)} | Deadline: ${o.deadline ? fmtDate(o.deadline) : "Not set"}</div>
-            </div>
-            <div>${badge(o.status, o.revisionRequested, o.approved, paid)}</div>
+    <div class="panel" id="ordersPanel">
+      <div class="empty" id="emptyState">
+        <div class="emptyInner">
+          <div class="emptyIcon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M6 2h9l3 3v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm8 1.5V6h2.5L14 3.5Z"/>
+              <path d="M7 10h10v1.8H7V10Zm0 4h10v1.8H7V14Z"/>
+            </svg>
           </div>
-
-          <div class="row" style="margin-top:10px">
-            <div class="muted">
-              <div><strong>Task:</strong> ${escapeHtml(o.taskType)}</div>
-              <div><strong>Level:</strong> ${escapeHtml(o.level)}</div>
-              <div><strong>Scope:</strong> ${escapeHtml(unitsLine(o))}</div>
-            </div>
-            <div class="muted">
-              <div><strong>Total:</strong> $${isFinite(total) ? total.toFixed(2) : "0.00"} ${currency}</div>
-              <div><strong>Payment method:</strong> ${escapeHtml(o.paymentMethod || "Not selected")}</div>
-              <div><strong>Topic:</strong> ${escapeHtml(o.topic || "Not provided")}</div>
-            </div>
-          </div>
-
-          <div class="hr"></div>
-
-          <div class="muted"><strong>Instructions summary:</strong></div>
-          <div class="muted" style="white-space:pre-wrap">${escapeHtml((o.instructions || "").slice(0, 600) || "Not provided")}</div>
-
-          <div class="hr"></div>
-
-          ${paid ? "" : `
-            <div class="notice">
-              <div style="font-weight:900;">Payment required</div>
-              <div class="muted" style="margin-top:6px;">
-                Select a payment option to continue. For production, connect these buttons to Stripe Checkout and PayPal Checkout using server side endpoints.
-              </div>
-              <div class="btnbar" style="margin-top:10px;">
-                <button class="primary payStripe" type="button">Pay with Stripe</button>
-                <button class="ghost payPayPal" type="button">Pay with PayPal</button>
-                <button class="ghost payDemo" type="button">Mark paid (demo)</button>
-              </div>
-            </div>
-            <div class="hr"></div>
-          `}
-
-          <div class="row">
-            <div>
-              <label>Upload your submission file</label>
-              <input type="file" class="customerUpload" />
-              <div class="muted">Saved locally for demonstration only.</div>
-            </div>
-            <div>
-              <label>Delivery file name</label>
-              <input type="text" class="deliveredName" value="${escapeHtml(o.deliveredFileName || "")}" placeholder="For demonstration: set delivery name" />
-              <div class="muted">For demonstration only.</div>
-            </div>
-          </div>
-
-          <div class="btnbar">
-            ${showOngoingActions ? '<button class="ghost markDelivered" type="button">Mark as delivered</button>' : ''}
-            ${showDeliveredActions ? '<button class="primary approveBtn" type="button">Approve</button>' : ''}
-            ${showDeliveredActions ? '<button class="danger revisionBtn" type="button">Request revision</button>' : ''}
-            <button class="ghost supportBtn" type="button">Request support</button>
-          </div>
-
-          <div class="muted" style="margin-top:8px">
-            Customer upload: <span class="custName">${escapeHtml(o.customerSubmissionName || "None")}</span>
+          <h2 class="emptyTitle" id="emptyTitle">You have no active orders</h2>
+          <div class="ctaRow">
+            <button class="ctaBtn" type="button" id="newOrderBtn">
+              New order
+              <span class="plus">+</span>
+            </button>
           </div>
         </div>
-      `;
-    }).join("");
+      </div>
 
-    bindEvents();
-  }
+      <div id="listState" style="display:none"></div>
+    </div>
+  </div>
 
-  function updateOrder(id, updater) {
-    const orders = loadOrders();
-    const idx = orders.findIndex(o => String(o.id) === String(id));
-    if (idx < 0) return;
-    updater(orders[idx]);
-    saveOrders(orders);
-  }
+  <!-- New order modal -->
+  <div class="overlay" id="orderOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="New order">
+      <div class="modalTop">
+        <h2 class="modalTitle">New order</h2>
+        <button class="closeBtn" id="closeOrder" type="button" aria-label="Close">×</button>
+      </div>
 
-  function bindEvents() {
-    const cards = document.querySelectorAll(".card");
+      <div class="modalBody">
+        <div class="stepsBar" id="stepsBar">
+          <div class="stepItem on" dataStep="1"><span class="stepDot"></span><span>Service</span></div>
+          <div class="stepItem" dataStep="2"><span class="stepDot"></span><span>Details</span></div>
+          <div class="stepItem" dataStep="3"><span class="stepDot"></span><span>Academic</span></div>
+          <div class="stepItem" dataStep="4"><span class="stepDot"></span><span>Size</span></div>
+          <div class="stepItem" dataStep="5"><span class="stepDot"></span><span>Deadline</span></div>
+          <div class="stepItem" dataStep="6"><span class="stepDot"></span><span>Instructions</span></div>
+          <div class="stepItem" dataStep="7"><span class="stepDot"></span><span>Payment</span></div>
+        </div>
 
-    cards.forEach(card => {
-      const id = card.getAttribute("data-id");
-      const upload = card.querySelector(".customerUpload");
-      const deliveredName = card.querySelector(".deliveredName");
+        <!-- Stage 1 -->
+        <div class="stage" dataStage="1">
+          <h3 class="stageTitle">Service</h3>
+          <div class="chipRow" id="serviceRow">
+            <button class="chipBtn" type="button" dataValue="writing">Writing</button>
+            <button class="chipBtn" type="button" dataValue="rewriting">Rewriting</button>
+            <button class="chipBtn" type="button" dataValue="editing">Editing</button>
+            <button class="chipBtn" type="button" dataValue="proofreading">Proofreading</button>
+            <button class="chipBtn" type="button" dataValue="problemSolving">Problem solving</button>
+            <button class="chipBtn" type="button" dataValue="calculations">Calculations</button>
+            <button class="chipBtn" type="button" dataValue="reviewWork">Review my work</button>
+          </div>
 
-      if (upload) {
-        upload.addEventListener("change", function () {
-          const file = upload.files && upload.files[0];
-          if (!file) return;
-          updateOrder(id, (o) => { o.customerSubmissionName = file.name; });
-          const nameEl = card.querySelector(".custName");
-          if (nameEl) nameEl.textContent = file.name;
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="cancelOrder1">Cancel</button>
+            <button class="nextBtn" type="button" id="next1" disabled>
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="stage" dataStage="2" style="display:none">
+          <h3 class="stageTitle">Assignment type</h3>
+
+          <div class="row">
+            <div class="field">
+              <label class="label" for="assignmentType">Select assignment</label>
+              <select class="select" id="assignmentType">
+                <option value="">Select assignment</option>
+                <option value="essay">Essay</option>
+                <option value="discussionPost">Discussion post</option>
+                <option value="researchPaper">Research paper</option>
+                <option value="coursework">Coursework</option>
+                <option value="caseStudy">Case study</option>
+                <option value="presentation">Presentation</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label class="label" for="subject">Subject</label>
+              <input class="input" id="subject" type="text" placeholder="Select or enter subject" />
+            </div>
+          </div>
+
+          <div class="hint">Subject is required for order creation.</div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back2">Back</button>
+            <button class="nextBtn" type="button" id="next2" disabled>
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="stage" dataStage="3" style="display:none">
+          <h3 class="stageTitle">Academic level</h3>
+
+          <div class="chipRow" id="levelRow">
+            <button class="chipBtn" type="button" dataValue="highSchool">High school</button>
+            <button class="chipBtn" type="button" dataValue="college">College</button>
+            <button class="chipBtn" type="button" dataValue="bachelors">Bachelors</button>
+            <button class="chipBtn" type="button" dataValue="masters">Masters</button>
+            <button class="chipBtn" type="button" dataValue="doctorate">Doctorate</button>
+          </div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back3">Back</button>
+            <button class="nextBtn" type="button" id="next3" disabled>
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Stage 4 -->
+        <div class="stage" dataStage="4" style="display:none">
+          <h3 class="stageTitle">Size</h3>
+
+          <div class="row" style="justify-content:space-between">
+            <div class="sizeToggle" role="tablist" aria-label="Units">
+              <button type="button" id="unitPages" class="active">Pages</button>
+              <button type="button" id="unitWords">Words</button>
+            </div>
+
+            <div class="counter">
+              <button type="button" id="minusBtn">−</button>
+              <div class="val" id="sizeVal">1</div>
+              <button type="button" id="plusBtn">+</button>
+            </div>
+
+            <div class="field" style="max-width:260px">
+              <label class="label" for="spacing">Line spacing</label>
+              <select class="select" id="spacing">
+                <option value="double">Double</option>
+                <option value="single">Single</option>
+                <option value="oneHalf">One and half</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="hint" id="sizeHint">Approx 275 words</div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back4">Back</button>
+            <button class="nextBtn" type="button" id="next4">
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Stage 5 -->
+        <div class="stage" dataStage="5" style="display:none">
+          <h3 class="stageTitle">Deadline</h3>
+
+          <div class="twoCol">
+            <div class="field">
+              <label class="label" for="dueDate">Date</label>
+              <input class="input" id="dueDate" type="date" />
+            </div>
+            <div class="field">
+              <label class="label" for="dueTime">Time</label>
+              <input class="input" id="dueTime" type="time" />
+            </div>
+          </div>
+
+          <div class="hint" style="margin-top:10px">Popular</div>
+          <div class="chipRow" id="deadlineQuickRow" style="margin-top:10px">
+            <button class="chipBtn" type="button" dataHours="3">3 hours</button>
+            <button class="chipBtn" type="button" dataHours="6">6 hours</button>
+            <button class="chipBtn" type="button" dataHours="12">12 hours</button>
+            <button class="chipBtn" type="button" dataHours="24">1 day</button>
+            <button class="chipBtn" type="button" dataHours="48">2 days</button>
+            <button class="chipBtn" type="button" dataHours="120">5 days</button>
+          </div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back5">Back</button>
+            <button class="nextBtn" type="button" id="next5" disabled>
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Stage 6 -->
+        <div class="stage" dataStage="6" style="display:none">
+          <h3 class="stageTitle">Instructions</h3>
+
+          <div class="field">
+            <label class="label" for="orderName">Name your assignment</label>
+            <input class="input" id="orderName" type="text" placeholder="Name your assignment" />
+          </div>
+
+          <div class="field" style="margin-top:10px">
+            <label class="label" for="instructions">Describe your assignment</label>
+            <textarea id="instructions" placeholder="Describe your assignment. Share references, links, and any other instructions."></textarea>
+          </div>
+
+          <div class="warnBox">
+            <span style="font-size:18px">ⓘ</span>
+            <span>Do not share personal information such as name, email, or phone number.</span>
+          </div>
+
+          <div class="uploadBox" id="uploadBox" role="button" tabindex="0" aria-label="Upload files">
+            <div class="left">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
+                <path d="M8 7l4-4 4 4" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 14v4a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-4" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span><span style="color:#2563eb">Browse</span> or drag and drop multiple files here.</span>
+            </div>
+            <div class="right" id="fileLabel">No files</div>
+            <input class="fileInput" id="fileInput" type="file" multiple accept=".pdf,.doc,.docx,.txt,image/png,image/jpeg,image/heic" />
+          </div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back6">Back</button>
+            <button class="nextBtn" type="button" id="next6" disabled>
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Stage 7 -->
+        <div class="stage" dataStage="7" style="display:none">
+          <h3 class="stageTitle">Payment</h3>
+
+          <div class="payCard">
+            <div class="payRow">
+              <span>Service</span>
+              <span class="muted" id="sumService">—</span>
+            </div>
+            <div class="payRow">
+              <span>Assignment</span>
+              <span class="muted" id="sumAssignment">—</span>
+            </div>
+            <div class="payRow">
+              <span>Academic level</span>
+              <span class="muted" id="sumLevel">—</span>
+            </div>
+            <div class="payRow">
+              <span>Size</span>
+              <span class="muted" id="sumSize">—</span>
+            </div>
+            <div class="payRow">
+              <span>Deadline</span>
+              <span class="muted" id="sumDeadline">—</span>
+            </div>
+
+            <div class="payRow" style="margin-top:6px;font-size:20px">
+              <span>Total</span>
+              <span id="sumTotal">$0.00</span>
+            </div>
+
+            <button class="stripeBtn" type="button" id="payStripeBtn">
+              Pay with Stripe
+            </button>
+
+            <div class="hint">
+              Stripe Checkout requires a server endpoint that creates a Checkout Session.
+              The button below calls a sample endpoint named createCheckoutSession.
+            </div>
+          </div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back7">Back</button>
+            <button class="nextBtn" type="button" id="finishBtn">
+              Finish <span class="arrow">✓</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const loginBtn = document.getElementById("loginBtn");
+    const signupBtn = document.getElementById("signupBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const newOrderBtn = document.getElementById("newOrderBtn");
+    const newOrderTopBtn = document.getElementById("newOrderTopBtn");
+    const authPill = document.getElementById("authPill");
+
+    const orderOverlay = document.getElementById("orderOverlay");
+    const closeOrder = document.getElementById("closeOrder");
+    const cancelOrder1 = document.getElementById("cancelOrder1");
+
+    const stepsBar = document.getElementById("stepsBar");
+    const stageEls = Array.from(document.querySelectorAll("[dataStage]"));
+    const stepEls = Array.from(document.querySelectorAll("[dataStep]"));
+
+    const serviceRow = document.getElementById("serviceRow");
+    const next1 = document.getElementById("next1");
+
+    const assignmentType = document.getElementById("assignmentType");
+    const subject = document.getElementById("subject");
+    const next2 = document.getElementById("next2");
+    const back2 = document.getElementById("back2");
+
+    const levelRow = document.getElementById("levelRow");
+    const next3 = document.getElementById("next3");
+    const back3 = document.getElementById("back3");
+
+    const unitPages = document.getElementById("unitPages");
+    const unitWords = document.getElementById("unitWords");
+    const minusBtn = document.getElementById("minusBtn");
+    const plusBtn = document.getElementById("plusBtn");
+    const sizeVal = document.getElementById("sizeVal");
+    const sizeHint = document.getElementById("sizeHint");
+    const spacing = document.getElementById("spacing");
+    const next4 = document.getElementById("next4");
+    const back4 = document.getElementById("back4");
+
+    const dueDate = document.getElementById("dueDate");
+    const dueTime = document.getElementById("dueTime");
+    const deadlineQuickRow = document.getElementById("deadlineQuickRow");
+    const next5 = document.getElementById("next5");
+    const back5 = document.getElementById("back5");
+
+    const orderName = document.getElementById("orderName");
+    const instructions = document.getElementById("instructions");
+    const uploadBox = document.getElementById("uploadBox");
+    const fileInput = document.getElementById("fileInput");
+    const fileLabel = document.getElementById("fileLabel");
+    const next6 = document.getElementById("next6");
+    const back6 = document.getElementById("back6");
+
+    const sumService = document.getElementById("sumService");
+    const sumAssignment = document.getElementById("sumAssignment");
+    const sumLevel = document.getElementById("sumLevel");
+    const sumSize = document.getElementById("sumSize");
+    const sumDeadline = document.getElementById("sumDeadline");
+    const sumTotal = document.getElementById("sumTotal");
+    const payStripeBtn = document.getElementById("payStripeBtn");
+    const back7 = document.getElementById("back7");
+    const finishBtn = document.getElementById("finishBtn");
+
+    const tabBtns = Array.from(document.querySelectorAll(".tabBtn"));
+    const emptyTitle = document.getElementById("emptyTitle");
+
+    const state = {
+      stage: 1,
+      service: "",
+      assignmentType: "",
+      subject: "",
+      level: "",
+      sizeUnit: "pages",
+      sizeCount: 1,
+      spacing: "double",
+      deadlineDate: "",
+      deadlineTime: "",
+      orderName: "",
+      instructions: "",
+      filesCount: 0,
+      total: 0
+    };
+
+    function isSignedIn(){
+      return !!localStorage.getItem("essaysprosActiveEmail");
+    }
+
+    function signedEmail(){
+      return localStorage.getItem("essaysprosActiveEmail") || "";
+    }
+
+    function setSignedEmail(email){
+      localStorage.setItem("essaysprosActiveEmail", email);
+    }
+
+    function clearSignedEmail(){
+      localStorage.removeItem("essaysprosActiveEmail");
+    }
+
+    function gotoLogin(){
+      localStorage.setItem("returnAfterAuth", "orders.html");
+      window.location.href = "login.html";
+    }
+
+    function gotoSignup(){
+      localStorage.setItem("returnAfterAuth", "orders.html");
+      window.location.href = "signup.html";
+    }
+
+    function renderAuth(){
+      if(isSignedIn()){
+        authPill.textContent = "Signed in: " + signedEmail();
+        loginBtn.style.display = "none";
+        signupBtn.style.display = "none";
+        logoutBtn.style.display = "inline-flex";
+      }else{
+        authPill.textContent = "Signed out";
+        loginBtn.style.display = "inline-flex";
+        signupBtn.style.display = "inline-flex";
+        logoutBtn.style.display = "none";
+      }
+      applyTabAccess();
+    }
+
+    function requireAuthOrRedirect(){
+      if(!isSignedIn()){
+        gotoLogin();
+        return false;
+      }
+      return true;
+    }
+
+    function applyTabAccess(){
+      const signed = isSignedIn();
+      tabBtns.forEach(btn => {
+        const tab = btn.getAttribute("dataTab");
+        const locked = (!signed && tab !== "active");
+        btn.style.opacity = locked ? "0.55" : "1";
+        btn.style.cursor = locked ? "not-allowed" : "pointer";
+      });
+    }
+
+    function setActiveTab(tab){
+      tabBtns.forEach(btn => {
+        const on = btn.getAttribute("dataTab") === tab;
+        btn.classList.toggle("active", on);
+      });
+
+      if(tab === "active") emptyTitle.textContent = "You have no active orders";
+      if(tab === "drafts") emptyTitle.textContent = "You have no draft orders";
+      if(tab === "closed") emptyTitle.textContent = "You have no closed orders";
+    }
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tab = btn.getAttribute("dataTab");
+        if(tab !== "active" && !isSignedIn()){
+          gotoLogin();
+          return;
+        }
+        setActiveTab(tab);
+      });
+    });
+
+    function openOrder(){
+      orderOverlay.style.display = "flex";
+      orderOverlay.setAttribute("aria-hidden","false");
+    }
+
+    function closeOrderModal(){
+      orderOverlay.style.display = "none";
+      orderOverlay.setAttribute("aria-hidden","true");
+    }
+
+    function showStage(n){
+      state.stage = n;
+      stageEls.forEach(el => {
+        const st = Number(el.getAttribute("dataStage"));
+        el.style.display = (st === n) ? "block" : "none";
+      });
+
+      stepEls.forEach(el => {
+        const st = Number(el.getAttribute("dataStep"));
+        el.classList.remove("on","done");
+        if(st < n) el.classList.add("done");
+        if(st === n) el.classList.add("on");
+      });
+
+      validateStage();
+      if(n === 7) renderSummary();
+    }
+
+    function chipSelect(container, valueKey, nextButton){
+      const buttons = Array.from(container.querySelectorAll("button"));
+      buttons.forEach(b => {
+        b.addEventListener("click", () => {
+          buttons.forEach(x => x.classList.remove("active"));
+          b.classList.add("active");
+          state[valueKey] = b.getAttribute("dataValue");
+          validateStage();
+          if(nextButton) nextButton.disabled = !canProceed();
         });
+      });
+    }
+
+    function levelLabel(v){
+      if(v === "highSchool") return "High school";
+      if(v === "college") return "College";
+      if(v === "bachelors") return "Bachelors";
+      if(v === "masters") return "Masters";
+      if(v === "doctorate") return "Doctorate";
+      return "—";
+    }
+
+    function assignmentLabel(v){
+      if(v === "essay") return "Essay";
+      if(v === "discussionPost") return "Discussion post";
+      if(v === "researchPaper") return "Research paper";
+      if(v === "coursework") return "Coursework";
+      if(v === "caseStudy") return "Case study";
+      if(v === "presentation") return "Presentation";
+      if(v === "other") return "Other";
+      return "—";
+    }
+
+    function serviceLabel(v){
+      if(v === "writing") return "Writing";
+      if(v === "rewriting") return "Rewriting";
+      if(v === "editing") return "Editing";
+      if(v === "proofreading") return "Proofreading";
+      if(v === "problemSolving") return "Problem solving";
+      if(v === "calculations") return "Calculations";
+      if(v === "reviewWork") return "Review my work";
+      return "—";
+    }
+
+    function canProceed(){
+      if(state.stage === 1) return !!state.service;
+      if(state.stage === 2) return !!state.assignmentType && !!state.subject.trim();
+      if(state.stage === 3) return !!state.level;
+      if(state.stage === 4) return state.sizeCount > 0;
+      if(state.stage === 5) return !!state.deadlineDate && !!state.deadlineTime;
+      if(state.stage === 6) return !!state.orderName.trim() && !!state.instructions.trim();
+      if(state.stage === 7) return true;
+      return false;
+    }
+
+    function validateStage(){
+      if(state.stage === 1) next1.disabled = !canProceed();
+      if(state.stage === 2) next2.disabled = !canProceed();
+      if(state.stage === 3) next3.disabled = !canProceed();
+      if(state.stage === 5) next5.disabled = !canProceed();
+      if(state.stage === 6) next6.disabled = !canProceed();
+    }
+
+    function updateSizeHint(){
+      if(state.sizeUnit === "pages"){
+        const approx = state.sizeCount * 275;
+        sizeHint.textContent = "Approx " + approx + " words";
+      }else{
+        const pages = Math.max(1, Math.round(state.sizeCount / 275));
+        sizeHint.textContent = "Approx " + pages + " pages";
+      }
+    }
+
+    function computeTotal(){
+      let base = 0;
+
+      if(state.service === "writing") base += 15;
+      if(state.service === "rewriting") base += 12;
+      if(state.service === "editing") base += 10;
+      if(state.service === "proofreading") base += 8;
+      if(state.service === "problemSolving") base += 14;
+      if(state.service === "calculations") base += 14;
+      if(state.service === "reviewWork") base += 9;
+
+      if(state.assignmentType === "researchPaper") base += 10;
+      if(state.assignmentType === "caseStudy") base += 8;
+      if(state.assignmentType === "presentation") base += 6;
+
+      if(state.level === "masters") base += 8;
+      if(state.level === "doctorate") base += 14;
+
+      let sizeMultiplier = 1;
+      if(state.sizeUnit === "pages") sizeMultiplier = state.sizeCount;
+      if(state.sizeUnit === "words") sizeMultiplier = Math.max(1, Math.round(state.sizeCount / 275));
+
+      base = base * sizeMultiplier;
+
+      const now = new Date();
+      const due = new Date(state.deadlineDate + "T" + state.deadlineTime);
+      const hours = Math.max(1, (due.getTime() - now.getTime()) / 3600000);
+
+      if(hours <= 12) base *= 1.6;
+      else if(hours <= 24) base *= 1.35;
+      else if(hours <= 48) base *= 1.2;
+
+      state.total = Math.round(base * 100) / 100;
+      return state.total;
+    }
+
+    function renderSummary(){
+      const total = computeTotal();
+
+      sumService.textContent = serviceLabel(state.service);
+      sumAssignment.textContent = assignmentLabel(state.assignmentType) + " , " + state.subject;
+      sumLevel.textContent = levelLabel(state.level);
+
+      const sizeText = (state.sizeUnit === "pages")
+        ? (state.sizeCount + " page(s) , " + state.spacing)
+        : (state.sizeCount + " word(s) , " + state.spacing);
+
+      sumSize.textContent = sizeText;
+
+      sumDeadline.textContent = state.deadlineDate + " " + state.deadlineTime;
+      sumTotal.textContent = "$" + total.toFixed(2);
+    }
+
+    function saveOrderAsDraft(status){
+      const email = signedEmail();
+      const key = "ordersData:" + email;
+      const list = JSON.parse(localStorage.getItem(key) || "[]");
+
+      const order = {
+        id: "ord" + String(Date.now()),
+        status: status,
+        createdAt: new Date().toISOString(),
+        service: state.service,
+        assignmentType: state.assignmentType,
+        subject: state.subject,
+        level: state.level,
+        sizeUnit: state.sizeUnit,
+        sizeCount: state.sizeCount,
+        spacing: state.spacing,
+        deadlineDate: state.deadlineDate,
+        deadlineTime: state.deadlineTime,
+        orderName: state.orderName,
+        instructions: state.instructions,
+        filesCount: state.filesCount,
+        total: state.total
+      };
+
+      list.unshift(order);
+      localStorage.setItem(key, JSON.stringify(list));
+    }
+
+    async function createCheckoutSession(){
+      const payload = {
+        email: signedEmail(),
+        total: state.total,
+        currency: "usd",
+        description: serviceLabel(state.service) + " , " + assignmentLabel(state.assignmentType),
+        metadata: {
+          service: state.service,
+          assignmentType: state.assignmentType,
+          subject: state.subject,
+          level: state.level
+        }
+      };
+
+      const res = await fetch("/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if(!res.ok){
+        throw new Error("Checkout session request failed");
       }
 
-      if (deliveredName) {
-        deliveredName.addEventListener("input", function () {
-          updateOrder(id, (o) => { o.deliveredFileName = deliveredName.value || ""; });
-        });
+      const data = await res.json();
+      if(!data || !data.url){
+        throw new Error("Checkout session response missing url");
       }
 
-      const payStripe = card.querySelector(".payStripe");
-      if (payStripe) {
-        payStripe.addEventListener("click", function () {
-          window.location.href = "pay.html?provider=stripe&orderId=" + encodeURIComponent(id);
-        });
-      }
+      window.location.href = data.url;
+    }
 
-      const payPayPal = card.querySelector(".payPayPal");
-      if (payPayPal) {
-        payPayPal.addEventListener("click", function () {
-          window.location.href = "pay.html?provider=paypal&orderId=" + encodeURIComponent(id);
-        });
-      }
+    function resetWizard(){
+      state.stage = 1;
+      state.service = "";
+      state.assignmentType = "";
+      state.subject = "";
+      state.level = "";
+      state.sizeUnit = "pages";
+      state.sizeCount = 1;
+      state.spacing = "double";
+      state.deadlineDate = "";
+      state.deadlineTime = "";
+      state.orderName = "";
+      state.instructions = "";
+      state.filesCount = 0;
+      state.total = 0;
 
-      const payDemo = card.querySelector(".payDemo");
-      if (payDemo) {
-        payDemo.addEventListener("click", function () {
-          updateOrder(id, (o) => { o.paid = true; o.paymentMethod = o.paymentMethod || "Demo"; });
-          render(document.getElementById("tabCurrent").classList.contains("active"));
-        });
-      }
+      Array.from(document.querySelectorAll(".chipBtn")).forEach(b => b.classList.remove("active"));
+      assignmentType.value = "";
+      subject.value = "";
+      orderName.value = "";
+      instructions.value = "";
+      dueDate.value = "";
+      dueTime.value = "";
+      sizeVal.textContent = "1";
+      spacing.value = "double";
+      unitPages.classList.add("active");
+      unitWords.classList.remove("active");
+      fileInput.value = "";
+      fileLabel.textContent = "No files";
 
-      const markDelivered = card.querySelector(".markDelivered");
-      if (markDelivered) {
-        markDelivered.addEventListener("click", function () {
-          updateOrder(id, (o) => {
-            o.status = "Delivered";
-            o.revisionRequested = false;
-          });
-          render(document.getElementById("tabCurrent").classList.contains("active"));
-        });
-      }
+      updateSizeHint();
+      showStage(1);
+    }
 
-      const approveBtn = card.querySelector(".approveBtn");
-      if (approveBtn) {
-        approveBtn.addEventListener("click", function () {
-          updateOrder(id, (o) => {
-            o.approved = true;
-            o.revisionRequested = false;
-            o.status = "Completed";
-          });
-          render(document.getElementById("tabCurrent").classList.contains("active"));
-        });
-      }
+    loginBtn.addEventListener("click", gotoLogin);
+    signupBtn.addEventListener("click", gotoSignup);
 
-      const revisionBtn = card.querySelector(".revisionBtn");
-      if (revisionBtn) {
-        revisionBtn.addEventListener("click", function () {
-          const reason = prompt("Describe the revision request:");
-          updateOrder(id, (o) => {
-            o.revisionRequested = true;
-            o.status = "Ongoing";
-            o.revisionNote = reason || "";
-          });
-          render(document.getElementById("tabCurrent").classList.contains("active"));
-        });
-      }
+    logoutBtn.addEventListener("click", () => {
+      clearSignedEmail();
+      renderAuth();
+      closeOrderModal();
+      setActiveTab("active");
+    });
 
-      const supportBtn = card.querySelector(".supportBtn");
-      if (supportBtn) {
-        supportBtn.addEventListener("click", function () {
-          const orders = loadOrders();
-          const o = orders.find(x => String(x.id) === String(id)) || {};
-          const subj = encodeURIComponent("EssaysPros.com order support: " + id);
-          const body = encodeURIComponent(
-            "Hello Support,\n\n" +
-            "I need assistance with order " + id + ".\n\n" +
-            "Status: " + (o.status || "") + "\n" +
-            "Email: " + (o.customerEmail || "") + "\n" +
-            "Topic: " + (o.topic || "") + "\n"
-          );
-          window.location.href = "mailto:support@essayspros.com?subject=" + subj + "&body=" + body;
-        });
+    function newOrderAction(){
+      if(!requireAuthOrRedirect()) return;
+      resetWizard();
+      openOrder();
+    }
+
+    newOrderBtn.addEventListener("click", newOrderAction);
+    newOrderTopBtn.addEventListener("click", newOrderAction);
+
+    closeOrder.addEventListener("click", () => { closeOrderModal(); });
+    cancelOrder1.addEventListener("click", () => { closeOrderModal(); });
+
+    orderOverlay.addEventListener("click", (e) => {
+      if(e.target === orderOverlay) closeOrderModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeOrderModal();
+    });
+
+    chipSelect(serviceRow, "service", next1);
+    chipSelect(levelRow, "level", next3);
+
+    next1.addEventListener("click", () => showStage(2));
+    back2.addEventListener("click", () => showStage(1));
+    next2.addEventListener("click", () => showStage(3));
+    back3.addEventListener("click", () => showStage(2));
+    next3.addEventListener("click", () => showStage(4));
+    back4.addEventListener("click", () => showStage(3));
+    next4.addEventListener("click", () => showStage(5));
+    back5.addEventListener("click", () => showStage(4));
+    back6.addEventListener("click", () => showStage(5));
+    back7.addEventListener("click", () => showStage(6));
+
+    assignmentType.addEventListener("change", () => {
+      state.assignmentType = assignmentType.value;
+      validateStage();
+    });
+
+    subject.addEventListener("input", () => {
+      state.subject = subject.value;
+      validateStage();
+    });
+
+    unitPages.addEventListener("click", () => {
+      state.sizeUnit = "pages";
+      unitPages.classList.add("active");
+      unitWords.classList.remove("active");
+      updateSizeHint();
+    });
+
+    unitWords.addEventListener("click", () => {
+      state.sizeUnit = "words";
+      unitWords.classList.add("active");
+      unitPages.classList.remove("active");
+      updateSizeHint();
+    });
+
+    minusBtn.addEventListener("click", () => {
+      state.sizeCount = Math.max(1, state.sizeCount - 1);
+      sizeVal.textContent = String(state.sizeCount);
+      updateSizeHint();
+    });
+
+    plusBtn.addEventListener("click", () => {
+      state.sizeCount = state.sizeCount + 1;
+      sizeVal.textContent = String(state.sizeCount);
+      updateSizeHint();
+    });
+
+    spacing.addEventListener("change", () => {
+      state.spacing = spacing.value;
+    });
+
+    deadlineQuickRow.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const hours = Number(btn.getAttribute("dataHours") || "0");
+        const now = new Date();
+        const due = new Date(now.getTime() + hours * 3600000);
+
+        const yyyy = due.getFullYear();
+        const mm = String(due.getMonth() + 1).padStart(2,"0");
+        const dd = String(due.getDate()).padStart(2,"0");
+        const hh = String(due.getHours()).padStart(2,"0");
+        const mi = String(due.getMinutes()).padStart(2,"0");
+
+        dueDate.value = yyyy + "-" + mm + "-" + dd;
+        dueTime.value = hh + ":" + mi;
+
+        state.deadlineDate = dueDate.value;
+        state.deadlineTime = dueTime.value;
+        validateStage();
+      });
+    });
+
+    dueDate.addEventListener("change", () => {
+      state.deadlineDate = dueDate.value;
+      validateStage();
+    });
+
+    dueTime.addEventListener("change", () => {
+      state.deadlineTime = dueTime.value;
+      validateStage();
+    });
+
+    next5.addEventListener("click", () => showStage(6));
+
+    orderName.addEventListener("input", () => {
+      state.orderName = orderName.value;
+      validateStage();
+    });
+
+    instructions.addEventListener("input", () => {
+      state.instructions = instructions.value;
+      validateStage();
+    });
+
+    uploadBox.addEventListener("click", () => fileInput.click());
+    uploadBox.addEventListener("keydown", (e) => {
+      if(e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        fileInput.click();
       }
     });
-  }
 
-  const tabCurrent = document.getElementById("tabCurrent");
-  const tabAll = document.getElementById("tabAll");
+    fileInput.addEventListener("change", () => {
+      const count = fileInput.files ? fileInput.files.length : 0;
+      state.filesCount = count;
+      fileLabel.textContent = count > 0 ? (String(count) + " file(s)") : "No files";
+    });
 
-  tabCurrent.addEventListener("click", function () {
-    tabCurrent.classList.add("active");
-    tabAll.classList.remove("active");
-    render(true);
-  });
+    next6.addEventListener("click", () => showStage(7));
 
-  tabAll.addEventListener("click", function () {
-    tabAll.classList.add("active");
-    tabCurrent.classList.remove("active");
-    render(false);
-  });
+    payStripeBtn.addEventListener("click", async () => {
+      renderSummary();
+      saveOrderAsDraft("draft");
 
-  document.getElementById("clearBtn").addEventListener("click", function () {
-    localStorage.removeItem("essayspros_orders");
-    render(tabCurrent.classList.contains("active"));
-  });
+      try{
+        await createCheckoutSession();
+      }catch(err){
+        alert("Stripe flow requires a server endpoint. Your order is saved as a draft.");
+      }
+    });
 
-  document.getElementById("logoutBtn").addEventListener("click", function () {
-    localStorage.removeItem("essayspros_active_email");
-    window.location.href = "index.html";
-  });
+    finishBtn.addEventListener("click", () => {
+      renderSummary();
+      saveOrderAsDraft("active");
+      closeOrderModal();
+      alert("Order created. Connect real payment confirmation to mark paid.");
+    });
 
-  render(true);
-})();
-</script>
+    tabBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tab = btn.getAttribute("dataTab");
+        if(tab !== "active" && !isSignedIn()){
+          gotoLogin();
+          return;
+        }
+        setActiveTab(tab);
+      });
+    });
+
+    function syncFromLoginSignup(){
+      const emailKey = "essayspros_active_email";
+      const v = localStorage.getItem(emailKey);
+      if(v && !localStorage.getItem("essaysprosActiveEmail")){
+        setSignedEmail(v);
+      }
+    }
+
+    function enforceReturnAfterAuth(){
+      const ret = localStorage.getItem("returnAfterAuth");
+      if(ret){
+        localStorage.removeItem("returnAfterAuth");
+      }
+    }
+
+    syncFromLoginSignup();
+    enforceReturnAfterAuth();
+    setActiveTab("active");
+    renderAuth();
+    updateSizeHint();
+
+    (function(){
+      if(isSignedIn()){
+        const ret = localStorage.getItem("returnAfterAuth");
+        if(ret){
+          localStorage.removeItem("returnAfterAuth");
+        }
+      }
+    })();
+
+    /*
+      Required change in signup.html:
+      replace window.location.href = "write.html";
+      with window.location.href = "orders.html";
+
+      This ensures sign up returns to My orders exactly as requested.
+    */
+  </script>
 </body>
 </html>
