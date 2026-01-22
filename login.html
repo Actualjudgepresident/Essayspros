@@ -1,3 +1,4 @@
+<!-- login.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Log In | EssaysPros</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-<body class="authPage">
 
+<body class="authPage">
   <div class="authCard">
     <div class="authTabs">
       <span class="authTab isActive">Log In</span>
@@ -18,15 +20,27 @@
       <div class="bar"></div>
     </div>
 
-    <button class="authGoogleBtn" type="button">
-      <img class="authIcon" src="images/google.png" alt="Google">
-      Sign in with Google
-    </button>
+    <div id="g_id_onload"
+         data-client_id="351774901424-e6ioh4lvk356rkefb07dgblfg3lch6j0.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleGoogleResponse"
+         data-auto_prompt="false">
+    </div>
 
-    <button class="authEmailBtn" type="button" onclick="toggleEmail()">
+    <div class="g_id_signin"
+         data-type="standard"
+         data-shape="rectangular"
+         data-theme="outline"
+         data-text="signin_with"
+         data-size="large"
+         data-logo_alignment="left">
+    </div>
+
+    <button class="authEmailBtn" type="button" id="toggleEmailBtn">
       Sign in with email
       <span class="iconBox">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 6h16v12H4V6Z" stroke="#111827" stroke-width="1.6"/>
           <path d="m4 7 8 6 8-6" stroke="#111827" stroke-width="1.6"/>
         </svg>
@@ -36,12 +50,12 @@
     <form id="emailForm" class="authForm">
       <div class="authField">
         <label>Email</label>
-        <input type="email" required />
+        <input type="email" id="email" required placeholder="you@example.com" />
       </div>
 
       <div class="authField">
         <label>Password</label>
-        <input type="password" required />
+        <input type="password" id="password" required placeholder="••••••••" />
       </div>
 
       <button class="authSubmit" type="submit">Log In</button>
@@ -50,16 +64,29 @@
     <div class="authDivider">OR</div>
 
     <div class="authSocialRow">
-      <button class="authIconBtn"><img class="authIcon" src="images/apple.png" alt="Apple"></button>
-      <button class="authIconBtn"><img class="authIcon" src="images/facebook.png" alt="Facebook"></button>
+      <button class="authIconBtn" type="button" aria-label="Sign in with Apple">
+        <img class="authIcon" src="images/apple.png" alt="Apple">
+      </button>
+      <button class="authIconBtn" type="button" aria-label="Sign in with Facebook">
+        <img class="authIcon" src="images/facebook.png" alt="Facebook">
+      </button>
     </div>
   </div>
 
   <script>
-    function toggleEmail(){
-      document.getElementById("emailForm").classList.toggle("isOpen");
+    function handleGoogleResponse(response) {
+      console.log("Google ID token:", response.credential);
+      alert("Google sign in succeeded. Send token to backend for verification.");
     }
-  </script>
 
+    document.getElementById("toggleEmailBtn").addEventListener("click", () => {
+      document.getElementById("emailForm").classList.toggle("isOpen");
+    });
+
+    document.getElementById("emailForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Email login submitted. Connect this to your auth backend.");
+    });
+  </script>
 </body>
 </html>
