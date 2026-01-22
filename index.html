@@ -1,12 +1,211 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EssaysPros.com</title>
+  <title>EssaysPros.com | Academic Writing Support</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="Academic writing support that meets your deadline. Place an order, track progress, and receive your work on time." />
+  <meta name="description" content="Academic writing support with transparent pricing, secure checkout, and fast delivery." />
+
+  <style>
+    :root{
+      --blue-900:#0b1b46;
+      --blue-800:#0f2a66;
+      --blue-700:#1e3a8a;
+      --blue-600:#2563eb;
+      --blue-500:#4f6ef7;
+      --blue-100:#eaf2ff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --line:#dbeafe;
+      --card:#ffffff;
+    }
+
+    body{ background:var(--blue-100); color:var(--ink); }
+
+    .heroWrap{
+      padding: 34px 0 22px;
+      background:
+        radial-gradient(900px 420px at 20% 0%, rgba(79,110,247,.20), transparent 60%),
+        radial-gradient(900px 420px at 90% 10%, rgba(37,99,235,.18), transparent 55%),
+        linear-gradient(180deg, #ffffff, var(--blue-100));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .heroCard{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 16px 40px rgba(15,23,42,.08);
+    }
+
+    .heroTitle{
+      margin: 0;
+      font-weight: 900;
+      font-size: 42px;
+      line-height: 1.05;
+      color: var(--blue-900);
+      letter-spacing: -0.02em;
+    }
+
+    .heroSub{
+      margin: 12px 0 0;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .ctaRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      align-items: center;
+    }
+
+    .pillRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f7fbff;
+      color: var(--blue-700);
+      font-weight: 900;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .sideCard{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 16px 40px rgba(15,23,42,.08);
+      display:flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .sideTitle{ margin: 0; font-weight: 900; color: var(--blue-900); font-size: 16px; }
+    .stepList{ margin: 8px 0 0; padding: 0; list-style: none; }
+    .stepList li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+    }
+    .stepList li:first-child{ border-top: 0; }
+    .stepNum{
+      width: 28px; height: 28px;
+      border-radius: 999px;
+      background: rgba(79,110,247,.14);
+      border: 1px solid rgba(79,110,247,.30);
+      color: var(--blue-700);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+    .stepTxt{ color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .stepTxt strong{ color: var(--ink); font-weight: 900; }
+
+    .sectionPad{ padding: 22px 0 38px; }
+    .cards3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(37,99,235,.06);
+    }
+    .card h3{ margin: 0; color: var(--blue-900); font-weight: 900; font-size: 16px; }
+    .card p{ margin: 8px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
+
+    .pricingGrid{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .priceRow{ display:flex; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding: 10px 0; }
+    .priceRow:first-child{ border-top: 0; }
+    .priceK{ font-weight: 900; color: var(--ink); }
+    .priceV{ font-weight: 900; color: var(--blue-700); }
+
+    .contactBar{
+      background: #ffffff;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 0;
+    }
+    .contactRow{ display:flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items:center; }
+    .contactLinks{ display:flex; gap: 14px; flex-wrap: wrap; }
+    .contactLinks a{ font-weight: 900; color: var(--blue-700); }
+
+    /* Support floating icon */
+    .supportFab {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--blue-500);
+      border: 2px solid rgba(255,255,255,.9);
+      box-shadow: 0 14px 34px rgba(15,23,42,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .supportFab svg { width: 30px; height: 30px; fill: #fff; }
+
+    .supportMenu {
+      position: fixed;
+      right: 18px;
+      bottom: 92px;
+      width: 260px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 14px 34px rgba(15,23,42,.18);
+      padding: 12px;
+      display: none;
+      z-index: 1000;
+    }
+    .supportMenu h4 { margin: 0 0 8px; color: var(--ink); font-weight: 900; font-size: 14px; }
+    .supportMenu a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #f3f8ff;
+      color: var(--blue-700);
+      font-weight: 900;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+    .supportMenu .muted { margin-top: 10px; }
+
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .heroTitle{ font-size: 34px; }
+      .cards3{ grid-template-columns: 1fr; }
+      .pricingGrid{ grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
@@ -20,96 +219,203 @@
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
         <a href="refund.html">Refund</a>
-       
+        <a href="contact.html">Contact</a>
       </nav>
 
       <div class="headerActions">
-        <a class="btnOutline" href="login.html">Log in</a>
-        <a class="btnPrimary" href="write.html">Write my order</a>
+        <a class="btnOutline" id="loginTop" href="login.html">Log in</a>
+        <button class="btnPrimary" id="getStartedBtn" type="button">Get started</button>
       </div>
     </div>
   </header>
 
-  <main class="pageMain">
-    <section class="hero">
-      <div class="container heroGrid">
-        <div class="heroText">
-          <h1>Academic writing support that meets your deadline</h1>
-          <p class="muted">
-            Submit your instructions, connect with a writer, and receive your work on time.
-          </p>
+  <section class="heroWrap">
+    <div class="container heroGrid">
+      <div class="heroCard">
+        <h1 class="heroTitle">Academic writing support that meets your deadline</h1>
+        <p class="heroSub">
+          Submit instructions, upload files, and complete checkout. If you are a repeat customer, discounts apply automatically when selected.
+        </p>
 
-          <div class="heroCtas">
-            <a class="btnPrimary" href="write.html">Write my order</a>
-            <a class="btnOutline" href="write.html">Order form</a>
-          </div>
-
-          <div class="heroMeta">
-            <span class="pill">Secure checkout</span>
-            <span class="pill">Free revisions</span>
-            <span class="pill">Quality review</span>
-          </div>
+        <div class="ctaRow">
+          <button class="btnPrimary" id="writeBtn" type="button">Write my order</button>
+          <a class="btnOutline" href="orders.html">Track order</a>
+          <a class="btnOutline" href="contact.html">Contact</a>
         </div>
 
-        <div class="heroCard">
-          <h2>Get started</h2>
-          <p class="muted">
-            Sign in or create an account, then place an order in a few minutes.
+        <div class="pillRow">
+          <span class="pill">Secure checkout</span>
+          <span class="pill">Clear pricing</span>
+          <span class="pill">Order tracking</span>
+          <span class="pill">Email support</span>
+        </div>
+
+        <div style="margin-top:14px;" class="muted">
+          By continuing you agree to the <a href="terms.html">Terms</a>, <a href="privacy.html">Privacy Policy</a>, and <a href="refund.html">Refund Policy</a>.
+        </div>
+      </div>
+
+      <div class="sideCard">
+        <div>
+          <h2 class="sideTitle">What happens after you get started</h2>
+          <ul class="stepList">
+            <li>
+              <div class="stepNum">1</div>
+              <div class="stepTxt"><strong>Complete the order form</strong> with topic, deadline, and instructions.</div>
+            </li>
+            <li>
+              <div class="stepNum">2</div>
+              <div class="stepTxt"><strong>Upload files</strong> such as rubrics, readings, or templates.</div>
+            </li>
+            <li>
+              <div class="stepNum">3</div>
+              <div class="stepTxt"><strong>Checkout</strong> and receive an order ID for tracking.</div>
+            </li>
+            <li>
+              <div class="stepNum">4</div>
+              <div class="stepTxt"><strong>Request revisions</strong> if needed after delivery.</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card" style="margin-top:0;">
+          <h3>Logged in status</h3>
+          <p class="muted" style="margin-top:6px;">
+            Active email: <strong><span id="activeEmail">Not set</span></strong>
           </p>
-
-          <div class="cardActions">
-            <a class="btnPrimary" href="signup.html">Create account</a>
-            <a class="btnOutline" href="login.html">Log in</a>
+          <div class="ctaRow" style="margin-top:10px;">
+            <a class="btnOutline" href="orders.html">My orders</a>
+            <button class="btnOutline" id="logoutBtn" type="button">Log out</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <p class="smallMuted">
-            By continuing, you agree to the Terms and Conditions, Privacy Policy, and Refund Policy.
+  <div class="contactBar">
+    <div class="container contactRow">
+      <div class="muted">Contact emails</div>
+      <div class="contactLinks">
+        <a href="mailto:support@essayspros.com">support@essayspros.com</a>
+        <a href="mailto:orders@essayspros.com">orders@essayspros.com</a>
+        <a href="mailto:billing@essayspros.com">billing@essayspros.com</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="sectionPad">
+    <section class="container">
+      <div class="cards3">
+        <div class="card">
+          <h3>Writing and editing</h3>
+          <p>Essays, reports, literature reviews, and editing aligned with formatting requirements and rubrics.</p>
+        </div>
+        <div class="card">
+          <h3>Slides and presentations</h3>
+          <p>Slides structured with clear points, speaker notes when needed, and timely delivery.</p>
+        </div>
+        <div class="card">
+          <h3>Coding and Excel tasks</h3>
+          <p>Programming support begins at a fixed minimum, and spreadsheet tasks use a clear per task price.</p>
+        </div>
+      </div>
+
+      <div class="pricingGrid">
+        <div class="card">
+          <h3>Standard pricing</h3>
+          <div class="priceRow"><div class="priceK">Paper</div><div class="priceV">$12 per page</div></div>
+          <div class="priceRow"><div class="priceK">Slides</div><div class="priceV">$6 per slide</div></div>
+          <div class="priceRow"><div class="priceK">Excel</div><div class="priceV">$18 per task</div></div>
+          <div class="priceRow"><div class="priceK">Coding</div><div class="priceV">$50 minimum</div></div>
+        </div>
+
+        <div class="card">
+          <h3>Repeat customer discount</h3>
+          <div class="priceRow"><div class="priceK">Paper</div><div class="priceV">$10 per page</div></div>
+          <div class="priceRow"><div class="priceK">Slides</div><div class="priceV">$4 per slide</div></div>
+          <p class="muted" style="margin-top:10px;">
+            The discount is selected during ordering. Coding and Excel tasks remain fixed at their stated minimum or per task pricing.
           </p>
         </div>
       </div>
-    </section>
-
-    <section class="container section">
-      <h2>What happens after signing up</h2>
-
-      <ol class="steps">
-        <li>
-          <div class="stepTitle">Fill in the order form</div>
-          <div class="muted">Provide topic, academic level, deadline, and instructions.</div>
-        </li>
-        <li>
-          <div class="stepTitle">Connect with a writer</div>
-          <div class="muted">Discuss requirements and confirm expectations.</div>
-        </li>
-        <li>
-          <div class="stepTitle">Receive your work on time</div>
-          <div class="muted">Delivery arrives before your deadline.</div>
-        </li>
-        <li>
-          <div class="stepTitle">Request revisions if needed</div>
-          <div class="muted">Ask for corrections within the revision window.</div>
-        </li>
-      </ol>
     </section>
   </main>
 
+  <!-- Support icon and menu -->
+  <button class="supportFab" type="button" id="supportFab" aria-label="Support">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3v3a1 1 0 0 0 1.64.77L13.5 20H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm0 16h-6.9a1 1 0 0 0-.64.23L9 20.9V19a1 1 0 0 0-1-1H4V4h16v14Z"/>
+    </svg>
+  </button>
+
+  <div class="supportMenu" id="supportMenu">
+    <h4>Support</h4>
+    <a id="waLink" href="https://wa.me/254700000000?text=Hello%20EssaysPros%2C%20I%20need%20help%20with%20my%20order." target="_blank" rel="noopener">Chat on WhatsApp</a>
+    <a id="callLink" href="tel:+254700000000">Call now</a>
+    <a href="mailto:support@essayspros.com">Email support</a>
+    <div class="muted" style="margin-top:10px;">Response time depends on message volume.</div>
+  </div>
+
   <footer class="siteFooter">
     <div class="container footerRow">
-      <div class="footerLeft">
+      <div>
         <div class="brandSmall">EssaysPros</div>
         <div class="muted">© <span id="year"></span> EssaysPros.com. All rights reserved.</div>
+        <div class="muted" style="margin-top:6px;">
+          <a href="mailto:support@essayspros.com">support@essayspros.com</a> |
+          <a href="mailto:orders@essayspros.com">orders@essayspros.com</a> |
+          <a href="mailto:billing@essayspros.com">billing@essayspros.com</a>
+        </div>
       </div>
+
       <div class="footerLinks">
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
         <a href="refund.html">Refund</a>
-        
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </footer>
 
   <script>
-    document.getElementById("year").textContent = String(new Date().getFullYear());
+    (function () {
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+
+      function activeEmail() {
+        return (localStorage.getItem("essayspros_active_email") || "").trim();
+      }
+
+      function routeToStart() {
+        const email = activeEmail();
+        if (email) window.location.href = "write.html";
+        else window.location.href = "login.html";
+      }
+
+      const email = activeEmail();
+      document.getElementById("activeEmail").textContent = email ? email : "Not set";
+
+      document.getElementById("getStartedBtn").addEventListener("click", routeToStart);
+      document.getElementById("writeBtn").addEventListener("click", routeToStart);
+
+      document.getElementById("logoutBtn").addEventListener("click", function () {
+        localStorage.removeItem("essayspros_active_email");
+        document.getElementById("activeEmail").textContent = "Not set";
+        window.location.href = "index.html";
+      });
+
+      const fab = document.getElementById("supportFab");
+      const menu = document.getElementById("supportMenu");
+
+      fab.addEventListener("click", function () {
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!menu.contains(e.target) && e.target !== fab && !fab.contains(e.target)) {
+          menu.style.display = "none";
+        }
+      });
+    })();
   </script>
 </body>
 </html>
