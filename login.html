@@ -1,209 +1,65 @@
-<!-- orders.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orders | EssaysPros</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <title>Log In | EssaysPros</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+<body class="authPage">
 
-<body>
-  <header class="siteHeader">
-    <div class="container headerRow">
-      <a class="brand" href="index.html">EssaysPros</a>
-
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a class="active" href="orders.html">Orders</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="refund.html">Refund</a>
-        <a href="conduct.html">Code of Conduct</a>
-      </nav>
-
-      <div class="headerActions">
-        <button class="btnOutline" id="logoutBtn" type="button" style="display:none;">Log out</button>
-        <a class="btnOutline" id="loginLink" href="login.html">Log in</a>
-        <a class="btnPrimary" id="newOrderLink" href="write.html">New order</a>
-      </div>
+  <div class="authCard">
+    <div class="authTabs">
+      <span class="authTab isActive">Log In</span>
+      <a class="authTab" href="signup.html">Sign Up</a>
     </div>
-  </header>
 
-  <main class="pageMain">
-    <section class="pageHero">
-      <div class="container">
-        <h1>Your orders</h1>
-        <p class="muted">Track progress, view details, and message your writer.</p>
-      </div>
-    </section>
-
-    <section class="container panel">
-      <div id="authGate" class="notice">
-        <h2>Authentication required</h2>
-        <p>Please log in to view your orders.</p>
-        <div class="row">
-          <a class="btnPrimary" href="login.html">Log in</a>
-          <a class="btnOutline" href="signup.html">Sign up</a>
-        </div>
-      </div>
-
-      <div id="ordersArea" style="display:none;">
-        <div class="row spaceBetween">
-          <div>
-            <h2 class="sectionTitle">Recent orders</h2>
-            <div class="mutedSmall" id="userLabel"></div>
-          </div>
-          <a class="btnPrimary" href="write.html">Create order</a>
-        </div>
-
-        <div class="tableWrap">
-          <table class="ordersTable" aria-label="Orders table">
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Due</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="ordersTbody"></tbody>
-          </table>
-        </div>
-
-        <div class="panelDivider"></div>
-
-        <h2 class="sectionTitle">Track an order</h2>
-        <p class="muted">Enter an order ID to view details.</p>
-
-        <form id="trackForm" class="formRow">
-          <input id="trackInput" type="text" placeholder="Example: EP-1001" required />
-          <button class="btnPrimary" type="submit">Track</button>
-        </form>
-
-        <div id="orderDetails" class="orderDetails" style="display:none;"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="siteFooter">
-    <div class="container footerRow">
-      <div class="footerLeft">
-        <div class="brandSmall">EssaysPros</div>
-        <div class="muted">© <span id="year"></span> EssaysPros. All rights reserved.</div>
-      </div>
-
-      <div class="footerLinks">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="refund.html">Refund</a>
-        <a href="conduct.html">Code of Conduct</a>
-      </div>
+    <div class="authUnderline" data-active="login">
+      <div class="bar"></div>
     </div>
-  </footer>
 
-  <script src="auth.js"></script>
+    <button class="authGoogleBtn" type="button">
+      <img class="authIcon" src="images/google.png" alt="Google">
+      Sign in with Google
+    </button>
+
+    <button class="authEmailBtn" type="button" onclick="toggleEmail()">
+      Sign in with email
+      <span class="iconBox">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M4 6h16v12H4V6Z" stroke="#111827" stroke-width="1.6"/>
+          <path d="m4 7 8 6 8-6" stroke="#111827" stroke-width="1.6"/>
+        </svg>
+      </span>
+    </button>
+
+    <form id="emailForm" class="authForm">
+      <div class="authField">
+        <label>Email</label>
+        <input type="email" required />
+      </div>
+
+      <div class="authField">
+        <label>Password</label>
+        <input type="password" required />
+      </div>
+
+      <button class="authSubmit" type="submit">Log In</button>
+    </form>
+
+    <div class="authDivider">OR</div>
+
+    <div class="authSocialRow">
+      <button class="authIconBtn"><img class="authIcon" src="images/apple.png" alt="Apple"></button>
+      <button class="authIconBtn"><img class="authIcon" src="images/facebook.png" alt="Facebook"></button>
+    </div>
+  </div>
+
   <script>
-    document.getElementById("year").textContent = String(new Date().getFullYear());
-
-    const authGate = document.getElementById("authGate");
-    const ordersArea = document.getElementById("ordersArea");
-    const ordersTbody = document.getElementById("ordersTbody");
-    const userLabel = document.getElementById("userLabel");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const loginLink = document.getElementById("loginLink");
-
-    function renderOrders() {
-      const orders = window.Auth.getOrders();
-      ordersTbody.innerHTML = "";
-
-      if (orders.length === 0) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = "<td colspan='5' class='muted'>No orders yet. Create your first order.</td>";
-        ordersTbody.appendChild(tr);
-        return;
-      }
-
-      for (const o of orders) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${o.id}</td>
-          <td>${escapeHtml(o.title)}</td>
-          <td><span class="badge">${escapeHtml(o.status)}</span></td>
-          <td>${escapeHtml(o.due)}</td>
-          <td><button class="btnSmall" type="button" data-id="${o.id}">View</button></td>
-        `;
-        ordersTbody.appendChild(tr);
-      }
+    function toggleEmail(){
+      document.getElementById("emailForm").classList.toggle("isOpen");
     }
-
-    function showOrderDetails(orderId) {
-      const details = document.getElementById("orderDetails");
-      const order = window.Auth.getOrders().find(x => x.id === orderId);
-
-      if (!order) {
-        details.style.display = "block";
-        details.innerHTML = `<div class="noticeSmall">No order found for <strong>${escapeHtml(orderId)}</strong>.</div>`;
-        return;
-      }
-
-      details.style.display = "block";
-      details.innerHTML = `
-        <div class="detailsGrid">
-          <div><div class="label">Order ID</div><div class="value">${escapeHtml(order.id)}</div></div>
-          <div><div class="label">Status</div><div class="value">${escapeHtml(order.status)}</div></div>
-          <div><div class="label">Due</div><div class="value">${escapeHtml(order.due)}</div></div>
-          <div><div class="label">Topic</div><div class="value">${escapeHtml(order.title)}</div></div>
-          <div class="full"><div class="label">Instructions</div><div class="value">${escapeHtml(order.instructions)}</div></div>
-        </div>
-      `;
-    }
-
-    function escapeHtml(s) {
-      return String(s)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function setUiForAuth() {
-      const user = window.Auth.getUser();
-      const isAuthed = Boolean(user);
-
-      authGate.style.display = isAuthed ? "none" : "block";
-      ordersArea.style.display = isAuthed ? "block" : "none";
-      logoutBtn.style.display = isAuthed ? "inline-flex" : "none";
-      loginLink.style.display = isAuthed ? "none" : "inline-flex";
-
-      if (isAuthed) {
-        userLabel.textContent = "Signed in as " + user.email;
-        renderOrders();
-      }
-    }
-
-    document.addEventListener("click", (e) => {
-      const btn = e.target.closest("button[data-id]");
-      if (!btn) return;
-      showOrderDetails(btn.getAttribute("data-id"));
-    });
-
-    document.getElementById("trackForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const id = document.getElementById("trackInput").value.trim();
-      if (!id) return;
-      showOrderDetails(id);
-    });
-
-    logoutBtn.addEventListener("click", () => {
-      window.Auth.logout();
-      window.location.href = "index.html";
-    });
-
-    setUiForAuth();
   </script>
+
 </body>
 </html>
