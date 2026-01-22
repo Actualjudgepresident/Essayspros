@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EssaysPros</title>
+  <title>EssaysPros.com</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Academic writing support that meets your deadline. Place an order, track progress, and receive your work on time." />
 </head>
 
 <body>
@@ -14,99 +15,81 @@
       <a class="brand" href="index.html">EssaysPros</a>
 
       <nav class="nav">
-        <a href="index.html">Home</a>
+        <a class="active" href="index.html">Home</a>
         <a href="orders.html">Orders</a>
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
         <a href="refund.html">Refund</a>
-        <a href="conduct.html">Code of Conduct</a>
+       
       </nav>
 
       <div class="headerActions">
-        <a class="btnOutline" href="orders.html">Track order</a>
-        <button class="btnPrimary" id="writeOrderBtn" type="button">Write my order</button>
+        <a class="btnOutline" href="login.html">Log in</a>
+        <a class="btnPrimary" href="write.html">Write my order</a>
       </div>
     </div>
   </header>
 
-  <main>
+  <main class="pageMain">
     <section class="hero">
       <div class="container heroGrid">
-        <div class="heroCopy">
+        <div class="heroText">
           <h1>Academic writing support that meets your deadline</h1>
-          <p>
+          <p class="muted">
             Submit your instructions, connect with a writer, and receive your work on time.
           </p>
 
           <div class="heroCtas">
-            <button class="btnPrimary" id="writeOrderBtn2" type="button">Write my order</button>
+            <a class="btnPrimary" href="write.html">Write my order</a>
             <a class="btnOutline" href="write.html">Order form</a>
           </div>
 
-          <div class="trustRow">
-            <span>Secure checkout</span>
-            <span>Free revisions</span>
-            <span>Quality review</span>
+          <div class="heroMeta">
+            <span class="pill">Secure checkout</span>
+            <span class="pill">Free revisions</span>
+            <span class="pill">Quality review</span>
           </div>
         </div>
 
         <div class="heroCard">
           <h2>Get started</h2>
-          <p>Click below to sign in or create an account and place an order.</p>
-          <button class="btnPrimary" id="writeOrderBtn3" type="button">Write my order</button>
-          <p class="finePrint">
-            By continuing you agree to the Terms and Conditions, Privacy Policy, Refund Policy, and Code of Conduct.
+          <p class="muted">
+            Sign in or create an account, then place an order in a few minutes.
+          </p>
+
+          <div class="cardActions">
+            <a class="btnPrimary" href="signup.html">Create account</a>
+            <a class="btnOutline" href="login.html">Log in</a>
+          </div>
+
+          <p class="smallMuted">
+            By continuing, you agree to the Terms and Conditions, Privacy Policy, and Refund Policy.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="steps">
-      <div class="container">
-        <h2>What happens after signing up</h2>
-        <div class="stepsGrid">
-          <div class="step">
-            <div class="stepNum">1</div>
-            <div class="stepText">Fill in the order form in a few minutes</div>
-          </div>
-          <div class="step">
-            <div class="stepNum">2</div>
-            <div class="stepText">Connect with a writer and chat directly</div>
-          </div>
-          <div class="step">
-            <div class="stepNum">3</div>
-            <div class="stepText">Receive your work on time</div>
-          </div>
-          <div class="step">
-            <div class="stepNum">4</div>
-            <div class="stepText">Request free revisions if needed</div>
-          </div>
-          <div class="step">
-            <div class="stepNum">5</div>
-            <div class="stepText">Funds are held until you approve the work</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section class="container section">
+      <h2>What happens after signing up</h2>
 
-    <section class="features">
-      <div class="container">
-        <h2>Why students choose EssaysPros</h2>
-        <div class="featureGrid">
-          <div class="featureCard">
-            <h3>Clear communication</h3>
-            <p>Transparent updates and direct messaging help you stay informed.</p>
-          </div>
-          <div class="featureCard">
-            <h3>Deadline focused</h3>
-            <p>Scheduling and progress checks support on time delivery.</p>
-          </div>
-          <div class="featureCard">
-            <h3>Quality control</h3>
-            <p>Review steps support alignment with your instructions.</p>
-          </div>
-        </div>
-      </div>
+      <ol class="steps">
+        <li>
+          <div class="stepTitle">Fill in the order form</div>
+          <div class="muted">Provide topic, academic level, deadline, and instructions.</div>
+        </li>
+        <li>
+          <div class="stepTitle">Connect with a writer</div>
+          <div class="muted">Discuss requirements and confirm expectations.</div>
+        </li>
+        <li>
+          <div class="stepTitle">Receive your work on time</div>
+          <div class="muted">Delivery arrives before your deadline.</div>
+        </li>
+        <li>
+          <div class="stepTitle">Request revisions if needed</div>
+          <div class="muted">Ask for corrections within the revision window.</div>
+        </li>
+      </ol>
     </section>
   </main>
 
@@ -114,90 +97,17 @@
     <div class="container footerRow">
       <div class="footerLeft">
         <div class="brandSmall">EssaysPros</div>
-        <div class="muted">© <span id="year"></span> EssaysPros. All rights reserved.</div>
+        <div class="muted">© <span id="year"></span> EssaysPros.com. All rights reserved.</div>
       </div>
-
       <div class="footerLinks">
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
         <a href="refund.html">Refund</a>
-        <a href="conduct.html">Code of Conduct</a>
+        
       </div>
     </div>
   </footer>
 
-  <!-- Auth Modal -->
-  <div id="authModal" class="modalOverlay" aria-hidden="true">
-    <div class="modalCard" role="dialog" aria-modal="true" aria-labelledby="authTitle">
-      <button class="modalClose" id="authCloseBtn" type="button" aria-label="Close">×</button>
-
-      <h2 id="authTitle" class="modalTitle">Start your journey to success</h2>
-
-      <div class="tabRow">
-        <button type="button" class="tabBtn tabActive" data-tab="loginTab">Log In</button>
-        <button type="button" class="tabBtn" data-tab="signupTab">Sign Up</button>
-      </div>
-
-      <div id="loginTab" class="tabPanel tabVisible">
-        <button class="socialBtn" type="button">Sign in with Google</button>
-
-        <div class="dividerRow">
-          <span class="dividerLine"></span>
-          <span class="dividerText">OR</span>
-          <span class="dividerLine"></span>
-        </div>
-
-        <form id="loginForm" class="formStack">
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-
-          <label>
-            Password
-            <input type="password" name="password" required />
-          </label>
-
-          <button class="primaryBtn" type="submit">Log In</button>
-        </form>
-      </div>
-
-      <div id="signupTab" class="tabPanel">
-        <button class="socialBtn" type="button">Sign up with Google</button>
-
-        <div class="dividerRow">
-          <span class="dividerLine"></span>
-          <span class="dividerText">OR</span>
-          <span class="dividerLine"></span>
-        </div>
-
-        <form id="signupForm" class="formStack">
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-
-          <label>
-            Password
-            <input type="password" name="password" required />
-          </label>
-
-          <label>
-            Confirm Password
-            <input type="password" name="confirmPassword" required />
-          </label>
-
-          <button class="primaryBtn" type="submit">Sign Up</button>
-        </form>
-      </div>
-
-      <p class="modalFinePrint">
-        By continuing, you agree to the Terms and Conditions, Privacy Policy, Refund Policy, and Code of Conduct.
-      </p>
-    </div>
-  </div>
-
-  <script src="main.js"></script>
   <script>
     document.getElementById("year").textContent = String(new Date().getFullYear());
   </script>
