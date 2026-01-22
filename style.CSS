@@ -1,0 +1,27 @@
+.auth{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.auth .order{
+  padding:12px 22px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:14px;
+  background:linear-gradient(135deg, var(--brand), var(--brand2));
+  color:#ffffff;
+  box-shadow:var(--shadow2);
+  transition:transform .12s ease, box-shadow .18s ease;
+}
+
+.auth .order:hover{
+  transform:translateY(-1px);
+  box-shadow:0 16px 36px rgba(47,107,255,.32);
+}
+
+/* remove unused login styles */
+.auth .login,
+.auth .signup{
+  display:none;
+}

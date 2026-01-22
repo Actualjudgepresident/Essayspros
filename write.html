@@ -1,0 +1,358 @@
+<!-- orders.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Orders | EssaysPros.com</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #000; color: #fff; }
+    a { color: #f1c40f; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header, footer { background: #2c3e50; text-align: center; padding: 1.6rem 1rem; }
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { margin: .25rem 0 0; opacity: .9; font-size: .9rem; }
+
+    main { max-width: 1180px; margin: auto; padding: 2rem 1.25rem 3rem; }
+
+    .topbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .muted { opacity: .85; font-size: 13px; line-height: 1.5; }
+
+    .tabs { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 16px; }
+    .tab {
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+    .tab.active { background: #f1c40f; color: #000; border-color: #f1c40f; }
+
+    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+    }
+    .badge.ongoing { border-color: rgba(241,196,15,.35); background: rgba(241,196,15,.10); }
+    .badge.delivered { border-color: rgba(76,175,80,.35); background: rgba(76,175,80,.12); }
+    .badge.completed { border-color: rgba(33,150,243,.35); background: rgba(33,150,243,.12); }
+    .badge.revision { border-color: rgba(233, 30, 99, .35); background: rgba(233, 30, 99, .14); }
+
+    label { display: block; font-size: 13px; margin: 10px 0 6px; opacity: .9; }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: #fff;
+      outline: none;
+      font-size: 14px;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+
+    .btnbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .primary { background: #f1c40f; color: #000; }
+    .ghost { background: rgba(255,255,255,.06); color: #fff; border: 1px solid rgba(255,255,255,.14); }
+    .danger { background: rgba(233, 30, 99, .18); color: #fff; border: 1px solid rgba(233, 30, 99, .35); }
+
+    .hr { height: 1px; background: rgba(255,255,255,.12); margin: 12px 0; }
+
+    @media (max-width: 920px) {
+      .row, .row3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>EssaysPros.com</h1>
+  <p>Orders</p>
+</header>
+
+<main>
+  <div class="topbar">
+    <div class="muted">
+      Logged in email: <span id="activeEmail">Not set</span>
+      <div>Support: <a href="mailto:support@essayspros.com">support@essayspros.com</a></div>
+    </div>
+    <div class="btnbar">
+      <a class="ghost" href="write.html" style="display:inline-block; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#fff; font-weight:900;">New order</a>
+      <button class="danger" type="button" id="clearBtn">Clear demo data</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tabCurrent" type="button">Current orders</button>
+    <button class="tab" id="tabAll" type="button">All orders</button>
+  </div>
+
+  <div class="grid" id="ordersGrid"></div>
+
+  <div class="muted" style="margin-top:14px">
+    Demonstration note: delivery and revision are simulated. In production, connect this page to a database and a secure upload service.
+  </div>
+</main>
+
+<footer>
+  &copy; <span id="year"></span> EssaysPros.com. All rights reserved.
+</footer>
+
+<script>
+(function () {
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const activeEmail = localStorage.getItem("essayspros_active_email") || "";
+  document.getElementById("activeEmail").textContent = activeEmail ? activeEmail : "Not set";
+
+  function loadOrders() {
+    try { return JSON.parse(localStorage.getItem("essayspros_orders") || "[]"); }
+    catch (e) { return []; }
+  }
+
+  function saveOrders(list) {
+    localStorage.setItem("essayspros_orders", JSON.stringify(list));
+  }
+
+  function badge(status, revisionRequested, approved) {
+    if (approved) return '<span class="badge completed">Completed</span>';
+    if (revisionRequested) return '<span class="badge revision">Revision requested</span>';
+    if (status === "Delivered") return '<span class="badge delivered">Delivered</span>';
+    return '<span class="badge ongoing">Ongoing</span>';
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return "Not set";
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return "Not set";
+    return d.toLocaleString();
+  }
+
+  function unitsLine(o) {
+    if (o.taskType === "paper") return o.pages + " pages";
+    if (o.taskType === "slides") return o.slides + " slides";
+    if (o.taskType === "programming") return o.hours + " hours";
+    return "";
+  }
+
+  function render(filterCurrentOnly) {
+    const grid = document.getElementById("ordersGrid");
+    const orders = loadOrders();
+
+    let list = orders;
+    if (activeEmail) list = list.filter(o => (o.customerEmail || "").toLowerCase() === activeEmail.toLowerCase());
+
+    if (filterCurrentOnly) {
+      list = list.filter(o => !o.approved);
+    }
+
+    if (list.length === 0) {
+      grid.innerHTML = '<div class="card"><div class="muted">No orders found. Create a new order from the New order button.</div></div>';
+      return;
+    }
+
+    grid.innerHTML = list.map(o => {
+      const id = o.id;
+      const showDeliveredActions = (o.status === "Delivered" && !o.approved);
+      const showOngoingActions = (o.status === "Ongoing" && !o.approved);
+
+      return `
+        <div class="card" data-id="${id}">
+          <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center;">
+            <div>
+              <div style="font-weight:900; font-size:16px;">Order ${id}</div>
+              <div class="muted">Created: ${fmtDate(o.createdAt)} | Deadline: ${o.deadline ? fmtDate(o.deadline) : "Not set"}</div>
+            </div>
+            <div>${badge(o.status, o.revisionRequested, o.approved)}</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div class="muted">
+              <div><strong>Task:</strong> ${o.taskType}</div>
+              <div><strong>Level:</strong> ${o.level}</div>
+              <div><strong>Scope:</strong> ${unitsLine(o)}</div>
+            </div>
+            <div class="muted">
+              <div><strong>Total paid:</strong> $${Number(o.total || 0).toFixed(2)} ${o.currency || "USD"}</div>
+              <div><strong>Payment:</strong> ${o.paymentMethod}</div>
+              <div><strong>Topic:</strong> ${o.topic ? o.topic : "Not provided"}</div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="muted"><strong>Instructions summary:</strong></div>
+          <div class="muted" style="white-space:pre-wrap">${o.instructions ? o.instructions.slice(0, 600) : "Not provided"}</div>
+
+          <div class="hr"></div>
+
+          <div class="row">
+            <div>
+              <label>Upload your final submission file</label>
+              <input type="file" class="customerUpload" />
+              <div class="muted">Saved locally for demonstration only.</div>
+            </div>
+            <div>
+              <label>Delivery file name</label>
+              <input type="text" class="deliveredName" value="${o.deliveredFileName || ""}" placeholder="For demonstration: set delivery name" />
+              <div class="muted">For demonstration only.</div>
+            </div>
+          </div>
+
+          <div class="btnbar">
+            ${showOngoingActions ? '<button class="ghost markDelivered" type="button">Mark as delivered</button>' : ''}
+            ${showDeliveredActions ? '<button class="primary approveBtn" type="button">Approve</button>' : ''}
+            ${showDeliveredActions ? '<button class="danger revisionBtn" type="button">Request revision</button>' : ''}
+            <button class="ghost supportBtn" type="button">Request support</button>
+          </div>
+
+          <div class="muted" style="margin-top:8px">
+            Customer upload: <span class="custName">${o.customerSubmissionName || "None"}</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    bindEvents();
+  }
+
+  function bindEvents() {
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+      const id = card.getAttribute("data-id");
+      const upload = card.querySelector(".customerUpload");
+      const deliveredName = card.querySelector(".deliveredName");
+
+      upload.addEventListener("change", function () {
+        const file = upload.files && upload.files[0];
+        if (!file) return;
+        const orders = loadOrders();
+        const idx = orders.findIndex(o => o.id === id);
+        if (idx < 0) return;
+        orders[idx].customerSubmissionName = file.name;
+        saveOrders(orders);
+        card.querySelector(".custName").textContent = file.name;
+      });
+
+      deliveredName.addEventListener("input", function () {
+        const orders = loadOrders();
+        const idx = orders.findIndex(o => o.id === id);
+        if (idx < 0) return;
+        orders[idx].deliveredFileName = deliveredName.value || "";
+        saveOrders(orders);
+      });
+
+      const markDelivered = card.querySelector(".markDelivered");
+      if (markDelivered) {
+        markDelivered.addEventListener("click", function () {
+          const orders = loadOrders();
+          const idx = orders.findIndex(o => o.id === id);
+          if (idx < 0) return;
+          orders[idx].status = "Delivered";
+          orders[idx].revisionRequested = false;
+          saveOrders(orders);
+          render(document.getElementById("tabCurrent").classList.contains("active"));
+        });
+      }
+
+      const approveBtn = card.querySelector(".approveBtn");
+      if (approveBtn) {
+        approveBtn.addEventListener("click", function () {
+          const orders = loadOrders();
+          const idx = orders.findIndex(o => o.id === id);
+          if (idx < 0) return;
+          orders[idx].approved = true;
+          orders[idx].revisionRequested = false;
+          orders[idx].status = "Completed";
+          saveOrders(orders);
+          render(document.getElementById("tabCurrent").classList.contains("active"));
+        });
+      }
+
+      const revisionBtn = card.querySelector(".revisionBtn");
+      if (revisionBtn) {
+        revisionBtn.addEventListener("click", function () {
+          const reason = prompt("Describe the revision request:");
+          const orders = loadOrders();
+          const idx = orders.findIndex(o => o.id === id);
+          if (idx < 0) return;
+          orders[idx].revisionRequested = true;
+          orders[idx].status = "Ongoing";
+          orders[idx].revisionNote = reason || "";
+          saveOrders(orders);
+          render(document.getElementById("tabCurrent").classList.contains("active"));
+        });
+      }
+
+      const supportBtn = card.querySelector(".supportBtn");
+      supportBtn.addEventListener("click", function () {
+        const orders = loadOrders();
+        const o = orders.find(x => x.id === id);
+        const subj = encodeURIComponent("EssaysPros.com order support: " + id);
+        const body = encodeURIComponent(
+          "Hello Support,\n\n" +
+          "I need assistance with order " + id + ".\n\n" +
+          "Status: " + (o.status || "") + "\n" +
+          "Email: " + (o.customerEmail || "") + "\n" +
+          "Topic: " + (o.topic || "") + "\n"
+        );
+        window.location.href = "mailto:support@essayspros.com?subject=" + subj + "&body=" + body;
+      });
+    });
+  }
+
+  const tabCurrent = document.getElementById("tabCurrent");
+  const tabAll = document.getElementById("tabAll");
+
+  tabCurrent.addEventListener("click", function () {
+    tabCurrent.classList.add("active");
+    tabAll.classList.remove("active");
+    render(true);
+  });
+
+  tabAll.addEventListener("click", function () {
+    tabAll.classList.add("active");
+    tabCurrent.classList.remove("active");
+    render(false);
+  });
+
+  document.getElementById("clearBtn").addEventListener("click", function () {
+    localStorage.removeItem("essayspros_orders");
+    render(tabCurrent.classList.contains("active"));
+  });
+
+  render(true);
+})();
+</script>
+</body>
+</html>

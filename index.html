@@ -1,60 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UK and US Best Tutors | AgradeToptutors</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EssaysPros.com | Elite Tutors and Writing Support</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="shortcut icon" href="favicon.png" type="image/png" />
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #000;
+      color: #fff;
+    }
+    a { color: #f1c40f; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header, footer {
+      background: #2c3e50;
+      text-align: center;
+      color: #fff;
+      padding: 2rem 1rem;
+    }
+    header h1 { margin: 0; font-size: 2.2rem; }
+    header p { margin: .25rem 0 1rem; font-size: .9rem; letter-spacing: .4px; }
+
+    nav { margin-top: .75rem; }
+    nav a { margin: 0 12px; font-weight: 700; color: #ecf0f1; }
+    nav a:hover { text-decoration: underline; }
+
+    nav .order-btn {
+      background: #f1c40f;
+      color: #000;
+      padding: .6rem 1.2rem;
+      border-radius: 6px;
+      margin-left: 15px;
+      display: inline-block;
+    }
+    nav .order-btn:hover { text-decoration: none; opacity: .95; }
+
+    section {
+      display: none;
+      max-width: 1100px;
+      margin: auto;
+      padding: 3.5rem 1.25rem;
+    }
+    #home { display: block; }
+    section:target { display: block; }
+
+    h2 {
+      margin: 0 0 1.25rem;
+      font-size: 2.25rem;
+      color: #f1c40f;
+      line-height: 1.2;
+    }
+
+    .hero {
+      margin-bottom: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .hero-text { flex: 1 1 300px; }
+    .hero p {
+      max-width: 620px;
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: #f1c40f;
+      color: #000;
+      padding: .9rem 1.8rem;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .hero-img { flex: 1 1 300px; }
+    .hero-img img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cat-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: .5rem 2rem;
+      margin-top: 2rem;
+      font-size: .95rem;
+    }
+    .cat-wrap span { white-space: nowrap; opacity: .9; }
+
+    .value-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .value-block h3 {
+      margin: 0 0 .6rem;
+      font-size: 1.3rem;
+      color: #f1c40f;
+    }
+    .value-block p { margin: 0; line-height: 1.55; font-size: .95rem; opacity: .9; }
+
+    ul { padding-left: 1.1rem; line-height: 1.6; }
+
+    footer {
+      padding: 1rem;
+      font-size: .85rem;
+      margin-top: 3rem;
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <h1 style="color: navy;">AgradeToptutors</h1>
-        <p style="color: gray;">UK and US Best Tutors</p>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#about">About Us</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+  <header>
+    <h1>EssaysPros.com</h1>
+    <p>Elite Online Tutors</p>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+      <a href="orders.html">Orders</a>
+      <a class="order-btn" href="write.html">Write my paper</a>
+    </nav>
+  </header>
 
-    <section id="home">
-        <h2>Welcome to AgradeToptutors</h2>
-        <p>Your gateway to top-rated tutoring services from expert freelancers across the UK and the US.</p>
-    </section>
+  <section id="home">
+    <div class="hero">
+      <div class="hero-text">
+        <h2>Hire top tutors in <span style="color:#e91e63">50+ subjects</span></h2>
+        <p>From advanced mathematics to college level research writing, EssaysPros.com connects you with vetted educators for individualized academic support.</p>
+        <a class="cta" href="write.html">Write my paper</a>
+      </div>
+      <div class="hero-img">
+        <img id="slideshow" src="images/slide1.png" alt="Slideshow image" />
+      </div>
+    </div>
 
-    <section id="services">
-        <h2>Our Services</h2>
-        <ul>
-            <li>Online Tutoring in STEM Subjects</li>
-            <li>Academic Writing Assistance</li>
-            <li>Exam Preparation (SAT, IELTS, etc.)</li>
-            <li>One-on-One Mentorship Sessions</li>
-        </ul>
-    </section>
+    <h2 style="font-size:2rem;margin-bottom:.25rem">Get help in these popular categories</h2>
+    <div class="cat-wrap">
+      <span>Calculus AB or BC</span><span>Statistics</span><span>Physics</span><span>Chemistry</span>
+      <span>Biology</span><span>Accounting</span><span>Corporate Finance</span><span>Python Programming</span>
+      <span>JavaScript</span><span>Data Science</span><span>Essay Editing</span><span>SAT Prep</span>
+      <span>GRE Quant</span><span>US History</span><span>Econometrics</span><span>Machine Learning</span>
+    </div>
 
-    <section id="about">
-        <h2>About Us</h2>
-        <p>We connect students worldwide with elite tutors from the UK and the US. Our mission is to be the leading tutors in the world and assist as many students as possible. Whether you're seeking personalized help or expert guidance, our team delivers excellence in education.</p>
-    </section>
+    <h2 style="font-size:2rem">Why choose us?</h2>
+    <div class="value-wrap">
+      <div class="value-block"><h3>Post your task</h3><p>Provide instructions and upload relevant files in minutes.</p></div>
+      <div class="value-block"><h3>Select your expert</h3><p>We match you with a qualified writer or tutor for your needs.</p></div>
+      <div class="value-block"><h3>Pay safely</h3><p>Funds remain protected until you approve the work.</p></div>
+      <div class="value-block"><h3>We are available</h3><p>Support is available throughout the order process.</p></div>
+    </div>
+  </section>
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: financegurusite@gmail.com</p>
-        <p>WhatsApp: +1929-592-3759</p>
+  <section id="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Academic writing assistance</li>
+      <li>Essay editing and formatting</li>
+      <li>Online tutoring in STEM subjects</li>
+      <li>Exam preparation for SAT, ACT, GRE, GMAT</li>
+      <li>One to one mentorship sessions</li>
+      <li>Full courses on multiple subjects</li>
+    </ul>
+  </section>
 
-        <h2>Join Our List</h2>
-        <p>Enter your email or phone number and we’ll contact you shortly!</p>
-        <form id="contactForm" action="https://formsubmit.co/agradetoptutors@gmail.com" method="POST">
-            <input type="text" name="contact" placeholder="Email or Phone Number" required>
-            <input type="hidden" name="_subject" value="New Lead from AgradeToptutors Website">
-            <input type="hidden" name="_captcha" value="false">
-            <button type="submit">Submit</button>
-        </form>
-    </section>
+  <section id="about">
+    <h2>About Us</h2>
+    <p>EssaysPros.com connects organizations and individuals with high performing tutors and academic specialists. The mission is to provide structured educational support and improve academic outcomes.</p>
+  </section>
 
-    <footer>
-        <p>&copy; 2025 AgradeToptutors. All rights reserved.</p>
-    </footer>
+  <section id="contact">
+    <h2>US Contact</h2>
+    <p>Email: <a href="mailto:support@essayspros.com">support@essayspros.com</a></p>
+    <p>Client care: <a href="mailto:orders@essayspros.com">orders@essayspros.com</a></p>
+  </section>
+
+  <footer>
+    &copy; <span id="year"></span> EssaysPros.com. All rights reserved.
+  </footer>
+
+  <script>
+    window.onload = function () {
+      const year = document.getElementById("year");
+      if (year) year.textContent = new Date().getFullYear();
+
+      const slides = [
+        "images/slide1.png",
+        "images/slide2.png",
+        "images/slide3.png",
+        "images/slide4.png",
+        "images/slide5.png",
+        "images/slide6.png"
+      ];
+      let current = 0;
+      const img = document.getElementById("slideshow");
+      if (img) {
+        img.style.transition = "opacity 0.5s ease-in-out";
+        setInterval(() => {
+          img.style.opacity = 0;
+          setTimeout(() => {
+            current = (current + 1) % slides.length;
+            img.src = slides[current];
+            img.style.opacity = 1;
+          }, 500);
+        }, 3000);
+      }
+    };
+  </script>
 </body>
 </html>
