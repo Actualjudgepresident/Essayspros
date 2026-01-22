@@ -3,222 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EssaysPros.com | Elite Tutors and Writing Support</title>
+  <title>EssaysPros.com</title>
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="shortcut icon" href="favicon.png" type="image/png" />
-
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #000;
-      color: #fff;
-    }
-    a { color: #f1c40f; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    header, footer {
-      background: #2c3e50;
-      text-align: center;
-      color: #fff;
-      padding: 2rem 1rem;
-    }
-    header h1 { margin: 0; font-size: 2.2rem; }
-    header p { margin: .25rem 0 1rem; font-size: .9rem; letter-spacing: .4px; }
-
-    nav { margin-top: .75rem; }
-    nav a { margin: 0 12px; font-weight: 700; color: #ecf0f1; }
-    nav a:hover { text-decoration: underline; }
-
-    nav .order-btn {
-      background: #f1c40f;
-      color: #000;
-      padding: .6rem 1.2rem;
-      border-radius: 6px;
-      margin-left: 15px;
-      display: inline-block;
-    }
-    nav .order-btn:hover { text-decoration: none; opacity: .95; }
-
-    section {
-      display: none;
-      max-width: 1100px;
-      margin: auto;
-      padding: 3.5rem 1.25rem;
-    }
-    #home { display: block; }
-    section:target { display: block; }
-
-    h2 {
-      margin: 0 0 1.25rem;
-      font-size: 2.25rem;
-      color: #f1c40f;
-      line-height: 1.2;
-    }
-
-    .hero {
-      margin-bottom: 3rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-    }
-    .hero-text { flex: 1 1 300px; }
-    .hero p {
-      max-width: 620px;
-      font-size: 1.125rem;
-      line-height: 1.6;
-    }
-
-    .cta {
-      display: inline-block;
-      margin-top: 1.5rem;
-      background: #f1c40f;
-      color: #000;
-      padding: .9rem 1.8rem;
-      border-radius: 6px;
-      font-weight: 700;
-    }
-
-    .hero-img { flex: 1 1 300px; }
-    .hero-img img {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    .cat-wrap {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: .5rem 2rem;
-      margin-top: 2rem;
-      font-size: .95rem;
-    }
-    .cat-wrap span { white-space: nowrap; opacity: .9; }
-
-    .value-wrap {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    .value-block h3 {
-      margin: 0 0 .6rem;
-      font-size: 1.3rem;
-      color: #f1c40f;
-    }
-    .value-block p { margin: 0; line-height: 1.55; font-size: .95rem; opacity: .9; }
-
-    ul { padding-left: 1.1rem; line-height: 1.6; }
-
-    footer {
-      padding: 1rem;
-      font-size: .85rem;
-      margin-top: 3rem;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Academic writing support that meets your deadline. Place an order, track progress, and receive your work on time." />
 </head>
 
 <body>
-  <header>
-    <h1>EssaysPros.com</h1>
-    <p>Elite Online Tutors</p>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#about">About Us</a>
-      <a href="#contact">Contact</a>
-      <a href="orders.html">Orders</a>
-      <a class="order-btn" href="write.html">Write my paper</a>
-    </nav>
+  <header class="siteHeader">
+    <div class="container headerRow">
+      <a class="brand" href="index.html">EssaysPros</a>
+
+      <nav class="nav">
+        <a class="active" href="index.html">Home</a>
+        <a href="orders.html">Orders</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refund.html">Refund</a>
+       
+      </nav>
+
+      <div class="headerActions">
+        <a class="btnOutline" href="login.html">Log in</a>
+        <a class="btnPrimary" href="write.html">Write my order</a>
+      </div>
+    </div>
   </header>
 
-  <section id="home">
-    <div class="hero">
-      <div class="hero-text">
-        <h2>Hire top tutors in <span style="color:#e91e63">50+ subjects</span></h2>
-        <p>From advanced mathematics to college level research writing, EssaysPros.com connects you with vetted educators for individualized academic support.</p>
-        <a class="cta" href="write.html">Write my paper</a>
+  <main class="pageMain">
+    <section class="hero">
+      <div class="container heroGrid">
+        <div class="heroText">
+          <h1>Academic writing support that meets your deadline</h1>
+          <p class="muted">
+            Submit your instructions, connect with a writer, and receive your work on time.
+          </p>
+
+          <div class="heroCtas">
+            <a class="btnPrimary" href="write.html">Write my order</a>
+            <a class="btnOutline" href="write.html">Order form</a>
+          </div>
+
+          <div class="heroMeta">
+            <span class="pill">Secure checkout</span>
+            <span class="pill">Free revisions</span>
+            <span class="pill">Quality review</span>
+          </div>
+        </div>
+
+        <div class="heroCard">
+          <h2>Get started</h2>
+          <p class="muted">
+            Sign in or create an account, then place an order in a few minutes.
+          </p>
+
+          <div class="cardActions">
+            <a class="btnPrimary" href="signup.html">Create account</a>
+            <a class="btnOutline" href="login.html">Log in</a>
+          </div>
+
+          <p class="smallMuted">
+            By continuing, you agree to the Terms and Conditions, Privacy Policy, and Refund Policy.
+          </p>
+        </div>
       </div>
-      <div class="hero-img">
-        <img id="slideshow" src="images/slide1.png" alt="Slideshow image" />
+    </section>
+
+    <section class="container section">
+      <h2>What happens after signing up</h2>
+
+      <ol class="steps">
+        <li>
+          <div class="stepTitle">Fill in the order form</div>
+          <div class="muted">Provide topic, academic level, deadline, and instructions.</div>
+        </li>
+        <li>
+          <div class="stepTitle">Connect with a writer</div>
+          <div class="muted">Discuss requirements and confirm expectations.</div>
+        </li>
+        <li>
+          <div class="stepTitle">Receive your work on time</div>
+          <div class="muted">Delivery arrives before your deadline.</div>
+        </li>
+        <li>
+          <div class="stepTitle">Request revisions if needed</div>
+          <div class="muted">Ask for corrections within the revision window.</div>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="siteFooter">
+    <div class="container footerRow">
+      <div class="footerLeft">
+        <div class="brandSmall">EssaysPros</div>
+        <div class="muted">© <span id="year"></span> EssaysPros.com. All rights reserved.</div>
+      </div>
+      <div class="footerLinks">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refund.html">Refund</a>
+        
       </div>
     </div>
-
-    <h2 style="font-size:2rem;margin-bottom:.25rem">Get help in these popular categories</h2>
-    <div class="cat-wrap">
-      <span>Calculus AB or BC</span><span>Statistics</span><span>Physics</span><span>Chemistry</span>
-      <span>Biology</span><span>Accounting</span><span>Corporate Finance</span><span>Python Programming</span>
-      <span>JavaScript</span><span>Data Science</span><span>Essay Editing</span><span>SAT Prep</span>
-      <span>GRE Quant</span><span>US History</span><span>Econometrics</span><span>Machine Learning</span>
-    </div>
-
-    <h2 style="font-size:2rem">Why choose us?</h2>
-    <div class="value-wrap">
-      <div class="value-block"><h3>Post your task</h3><p>Provide instructions and upload relevant files in minutes.</p></div>
-      <div class="value-block"><h3>Select your expert</h3><p>We match you with a qualified writer or tutor for your needs.</p></div>
-      <div class="value-block"><h3>Pay safely</h3><p>Funds remain protected until you approve the work.</p></div>
-      <div class="value-block"><h3>We are available</h3><p>Support is available throughout the order process.</p></div>
-    </div>
-  </section>
-
-  <section id="services">
-    <h2>Our Services</h2>
-    <ul>
-      <li>Academic writing assistance</li>
-      <li>Essay editing and formatting</li>
-      <li>Online tutoring in STEM subjects</li>
-      <li>Exam preparation for SAT, ACT, GRE, GMAT</li>
-      <li>One to one mentorship sessions</li>
-      <li>Full courses on multiple subjects</li>
-    </ul>
-  </section>
-
-  <section id="about">
-    <h2>About Us</h2>
-    <p>EssaysPros.com connects organizations and individuals with high performing tutors and academic specialists. The mission is to provide structured educational support and improve academic outcomes.</p>
-  </section>
-
-  <section id="contact">
-    <h2>US Contact</h2>
-    <p>Email: <a href="mailto:support@essayspros.com">support@essayspros.com</a></p>
-    <p>Client care: <a href="mailto:orders@essayspros.com">orders@essayspros.com</a></p>
-  </section>
-
-  <footer>
-    &copy; <span id="year"></span> EssaysPros.com. All rights reserved.
   </footer>
 
   <script>
-    window.onload = function () {
-      const year = document.getElementById("year");
-      if (year) year.textContent = new Date().getFullYear();
-
-      const slides = [
-        "images/slide1.png",
-        "images/slide2.png",
-        "images/slide3.png",
-        "images/slide4.png",
-        "images/slide5.png",
-        "images/slide6.png"
-      ];
-      let current = 0;
-      const img = document.getElementById("slideshow");
-      if (img) {
-        img.style.transition = "opacity 0.5s ease-in-out";
-        setInterval(() => {
-          img.style.opacity = 0;
-          setTimeout(() => {
-            current = (current + 1) % slides.length;
-            img.src = slides[current];
-            img.style.opacity = 1;
-          }, 500);
-        }, 3000);
-      }
-    };
+    document.getElementById("year").textContent = String(new Date().getFullYear());
   </script>
 </body>
 </html>

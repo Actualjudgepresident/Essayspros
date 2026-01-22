@@ -1,8 +1,101 @@
+<!-- refund.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Refund Policy | EssaysPros.com</title></head>
-<body style="font-family:Arial;background:#000;color:#fff;padding:24px">
-  <h1>Refund Policy</h1>
-  <p>This page describes refund eligibility and dispute resolution guidelines.</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refund Policy | EssaysPros.com</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="siteHeader">
+    <div class="container headerRow">
+      <a class="brand" href="index.html">EssaysPros</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="orders.html">Orders</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a class="active" href="refund.html">Refund</a>
+        <a href="conduct.html">Code of Conduct</a>
+      </nav>
+      <div class="headerActions">
+        <a class="btnOutline" href="login.html">Log in</a>
+        <a class="btnPrimary" href="write.html">Write my order</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pageMain">
+    <section class="container section">
+      <h1>Refund Policy</h1>
+      <p class="muted">
+        We aim to be fair and transparent. Refunds are considered for all orders in question after an internal evaluation
+        of the order details, communication history, and delivered work where applicable.
+      </p>
+
+      <div class="heroCard">
+        <h2 style="margin-top:0;">How refund requests are evaluated</h2>
+        <ul class="steps" style="list-style:disc; padding-left:18px;">
+          <li class="muted">Order requirements submitted at the time of purchase and any confirmed updates.</li>
+          <li class="muted">Delivery status, timelines, and whether key requirements were met.</li>
+          <li class="muted">Revision history and whether revision requests matched original instructions.</li>
+          <li class="muted">Any technical issues, communication issues, or account related constraints.</li>
+          <li class="muted">Evidence provided by the customer, including files and screenshots where relevant.</li>
+        </ul>
+
+        <div style="height:1px; background:#dbeafe; margin:16px 0;"></div>
+
+        <h2 style="margin-top:0;">Possible outcomes</h2>
+        <ul class="steps" style="list-style:disc; padding-left:18px;">
+          <li class="muted"><strong>Full refund</strong> may be issued when the Service cannot be provided as agreed after evaluation.</li>
+          <li class="muted"><strong>Partial refund</strong> may be issued when part of the Service was delivered but material issues remain after evaluation.</li>
+          <li class="muted"><strong>No refund</strong> may apply when the delivered work meets the confirmed instructions and the issue falls outside the Service scope.</li>
+        </ul>
+
+        <div style="height:1px; background:#dbeafe; margin:16px 0;"></div>
+
+        <h2 style="margin-top:0;">How to request a refund</h2>
+        <p class="muted">
+          Email <a href="mailto:support@essayspros.com">support@essayspros.com</a> with your order ID, the reason for the request,
+          and any supporting evidence. We will confirm receipt and begin evaluation.
+        </p>
+
+        <p class="muted">
+          Subject line suggestion: <strong>Refund request: Order EP-XXXXX</strong>
+        </p>
+
+        <div class="cardActions">
+          <a class="btnPrimary" href="mailto:support@essayspros.com?subject=Refund%20request%3A%20Order%20ID%20&body=Order%20ID%3A%0AReason%3A%0AEvidence%3A%0A">Email support</a>
+          <a class="btnOutline" href="orders.html">View orders</a>
+        </div>
+      </div>
+
+      <p class="muted" style="margin-top:14px;">
+        If payment was made through a third party payment provider, refunds are processed back to the original payment method where possible.
+      </p>
+    </section>
+  </main>
+
+  <footer class="siteFooter">
+    <div class="container footerRow">
+      <div>
+        <div class="brandSmall">EssaysPros</div>
+        <div class="muted">© <span id="year"></span> EssaysPros.com. All rights reserved.</div>
+      </div>
+      <div class="footerLinks">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refund.html">Refund</a>
+        <a href="conduct.html">Code of Conduct</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = String(new Date().getFullYear());
+  </script>
 </body>
 </html>

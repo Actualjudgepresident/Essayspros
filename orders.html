@@ -1,97 +1,103 @@
+<!-- orders.html (revised) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Place an Order | EssaysPros.com</title>
+  <title>My Orders | EssaysPros.com</title>
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #000;
-      color: #fff;
-    }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #000; color: #fff; }
     a { color: #f1c40f; text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    header, footer {
-      background: #2c3e50;
-      text-align: center;
-      padding: 1.6rem 1rem;
-    }
+    header, footer { background: #2c3e50; text-align: center; padding: 1.6rem 1rem; }
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { margin: .25rem 0 0; opacity: .9; font-size: .9rem; }
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
+    main { max-width: 1180px; margin: auto; padding: 2rem 1.25rem 3rem; }
 
-    header p {
-      margin: .25rem 0 0;
-      opacity: .9;
-      font-size: .9rem;
-    }
+    .topbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .muted { opacity: .85; font-size: 13px; line-height: 1.5; }
 
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 3rem 1.25rem;
+    .tabs { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 16px; }
+    .tab {
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 900;
     }
+    .tab.active { background: #f1c40f; color: #000; border-color: #f1c40f; }
 
-    h2 {
-      color: #f1c40f;
-      margin-bottom: 1rem;
-      font-size: 2rem;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .step {
-      background: rgba(255,255,255,.05);
+    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .card {
+      background: rgba(255,255,255,.04);
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 12px;
-      padding: 1.25rem;
+      padding: 14px;
     }
 
-    .step span {
-      display: block;
-      font-weight: 900;
-      font-size: 1.2rem;
-      margin-bottom: .5rem;
-      color: #f1c40f;
-    }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
 
-    .cta-wrap {
-      text-align: center;
-      margin-top: 3rem;
-    }
-
-    .cta {
+    .badge {
       display: inline-block;
-      background: #f1c40f;
-      color: #000;
-      padding: 1rem 2.2rem;
-      border-radius: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
       font-weight: 900;
-      font-size: 1.1rem;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+    }
+    .badge.ongoing { border-color: rgba(241,196,15,.35); background: rgba(241,196,15,.10); }
+    .badge.delivered { border-color: rgba(76,175,80,.35); background: rgba(76,175,80,.12); }
+    .badge.completed { border-color: rgba(33,150,243,.35); background: rgba(33,150,243,.12); }
+    .badge.revision { border-color: rgba(233, 30, 99, .35); background: rgba(233, 30, 99, .14); }
+    .badge.unpaid { border-color: rgba(255,152,0,.45); background: rgba(255,152,0,.14); }
+
+    label { display: block; font-size: 13px; margin: 10px 0 6px; opacity: .9; }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: #fff;
+      outline: none;
+      font-size: 14px;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+
+    .btnbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .primary { background: #f1c40f; color: #000; }
+    .ghost { background: rgba(255,255,255,.06); color: #fff; border: 1px solid rgba(255,255,255,.14); }
+    .danger { background: rgba(233, 30, 99, .18); color: #fff; border: 1px solid rgba(233, 30, 99, .35); }
+    .success { background: rgba(76,175,80,.18); color: #fff; border: 1px solid rgba(76,175,80,.35); }
+
+    .hr { height: 1px; background: rgba(255,255,255,.12); margin: 12px 0; }
+
+    .notice {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 12px;
+      padding: 14px;
     }
 
-    .cta:hover {
-      opacity: .95;
-      text-decoration: none;
-    }
-
-    footer {
-      font-size: .85rem;
-      padding: 1rem;
-      opacity: .9;
+    @media (max-width: 920px) {
+      .row, .row3 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -99,41 +105,42 @@
 <body>
 <header>
   <h1>EssaysPros.com</h1>
-  <p>Place an Order</p>
+  <p>Orders</p>
 </header>
 
 <main>
-  <h2>How placing an order works</h2>
-
-  <p>
-    EssaysPros.com provides structured academic assistance through a simple and transparent process.
-    Begin by submitting your task, receive a quote instantly, and track your order from start to completion.
-  </p>
-
-  <div class="steps">
-    <div class="step">
-      <span>1</span>
-      Fill in the order form with instructions, pages, and deadline.
+  <div class="topbar">
+    <div class="muted">
+      Logged in email: <span id="activeEmail">Not set</span>
+      <div>Support: <a href="mailto:support@essayspros.com">support@essayspros.com</a></div>
     </div>
-
-    <div class="step">
-      <span>2</span>
-      Receive an instant price based on your requirements.
-    </div>
-
-    <div class="step">
-      <span>3</span>
-      Complete checkout or request assistance from support.
-    </div>
-
-    <div class="step">
-      <span>4</span>
-      Track progress, approve work, or request revisions from your orders page.
+    <div class="btnbar">
+      <a class="ghost" href="write.html" style="display:inline-block; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#fff; font-weight:900;">New order</a>
+      <button class="ghost" type="button" id="logoutBtn">Log out</button>
+      
     </div>
   </div>
 
-  <div class="cta-wrap">
-    <a class="cta" href="write.html">Write my paper</a>
+  <div id="authGate" class="notice" style="display:none;">
+    <div style="font-weight:900; font-size:16px;">Authentication required</div>
+    <div class="muted" style="margin-top:6px;">Please log in to view your orders.</div>
+    <div class="btnbar" style="margin-top:10px;">
+      <a class="primary" href="login.html" style="display:inline-block; padding:12px 14px; border-radius:10px; background:#f1c40f; color:#000; font-weight:900;">Log in</a>
+      <a class="ghost" href="signup.html" style="display:inline-block; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#fff; font-weight:900;">Sign up</a>
+    </div>
+  </div>
+
+  <div id="contentArea" style="display:none;">
+    <div class="tabs">
+      <button class="tab active" id="tabCurrent" type="button">Current orders</button>
+      <button class="tab" id="tabAll" type="button">All orders</button>
+    </div>
+
+    <div class="grid" id="ordersGrid"></div>
+
+    <div class="muted" style="margin-top:14px">
+      Demonstration note: payment, delivery, and revision are simulated. For production payments, implement Stripe Checkout and PayPal Checkout using server side endpoints.
+    </div>
   </div>
 </main>
 
@@ -142,7 +149,297 @@
 </footer>
 
 <script>
+(function () {
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  const authGate = document.getElementById("authGate");
+  const contentArea = document.getElementById("contentArea");
+
+  const activeEmail = (localStorage.getItem("essayspros_active_email") || "").trim();
+  document.getElementById("activeEmail").textContent = activeEmail ? activeEmail : "Not set";
+
+  if (!activeEmail) {
+    authGate.style.display = "block";
+    contentArea.style.display = "none";
+    document.getElementById("logoutBtn").style.display = "none";
+    return;
+  } else {
+    authGate.style.display = "none";
+    contentArea.style.display = "block";
+  }
+
+  function loadOrders() {
+    try { return JSON.parse(localStorage.getItem("essayspros_orders") || "[]"); }
+    catch (e) { return []; }
+  }
+
+  function saveOrders(list) {
+    localStorage.setItem("essayspros_orders", JSON.stringify(list));
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function badge(status, revisionRequested, approved, paid) {
+    if (!paid) return '<span class="badge unpaid">Unpaid</span>';
+    if (approved) return '<span class="badge completed">Completed</span>';
+    if (revisionRequested) return '<span class="badge revision">Revision requested</span>';
+    if (status === "Delivered") return '<span class="badge delivered">Delivered</span>';
+    return '<span class="badge ongoing">Ongoing</span>';
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return "Not set";
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return "Not set";
+    return d.toLocaleString();
+  }
+
+  function unitsLine(o) {
+    if (o.taskType === "paper") return (o.pages || 0) + " pages";
+    if (o.taskType === "slides") return (o.slides || 0) + " slides";
+    if (o.taskType === "programming") return (o.hours || 0) + " hours";
+    return "";
+  }
+
+  function render(filterCurrentOnly) {
+    const grid = document.getElementById("ordersGrid");
+    const orders = loadOrders();
+
+    let list = orders.filter(o => (o.customerEmail || "").toLowerCase() === activeEmail.toLowerCase());
+    if (filterCurrentOnly) list = list.filter(o => !o.approved);
+
+    if (list.length === 0) {
+      grid.innerHTML = '<div class="card"><div class="muted">No orders found. Create a new order from the New order button.</div></div>';
+      return;
+    }
+
+    grid.innerHTML = list.map(o => {
+      const id = escapeHtml(o.id);
+      const paid = Boolean(o.paid);
+      const showDeliveredActions = (o.status === "Delivered" && !o.approved && paid);
+      const showOngoingActions = (o.status === "Ongoing" && !o.approved && paid);
+
+      const total = Number(o.total || 0);
+      const currency = escapeHtml(o.currency || "USD");
+
+      return `
+        <div class="card" data-id="${id}">
+          <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center;">
+            <div>
+              <div style="font-weight:900; font-size:16px;">Order ${id}</div>
+              <div class="muted">Created: ${fmtDate(o.createdAt)} | Deadline: ${o.deadline ? fmtDate(o.deadline) : "Not set"}</div>
+            </div>
+            <div>${badge(o.status, o.revisionRequested, o.approved, paid)}</div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div class="muted">
+              <div><strong>Task:</strong> ${escapeHtml(o.taskType)}</div>
+              <div><strong>Level:</strong> ${escapeHtml(o.level)}</div>
+              <div><strong>Scope:</strong> ${escapeHtml(unitsLine(o))}</div>
+            </div>
+            <div class="muted">
+              <div><strong>Total:</strong> $${isFinite(total) ? total.toFixed(2) : "0.00"} ${currency}</div>
+              <div><strong>Payment method:</strong> ${escapeHtml(o.paymentMethod || "Not selected")}</div>
+              <div><strong>Topic:</strong> ${escapeHtml(o.topic || "Not provided")}</div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="muted"><strong>Instructions summary:</strong></div>
+          <div class="muted" style="white-space:pre-wrap">${escapeHtml((o.instructions || "").slice(0, 600) || "Not provided")}</div>
+
+          <div class="hr"></div>
+
+          ${paid ? "" : `
+            <div class="notice">
+              <div style="font-weight:900;">Payment required</div>
+              <div class="muted" style="margin-top:6px;">
+                Select a payment option to continue. For production, connect these buttons to Stripe Checkout and PayPal Checkout using server side endpoints.
+              </div>
+              <div class="btnbar" style="margin-top:10px;">
+                <button class="primary payStripe" type="button">Pay with Stripe</button>
+                <button class="ghost payPayPal" type="button">Pay with PayPal</button>
+                <button class="ghost payDemo" type="button">Mark paid (demo)</button>
+              </div>
+            </div>
+            <div class="hr"></div>
+          `}
+
+          <div class="row">
+            <div>
+              <label>Upload your submission file</label>
+              <input type="file" class="customerUpload" />
+              <div class="muted">Saved locally for demonstration only.</div>
+            </div>
+            <div>
+              <label>Delivery file name</label>
+              <input type="text" class="deliveredName" value="${escapeHtml(o.deliveredFileName || "")}" placeholder="For demonstration: set delivery name" />
+              <div class="muted">For demonstration only.</div>
+            </div>
+          </div>
+
+          <div class="btnbar">
+            ${showOngoingActions ? '<button class="ghost markDelivered" type="button">Mark as delivered</button>' : ''}
+            ${showDeliveredActions ? '<button class="primary approveBtn" type="button">Approve</button>' : ''}
+            ${showDeliveredActions ? '<button class="danger revisionBtn" type="button">Request revision</button>' : ''}
+            <button class="ghost supportBtn" type="button">Request support</button>
+          </div>
+
+          <div class="muted" style="margin-top:8px">
+            Customer upload: <span class="custName">${escapeHtml(o.customerSubmissionName || "None")}</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    bindEvents();
+  }
+
+  function updateOrder(id, updater) {
+    const orders = loadOrders();
+    const idx = orders.findIndex(o => String(o.id) === String(id));
+    if (idx < 0) return;
+    updater(orders[idx]);
+    saveOrders(orders);
+  }
+
+  function bindEvents() {
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+      const id = card.getAttribute("data-id");
+      const upload = card.querySelector(".customerUpload");
+      const deliveredName = card.querySelector(".deliveredName");
+
+      if (upload) {
+        upload.addEventListener("change", function () {
+          const file = upload.files && upload.files[0];
+          if (!file) return;
+          updateOrder(id, (o) => { o.customerSubmissionName = file.name; });
+          const nameEl = card.querySelector(".custName");
+          if (nameEl) nameEl.textContent = file.name;
+        });
+      }
+
+      if (deliveredName) {
+        deliveredName.addEventListener("input", function () {
+          updateOrder(id, (o) => { o.deliveredFileName = deliveredName.value || ""; });
+        });
+      }
+
+      const payStripe = card.querySelector(".payStripe");
+      if (payStripe) {
+        payStripe.addEventListener("click", function () {
+          window.location.href = "pay.html?provider=stripe&orderId=" + encodeURIComponent(id);
+        });
+      }
+
+      const payPayPal = card.querySelector(".payPayPal");
+      if (payPayPal) {
+        payPayPal.addEventListener("click", function () {
+          window.location.href = "pay.html?provider=paypal&orderId=" + encodeURIComponent(id);
+        });
+      }
+
+      const payDemo = card.querySelector(".payDemo");
+      if (payDemo) {
+        payDemo.addEventListener("click", function () {
+          updateOrder(id, (o) => { o.paid = true; o.paymentMethod = o.paymentMethod || "Demo"; });
+          render(document.getElementById("tabCurrent").classList.contains("active"));
+        });
+      }
+
+      const markDelivered = card.querySelector(".markDelivered");
+      if (markDelivered) {
+        markDelivered.addEventListener("click", function () {
+          updateOrder(id, (o) => {
+            o.status = "Delivered";
+            o.revisionRequested = false;
+          });
+          render(document.getElementById("tabCurrent").classList.contains("active"));
+        });
+      }
+
+      const approveBtn = card.querySelector(".approveBtn");
+      if (approveBtn) {
+        approveBtn.addEventListener("click", function () {
+          updateOrder(id, (o) => {
+            o.approved = true;
+            o.revisionRequested = false;
+            o.status = "Completed";
+          });
+          render(document.getElementById("tabCurrent").classList.contains("active"));
+        });
+      }
+
+      const revisionBtn = card.querySelector(".revisionBtn");
+      if (revisionBtn) {
+        revisionBtn.addEventListener("click", function () {
+          const reason = prompt("Describe the revision request:");
+          updateOrder(id, (o) => {
+            o.revisionRequested = true;
+            o.status = "Ongoing";
+            o.revisionNote = reason || "";
+          });
+          render(document.getElementById("tabCurrent").classList.contains("active"));
+        });
+      }
+
+      const supportBtn = card.querySelector(".supportBtn");
+      if (supportBtn) {
+        supportBtn.addEventListener("click", function () {
+          const orders = loadOrders();
+          const o = orders.find(x => String(x.id) === String(id)) || {};
+          const subj = encodeURIComponent("EssaysPros.com order support: " + id);
+          const body = encodeURIComponent(
+            "Hello Support,\n\n" +
+            "I need assistance with order " + id + ".\n\n" +
+            "Status: " + (o.status || "") + "\n" +
+            "Email: " + (o.customerEmail || "") + "\n" +
+            "Topic: " + (o.topic || "") + "\n"
+          );
+          window.location.href = "mailto:support@essayspros.com?subject=" + subj + "&body=" + body;
+        });
+      }
+    });
+  }
+
+  const tabCurrent = document.getElementById("tabCurrent");
+  const tabAll = document.getElementById("tabAll");
+
+  tabCurrent.addEventListener("click", function () {
+    tabCurrent.classList.add("active");
+    tabAll.classList.remove("active");
+    render(true);
+  });
+
+  tabAll.addEventListener("click", function () {
+    tabAll.classList.add("active");
+    tabCurrent.classList.remove("active");
+    render(false);
+  });
+
+  document.getElementById("clearBtn").addEventListener("click", function () {
+    localStorage.removeItem("essayspros_orders");
+    render(tabCurrent.classList.contains("active"));
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("essayspros_active_email");
+    window.location.href = "index.html";
+  });
+
+  render(true);
+})();
 </script>
 </body>
 </html>
