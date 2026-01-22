@@ -1,358 +1,394 @@
-<!-- orders.html -->
+<!-- write.html (Instructions and upload page with pricing rules and checkout link) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Orders | EssaysPros.com</title>
+  <title>Write My Order | EssaysPros.com</title>
   <link rel="icon" type="image/png" href="favicon.png" />
-
+  <link rel="stylesheet" href="style.css" />
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #000; color: #fff; }
-    a { color: #f1c40f; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    .cardBox { background:#fff; border:1px solid #dbeafe; border-radius:18px; padding:16px; box-shadow:0 10px 30px rgba(37,99,235,.06); }
+    .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+    .grid3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px; }
+    .field label { display:block; margin-bottom:6px; font-size:13px; font-weight:800; color:#1e3a8a; }
+    .field input, .field select, .field textarea {
+      width:100%; border:1px solid #dbeafe; border-radius:12px; padding:12px; background:#fff; color:#0f172a; outline:none; font-size:15px;
+    }
+    .field textarea { min-height:140px; resize:vertical; }
+    .muted2 { color:#475569; font-size:14px; line-height:1.55; }
+    .pill { display:inline-flex; padding:6px 10px; border-radius:999px; border:1px solid #dbeafe; background:#f3f8ff; color:#1e3a8a; font-weight:900; font-size:12px; }
+    .hr { height:1px; background:#dbeafe; margin:14px 0; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:center; }
+    .priceBox { background:#f3f8ff; border:1px solid #dbeafe; border-radius:16px; padding:14px; }
+    .priceBig { font-weight:900; font-size:22px; color:#0f172a; margin-top:6px; }
+    .warn { background:#fff7ed; border:1px solid #fed7aa; color:#9a3412; border-radius:14px; padding:12px; margin-top:10px; font-weight:800; font-size:13px; line-height:1.5; }
+    @media (max-width: 980px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
 
-    header, footer { background: #2c3e50; text-align: center; padding: 1.6rem 1rem; }
-    header h1 { margin: 0; font-size: 2rem; }
-    header p { margin: .25rem 0 0; opacity: .9; font-size: .9rem; }
-
-    main { max-width: 1180px; margin: auto; padding: 2rem 1.25rem 3rem; }
-
-    .topbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-    .muted { opacity: .85; font-size: 13px; line-height: 1.5; }
-
-    .tabs { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 16px; }
-    .tab {
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      color: #fff;
+    /* Support floating icon */
+    .supportFab {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #4f6ef7;
+      border: 2px solid rgba(255,255,255,.9);
+      box-shadow: 0 14px 34px rgba(15,23,42,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .supportFab svg { width: 30px; height: 30px; fill: #fff; }
+    .supportMenu {
+      position: fixed;
+      right: 18px;
+      bottom: 92px;
+      width: 260px;
+      background: #ffffff;
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      box-shadow: 0 14px 34px rgba(15,23,42,.18);
+      padding: 12px;
+      display: none;
+      z-index: 1000;
+    }
+    .supportMenu h4 { margin: 0 0 8px; color: #0f172a; font-weight: 900; font-size: 14px; }
+    .supportMenu a {
+      display: block;
       padding: 10px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 900;
-    }
-    .tab.active { background: #f1c40f; color: #000; border-color: #f1c40f; }
-
-    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .card {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.12);
       border-radius: 12px;
-      padding: 14px;
-    }
-
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
+      border: 1px solid #dbeafe;
+      background: #f3f8ff;
+      color: #1e3a8a;
       font-weight: 900;
-      font-size: 12px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-    }
-    .badge.ongoing { border-color: rgba(241,196,15,.35); background: rgba(241,196,15,.10); }
-    .badge.delivered { border-color: rgba(76,175,80,.35); background: rgba(76,175,80,.12); }
-    .badge.completed { border-color: rgba(33,150,243,.35); background: rgba(33,150,243,.12); }
-    .badge.revision { border-color: rgba(233, 30, 99, .35); background: rgba(233, 30, 99, .14); }
-
-    label { display: block; font-size: 13px; margin: 10px 0 6px; opacity: .9; }
-    input, textarea, select {
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color: #fff;
-      outline: none;
-      font-size: 14px;
-    }
-    textarea { min-height: 120px; resize: vertical; }
-
-    .btnbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-weight: 900;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .primary { background: #f1c40f; color: #000; }
-    .ghost { background: rgba(255,255,255,.06); color: #fff; border: 1px solid rgba(255,255,255,.14); }
-    .danger { background: rgba(233, 30, 99, .18); color: #fff; border: 1px solid rgba(233, 30, 99, .35); }
-
-    .hr { height: 1px; background: rgba(255,255,255,.12); margin: 12px 0; }
-
-    @media (max-width: 920px) {
-      .row, .row3 { grid-template-columns: 1fr; }
+      text-decoration: none;
+      margin-top: 8px;
     }
   </style>
 </head>
 
 <body>
-<header>
-  <h1>EssaysPros.com</h1>
-  <p>Orders</p>
-</header>
-
-<main>
-  <div class="topbar">
-    <div class="muted">
-      Logged in email: <span id="activeEmail">Not set</span>
-      <div>Support: <a href="mailto:support@essayspros.com">support@essayspros.com</a></div>
+  <header class="siteHeader">
+    <div class="container headerRow">
+      <a class="brand" href="index.html">EssaysPros</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="orders.html">Orders</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refund.html">Refund</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="headerActions">
+        <a class="btnOutline" href="login.html">Log in</a>
+        <a class="btnPrimary active" href="write.html">Write my order</a>
+      </div>
     </div>
-    <div class="btnbar">
-      <a class="ghost" href="write.html" style="display:inline-block; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#fff; font-weight:900;">New order</a>
-      <button class="danger" type="button" id="clearBtn">Clear demo data</button>
-    </div>
-  </div>
+  </header>
 
-  <div class="tabs">
-    <button class="tab active" id="tabCurrent" type="button">Current orders</button>
-    <button class="tab" id="tabAll" type="button">All orders</button>
-  </div>
+  <main class="pageMain">
+    <section class="container section">
+      <h1>Order instructions</h1>
+      <p class="muted2">Complete the form, upload your files, and proceed to checkout.</p>
 
-  <div class="grid" id="ordersGrid"></div>
+      <div class="cardBox">
+        <div class="grid2">
+          <div>
+            <div class="pill">Step 1</div>
+            <h2 style="margin:10px 0 6px;">Customer and task</h2>
+            <p class="muted2" style="margin:0;">Your email is used to track orders.</p>
 
-  <div class="muted" style="margin-top:14px">
-    Demonstration note: delivery and revision are simulated. In production, connect this page to a database and a secure upload service.
-  </div>
-</main>
-
-<footer>
-  &copy; <span id="year"></span> EssaysPros.com. All rights reserved.
-</footer>
-
-<script>
-(function () {
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  const activeEmail = localStorage.getItem("essayspros_active_email") || "";
-  document.getElementById("activeEmail").textContent = activeEmail ? activeEmail : "Not set";
-
-  function loadOrders() {
-    try { return JSON.parse(localStorage.getItem("essayspros_orders") || "[]"); }
-    catch (e) { return []; }
-  }
-
-  function saveOrders(list) {
-    localStorage.setItem("essayspros_orders", JSON.stringify(list));
-  }
-
-  function badge(status, revisionRequested, approved) {
-    if (approved) return '<span class="badge completed">Completed</span>';
-    if (revisionRequested) return '<span class="badge revision">Revision requested</span>';
-    if (status === "Delivered") return '<span class="badge delivered">Delivered</span>';
-    return '<span class="badge ongoing">Ongoing</span>';
-  }
-
-  function fmtDate(iso) {
-    if (!iso) return "Not set";
-    const d = new Date(iso);
-    if (isNaN(d.getTime())) return "Not set";
-    return d.toLocaleString();
-  }
-
-  function unitsLine(o) {
-    if (o.taskType === "paper") return o.pages + " pages";
-    if (o.taskType === "slides") return o.slides + " slides";
-    if (o.taskType === "programming") return o.hours + " hours";
-    return "";
-  }
-
-  function render(filterCurrentOnly) {
-    const grid = document.getElementById("ordersGrid");
-    const orders = loadOrders();
-
-    let list = orders;
-    if (activeEmail) list = list.filter(o => (o.customerEmail || "").toLowerCase() === activeEmail.toLowerCase());
-
-    if (filterCurrentOnly) {
-      list = list.filter(o => !o.approved);
-    }
-
-    if (list.length === 0) {
-      grid.innerHTML = '<div class="card"><div class="muted">No orders found. Create a new order from the New order button.</div></div>';
-      return;
-    }
-
-    grid.innerHTML = list.map(o => {
-      const id = o.id;
-      const showDeliveredActions = (o.status === "Delivered" && !o.approved);
-      const showOngoingActions = (o.status === "Ongoing" && !o.approved);
-
-      return `
-        <div class="card" data-id="${id}">
-          <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center;">
-            <div>
-              <div style="font-weight:900; font-size:16px;">Order ${id}</div>
-              <div class="muted">Created: ${fmtDate(o.createdAt)} | Deadline: ${o.deadline ? fmtDate(o.deadline) : "Not set"}</div>
+            <div class="field" style="margin-top:10px;">
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="you@example.com" />
             </div>
-            <div>${badge(o.status, o.revisionRequested, o.approved)}</div>
-          </div>
 
-          <div class="row" style="margin-top:10px">
-            <div class="muted">
-              <div><strong>Task:</strong> ${o.taskType}</div>
-              <div><strong>Level:</strong> ${o.level}</div>
-              <div><strong>Scope:</strong> ${unitsLine(o)}</div>
+            <div class="grid2">
+              <div class="field">
+                <label for="taskType">Task type</label>
+                <select id="taskType">
+                  <option value="paper">Paper</option>
+                  <option value="slides">Slides</option>
+                  <option value="programming">Coding</option>
+                  <option value="excel">Excel</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="level">Academic level</label>
+                <select id="level">
+                  <option>High school</option>
+                  <option>Undergraduate</option>
+                  <option selected>Graduate</option>
+                  <option>Doctoral</option>
+                </select>
+              </div>
             </div>
-            <div class="muted">
-              <div><strong>Total paid:</strong> $${Number(o.total || 0).toFixed(2)} ${o.currency || "USD"}</div>
-              <div><strong>Payment:</strong> ${o.paymentMethod}</div>
-              <div><strong>Topic:</strong> ${o.topic ? o.topic : "Not provided"}</div>
+
+            <div class="field">
+              <label>
+                <input id="repeatCustomer" type="checkbox" />
+                Repeat customer discount
+              </label>
+              <div class="muted2">Paper becomes $10 per page, slides become $4 per slide.</div>
             </div>
           </div>
 
-          <div class="hr"></div>
+          <div>
+            <div class="pill">Step 2</div>
+            <h2 style="margin:10px 0 6px;">Scope and deadline</h2>
 
-          <div class="muted"><strong>Instructions summary:</strong></div>
-          <div class="muted" style="white-space:pre-wrap">${o.instructions ? o.instructions.slice(0, 600) : "Not provided"}</div>
-
-          <div class="hr"></div>
-
-          <div class="row">
-            <div>
-              <label>Upload your final submission file</label>
-              <input type="file" class="customerUpload" />
-              <div class="muted">Saved locally for demonstration only.</div>
+            <div class="grid3">
+              <div class="field">
+                <label for="pages">Pages</label>
+                <input id="pages" type="number" min="0" value="0" />
+              </div>
+              <div class="field">
+                <label for="slides">Slides</label>
+                <input id="slides" type="number" min="0" value="0" />
+              </div>
+              <div class="field">
+                <label for="hours">Coding hours</label>
+                <input id="hours" type="number" min="0" value="0" />
+              </div>
             </div>
-            <div>
-              <label>Delivery file name</label>
-              <input type="text" class="deliveredName" value="${o.deliveredFileName || ""}" placeholder="For demonstration: set delivery name" />
-              <div class="muted">For demonstration only.</div>
+
+            <div class="field" style="margin-top:10px;">
+              <label for="deadline">Deadline</label>
+              <input id="deadline" type="datetime-local" />
             </div>
-          </div>
 
-          <div class="btnbar">
-            ${showOngoingActions ? '<button class="ghost markDelivered" type="button">Mark as delivered</button>' : ''}
-            ${showDeliveredActions ? '<button class="primary approveBtn" type="button">Approve</button>' : ''}
-            ${showDeliveredActions ? '<button class="danger revisionBtn" type="button">Request revision</button>' : ''}
-            <button class="ghost supportBtn" type="button">Request support</button>
-          </div>
-
-          <div class="muted" style="margin-top:8px">
-            Customer upload: <span class="custName">${o.customerSubmissionName || "None"}</span>
+            <div class="warn" id="codingNote" style="display:none;">
+              Coding tasks start at $50. Additional payment may be required if the assignment requires more work than the initial scope.
+            </div>
           </div>
         </div>
-      `;
-    }).join("");
 
-    bindEvents();
-  }
+        <div class="hr"></div>
 
-  function bindEvents() {
-    const cards = document.querySelectorAll(".card");
+        <div class="grid2">
+          <div class="field">
+            <label for="topic">Topic or title</label>
+            <input id="topic" type="text" placeholder="Example: Operating Systems process scheduling" />
+          </div>
 
-    cards.forEach(card => {
-      const id = card.getAttribute("data-id");
-      const upload = card.querySelector(".customerUpload");
-      const deliveredName = card.querySelector(".deliveredName");
+          <div class="field">
+            <label for="file">Upload files</label>
+            <input id="file" type="file" multiple />
+            <div class="muted2">Files are stored locally for demonstration only.</div>
+          </div>
+        </div>
 
-      upload.addEventListener("change", function () {
-        const file = upload.files && upload.files[0];
-        if (!file) return;
-        const orders = loadOrders();
-        const idx = orders.findIndex(o => o.id === id);
-        if (idx < 0) return;
-        orders[idx].customerSubmissionName = file.name;
-        saveOrders(orders);
-        card.querySelector(".custName").textContent = file.name;
-      });
+        <div class="field" style="margin-top:10px;">
+          <label for="instructions">Instructions</label>
+          <textarea id="instructions" placeholder="Write detailed instructions, grading rubric, references, and formatting requirements."></textarea>
+        </div>
 
-      deliveredName.addEventListener("input", function () {
-        const orders = loadOrders();
-        const idx = orders.findIndex(o => o.id === id);
-        if (idx < 0) return;
-        orders[idx].deliveredFileName = deliveredName.value || "";
-        saveOrders(orders);
-      });
+        <div class="hr"></div>
 
-      const markDelivered = card.querySelector(".markDelivered");
-      if (markDelivered) {
-        markDelivered.addEventListener("click", function () {
-          const orders = loadOrders();
-          const idx = orders.findIndex(o => o.id === id);
-          if (idx < 0) return;
-          orders[idx].status = "Delivered";
-          orders[idx].revisionRequested = false;
-          saveOrders(orders);
-          render(document.getElementById("tabCurrent").classList.contains("active"));
-        });
+        <div class="grid2">
+          <div class="priceBox">
+            <div class="pill">Pricing</div>
+            <div class="muted2" style="margin-top:8px;">
+              Paper: $12 per page, slides: $6 per slide, Excel: $18 per task, coding: $50 minimum.
+              Repeat customer discount applies to paper and slides.
+            </div>
+            <div class="priceBig">Total: <span id="total">$0.00</span> <span class="muted2">USD</span></div>
+            <div class="muted2" id="rateLine" style="margin-top:8px;"></div>
+          </div>
+
+          <div>
+            <div class="pill">Step 3</div>
+            <h2 style="margin:10px 0 6px;">Checkout</h2>
+            <p class="muted2" style="margin:0;">
+              Select checkout to complete payment using your Stripe payment link.
+            </p>
+
+            <div class="actions">
+              <button class="btnPrimary" type="button" id="checkoutBtn">Proceed to checkout</button>
+              <a class="btnOutline" href="orders.html">View orders</a>
+            </div>
+
+            <div class="muted2" style="margin-top:10px;">
+              After payment, your order is saved and visible in the Orders page.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Support icon and menu -->
+  <button class="supportFab" type="button" id="supportFab" aria-label="Support">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3v3a1 1 0 0 0 1.64.77L13.5 20H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm0 16h-6.9a1 1 0 0 0-.64.23L9 20.9V19a1 1 0 0 0-1-1H4V4h16v14Z"/>
+    </svg>
+  </button>
+
+  <div class="supportMenu" id="supportMenu">
+    <h4>Contact support</h4>
+    <!-- Replace the phone with your real Kenya number in international format -->
+    <a id="waLink" href="https://wa.me/254700000000?text=Hello%20EssaysPros%2C%20I%20need%20help%20with%20my%20order." target="_blank" rel="noopener">Chat on WhatsApp</a>
+    <a id="callLink" href="tel:+254700000000">Call now</a>
+    <a href="mailto:support@essayspros.com">Email support</a>
+  </div>
+
+  <footer class="siteFooter">
+    <div class="container footerRow">
+      <div>
+        <div class="brandSmall">EssaysPros</div>
+        <div class="muted">© <span id="year"></span> EssaysPros.com. All rights reserved.</div>
+      </div>
+      <div class="footerLinks">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refund.html">Refund</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+
+      const activeEmail = (localStorage.getItem("essayspros_active_email") || "").trim();
+      const emailEl = document.getElementById("email");
+      if (activeEmail) emailEl.value = activeEmail;
+
+      const taskTypeEl = document.getElementById("taskType");
+      const repeatEl = document.getElementById("repeatCustomer");
+      const pagesEl = document.getElementById("pages");
+      const slidesEl = document.getElementById("slides");
+      const hoursEl = document.getElementById("hours");
+      const totalEl = document.getElementById("total");
+      const rateLineEl = document.getElementById("rateLine");
+      const codingNote = document.getElementById("codingNote");
+
+      const STRIPE_LINK = "https://buy.stripe.com/test_4gMcN4fCY5EmaMi2hlg3600";
+
+      function money(n) { return "$" + Number(n || 0).toFixed(2); }
+
+      function computeTotal() {
+        const type = taskTypeEl.value;
+        const isRepeat = !!repeatEl.checked;
+
+        const pages = Math.max(0, Number(pagesEl.value || 0));
+        const slides = Math.max(0, Number(slidesEl.value || 0));
+        const hours = Math.max(0, Number(hoursEl.value || 0));
+
+        let total = 0;
+        let line = "";
+
+        if (type === "paper") {
+          const rate = isRepeat ? 10 : 12;
+          total = pages * rate;
+          line = "Paper rate: " + money(rate) + " per page × " + pages;
+        } else if (type === "slides") {
+          const rate = isRepeat ? 4 : 6;
+          total = slides * rate;
+          line = "Slides rate: " + money(rate) + " per slide × " + slides;
+        } else if (type === "excel") {
+          total = 18;
+          line = "Excel rate: " + money(18) + " per task";
+        } else if (type === "programming") {
+          total = 50;
+          line = "Coding minimum: " + money(50) + " (additional payment may apply)";
+        }
+
+        codingNote.style.display = (type === "programming") ? "block" : "none";
+        totalEl.textContent = money(total);
+        rateLineEl.textContent = line;
+
+        return { total, currency: "USD" };
       }
 
-      const approveBtn = card.querySelector(".approveBtn");
-      if (approveBtn) {
-        approveBtn.addEventListener("click", function () {
-          const orders = loadOrders();
-          const idx = orders.findIndex(o => o.id === id);
-          if (idx < 0) return;
-          orders[idx].approved = true;
-          orders[idx].revisionRequested = false;
-          orders[idx].status = "Completed";
-          saveOrders(orders);
-          render(document.getElementById("tabCurrent").classList.contains("active"));
-        });
+      function enforceInputs() {
+        const type = taskTypeEl.value;
+
+        pagesEl.disabled = (type !== "paper");
+        slidesEl.disabled = (type !== "slides");
+        hoursEl.disabled = (type !== "programming");
+
+        if (type !== "paper") pagesEl.value = "0";
+        if (type !== "slides") slidesEl.value = "0";
+        if (type !== "programming") hoursEl.value = "0";
+
+        computeTotal();
       }
 
-      const revisionBtn = card.querySelector(".revisionBtn");
-      if (revisionBtn) {
-        revisionBtn.addEventListener("click", function () {
-          const reason = prompt("Describe the revision request:");
-          const orders = loadOrders();
-          const idx = orders.findIndex(o => o.id === id);
-          if (idx < 0) return;
-          orders[idx].revisionRequested = true;
-          orders[idx].status = "Ongoing";
-          orders[idx].revisionNote = reason || "";
-          saveOrders(orders);
-          render(document.getElementById("tabCurrent").classList.contains("active"));
+      [taskTypeEl, repeatEl, pagesEl, slidesEl, hoursEl].forEach(el => {
+        el.addEventListener("input", function () {
+          enforceInputs();
         });
-      }
-
-      const supportBtn = card.querySelector(".supportBtn");
-      supportBtn.addEventListener("click", function () {
-        const orders = loadOrders();
-        const o = orders.find(x => x.id === id);
-        const subj = encodeURIComponent("EssaysPros.com order support: " + id);
-        const body = encodeURIComponent(
-          "Hello Support,\n\n" +
-          "I need assistance with order " + id + ".\n\n" +
-          "Status: " + (o.status || "") + "\n" +
-          "Email: " + (o.customerEmail || "") + "\n" +
-          "Topic: " + (o.topic || "") + "\n"
-        );
-        window.location.href = "mailto:support@essayspros.com?subject=" + subj + "&body=" + body;
+        el.addEventListener("change", function () {
+          enforceInputs();
+        });
       });
-    });
-  }
 
-  const tabCurrent = document.getElementById("tabCurrent");
-  const tabAll = document.getElementById("tabAll");
+      enforceInputs();
 
-  tabCurrent.addEventListener("click", function () {
-    tabCurrent.classList.add("active");
-    tabAll.classList.remove("active");
-    render(true);
-  });
+      document.getElementById("checkoutBtn").addEventListener("click", function () {
+        const email = emailEl.value.trim();
+        if (!email) { alert("Please enter your email."); return; }
 
-  tabAll.addEventListener("click", function () {
-    tabAll.classList.add("active");
-    tabCurrent.classList.remove("active");
-    render(false);
-  });
+        localStorage.setItem("essayspros_active_email", email);
 
-  document.getElementById("clearBtn").addEventListener("click", function () {
-    localStorage.removeItem("essayspros_orders");
-    render(tabCurrent.classList.contains("active"));
-  });
+        const { total, currency } = computeTotal();
 
-  render(true);
-})();
-</script>
+        const fileEl = document.getElementById("file");
+        const files = [];
+        if (fileEl.files && fileEl.files.length) {
+          for (let i = 0; i < fileEl.files.length; i++) files.push(fileEl.files[i].name);
+        }
+
+        const order = {
+          id: "EP-" + Math.random().toString(16).slice(2, 8).toUpperCase(),
+          createdAt: new Date().toISOString(),
+          status: "Ongoing",
+          approved: false,
+          revisionRequested: false,
+          customerEmail: email,
+          taskType: taskTypeEl.value,
+          level: document.getElementById("level").value,
+          pages: Number(pagesEl.value || 0),
+          slides: Number(slidesEl.value || 0),
+          hours: Number(hoursEl.value || 0),
+          deadline: document.getElementById("deadline").value || "",
+          topic: document.getElementById("topic").value || "",
+          instructions: document.getElementById("instructions").value || "",
+          uploadedFileNames: files,
+          paymentMethod: "Stripe link",
+          total: total,
+          currency: currency
+        };
+
+        let list = [];
+        try { list = JSON.parse(localStorage.getItem("essayspros_orders") || "[]"); } catch (e) { list = []; }
+        list.unshift(order);
+        localStorage.setItem("essayspros_orders", JSON.stringify(list));
+
+        window.open(STRIPE_LINK, "_blank", "noopener");
+        window.location.href = "orders.html";
+      });
+
+      const fab = document.getElementById("supportFab");
+      const menu = document.getElementById("supportMenu");
+
+      fab.addEventListener("click", function () {
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!menu.contains(e.target) && e.target !== fab && !fab.contains(e.target)) {
+          menu.style.display = "none";
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
