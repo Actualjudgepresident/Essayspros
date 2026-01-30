@@ -1,65 +1,101 @@
-export async function onRequest(context) {
-  const url = new URL(context.request.url);
+import { useEffect, useState } from "react";
 
-  const code = url.searchParams.get("code");
-  const state = url.searchParams.get("state");
+export default function Callback() {
+  const [message, setMessage] = useState("Completing sign in...");
 
-  const cookie = context.request.headers.get("Cookie") || "";
-  const stateMatch = cookie.match(/(?:^|;\s*)oauthstate=([^;]+)/);
-  const storedState = stateMatch ? stateMatch[1] : null;
+  useEffect(() => {
+    const STORAGE_KEY = "essayspros_active_email";
 
-  if (!code) {
-    return new Response("Missing code", { status: 400 });
-  }
-  if (!state || !storedState || state !== storedState) {
-    return new Response("Invalid state", { status: 400 });
-  }
+    function safeReturnPath() {
+      const raw = (localStorage.getItem("returnAfterAuth") || "").trim();
+      if (!raw) return "/orders.html";
+      if (!raw.startsWith("/")) return "/orders.html";
+      if (raw.includes("://")) return "/orders.html";
+      return raw;
+    }
 
-  const clientId = context.env.GOOGLECLIENTID;
-  const clientSecret = context.env.GOOGLECLIENTSECRET;
-  const appUrl = context.env.APPURL || url.origin;
+    function setEmail(email) {
+      const v = String(email || "").trim();
+      if (v) localStorage.setItem(STORAGE_KEY, v);
+      else localStorage.removeItem(STORAGE_KEY);
+    }
 
-  if (!clientId || !clientSecret) {
-    return new Response("Missing Google client settings", { status: 500 });
-  }
+    function extractEmailFromUrl() {
+      const url = new URL(window.location.href);
 
-  const redirectUri = appUrl + "/auth/google/callback";
+      const candidates = [
+        url.searchParams.get("email"),
+        url.searchParams.get("user"),
+        url.searchParams.get("username")
+      ];
 
-  const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      code: code,
-      client_id: clientId,
-      client_secret: clientSecret,
-      redirect_uri: redirectUri,
-      grant_type: "authorization_code"
-    })
-  });
+      const found = candidates.find(Boolean);
+      return (found || "").trim();
+    }
 
-  const tokenJson = await tokenRes.json();
+    async function fetchMeEmail() {
+      const endpoints = [
+        "/auth/me",
+        "/api/auth/me",
+        "/auth/user",
+        "/api/user",
+        "/api/me"
+      ];
 
-  if (!tokenRes.ok) {
-    return new Response(JSON.stringify(tokenJson), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
-  }
+      for (const ep of endpoints) {
+        try {
+          const res = await fetch(ep, { credentials: "include" });
+          if (!res.ok) continue;
 
-  const idToken = tokenJson.id_token || "";
+          const data = await res.json();
 
-  const headers = new Headers();
-  headers.set("Location", "/write.html");
+          const email =
+            String(data?.email || data?.user?.email || data?.profile?.email || "").trim();
 
-  headers.append(
-    "Set-Cookie",
-    `glt=${idToken}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`
+          if (email) return email;
+        } catch {
+          continue;
+        }
+      }
+
+      return "";
+    }
+
+    async function run() {
+      try {
+        setMessage("Finalizing authentication...");
+
+        const fromUrl = extractEmailFromUrl();
+        if (fromUrl) {
+          setEmail(fromUrl);
+          window.location.replace(safeReturnPath());
+          return;
+        }
+
+        const fromApi = await fetchMeEmail();
+        if (fromApi) {
+          setEmail(fromApi);
+          window.location.replace(safeReturnPath());
+          return;
+        }
+
+        setEmail("");
+        localStorage.setItem("auth_error", "Could not determine signed in email.");
+        window.location.replace("/auth/google/login.html");
+      } catch {
+        setEmail("");
+        localStorage.setItem("auth_error", "Callback failed.");
+        window.location.replace("/auth/google/login.html");
+      }
+    }
+
+    run();
+  }, []);
+
+  return (
+    <div style={{ padding: 24, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <h1 style={{ fontSize: 20, margin: 0 }}>Signing in</h1>
+      <p style={{ marginTop: 10 }}>{message}</p>
+    </div>
   );
-
-  headers.append(
-    "Set-Cookie",
-    "oauthstate=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0"
-  );
-
-  return new Response(null, { status: 302, headers });
 }
