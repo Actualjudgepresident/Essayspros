@@ -111,6 +111,19 @@
     }
     .modalActions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
     .full { width: 100%; }
+
+    .statusNote {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -153,6 +166,8 @@
           </span>
           Sign in with Google
         </button>
+
+        <div id="statusNote" class="statusNote"></div>
 
         <div style="height:14px;"></div>
 
@@ -217,7 +232,7 @@
       </div>
 
       <div class="hint">
-        Demonstration only: this stores the email locally. For production, connect to real authentication.
+        Email sign in requires a server side implementation. This interface is not connected to a database.
       </div>
     </div>
   </div>
@@ -232,7 +247,6 @@
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
         <a href="refund.html">Refund</a>
-        
       </div>
     </div>
   </footer>
@@ -243,9 +257,14 @@
     const modal = document.getElementById("modal");
     const openEmail = document.getElementById("emailBtn");
     const closeModal = document.getElementById("closeModal");
+    const statusNote = document.getElementById("statusNote");
 
     function showModal() { modal.style.display = "flex"; }
     function hideModal() { modal.style.display = "none"; }
+    function showStatus(message) {
+      statusNote.textContent = message;
+      statusNote.style.display = "block";
+    }
 
     openEmail.addEventListener("click", showModal);
     closeModal.addEventListener("click", hideModal);
@@ -254,15 +273,16 @@
     });
 
     document.getElementById("googleBtn").addEventListener("click", function () {
-      alert("Google sign-in UI only. Connect OAuth in production.");
+      showStatus("Redirecting to Google sign in...");
+      window.location.href = "/auth/google";
     });
 
     document.getElementById("appleBtn").addEventListener("click", function () {
-      alert("Apple sign-in UI only. Connect OAuth in production.");
+      showStatus("Apple sign in is not configured.");
     });
 
     document.getElementById("fbBtn").addEventListener("click", function () {
-      alert("Facebook sign-in UI only. Connect OAuth in production.");
+      showStatus("Facebook sign in is not configured.");
     });
 
     document.getElementById("emailLoginBtn").addEventListener("click", function () {
@@ -272,9 +292,8 @@
       if (!email) { alert("Please enter your email."); return; }
       if (!pass) { alert("Please enter your password."); return; }
 
-      localStorage.setItem("essayspros_active_email", email);
+      showStatus("Email sign in requires a server side implementation.");
       hideModal();
-      window.location.href = "orders.html";
     });
   </script>
 </body>
