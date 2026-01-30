@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <div style="position:fixed;top:12px;right:12px;z-index:99999;background:#000;color:#fff;padding:8px 12px;border-radius:12px;font-weight:800;">
-  INDEX UPDATED CONFIRMATION
-</div>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>EssaysPros | Home</title>
   <link rel="icon" type="image/png" href="favicon.png" />
-  <meta name="description" content="Hire one of our Professors in your field and get high quality, 100% Human written academic support with transparent pricing." />
+  <meta name="description" content="Hire one of our Professors in your field and get high quality, original academic support with transparent pricing." />
 
   <style>
     :root{
@@ -86,6 +83,39 @@
     nav a.active{
       background:rgba(37,99,235,.10);
       color:var(--accent);
+    }
+
+    .topActions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .btnTopOutline{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.70);
+      font-weight:900;
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    .btnTopPrimary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 16px;
+      border-radius:999px;
+      border:0;
+      background:var(--accent);
+      color:#ffffff;
+      font-weight:900;
+      text-decoration:none;
     }
 
     main{
@@ -200,15 +230,17 @@
       justify-content:flex-end;
     }
 
-    .dot{
+    button.dot{
       width:10px;
       height:10px;
       border-radius:999px;
       background:rgba(15,23,42,.20);
       border:1px solid rgba(15,23,42,.10);
+      padding:0;
+      cursor:pointer;
     }
 
-    .dot.on{
+    button.dot.on{
       background:rgba(37,99,235,.85);
       border-color:rgba(37,99,235,.35);
     }
@@ -220,17 +252,17 @@
       background:#ffffff;
     }
 
-    .slide{
+    .slideImg{
       position:absolute;
       inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
       opacity:0;
       transition: opacity .6s ease;
-      background-size:cover;
-      background-position:center;
-      transform: scale(1.02);
     }
 
-    .slide.on{
+    .slideImg.on{
       opacity:1;
     }
 
@@ -299,17 +331,9 @@
         <a href="contact.html">Contacts</a>
       </nav>
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a href="login.html" style="text-decoration:none;">
-          <span style="display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.70); font-weight:900; color:var(--accent);">
-            Log in
-          </span>
-        </a>
-        <a href="write.html" style="text-decoration:none;">
-          <span style="display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; border:0; background:var(--accent); color:#ffffff; font-weight:900;">
-            Get started
-          </span>
-        </a>
+      <div class="topActions">
+        <a class="btnTopOutline" href="login.html">Log in</a>
+        <a class="btnTopPrimary" href="write.html">Get started</a>
       </div>
     </div>
   </header>
@@ -338,11 +362,18 @@
         </div>
 
         <div class="sliderViewport" id="sliderViewport">
-          <!-- Set these file names to match your images folder -->
-          <div class="slide on" style="background-image:url('images/slide1.jpg');" data-caption="Subject matched experts and verified formatting."></div>
-          <div class="slide" style="background-image:url('images/slide2.jpg');" data-caption="Clear structure, citations, and academic tone."></div>
-          <div class="slide" style="background-image:url('images/slide3.jpg');" data-caption="On time delivery with revision support."></div>
-          <div class="slide" style="background-image:url('images/slide4.jpg');" data-caption="Secure submission and file handling."></div>
+          <img class="slideImg on" src="images/slide1.png"  alt="Academic sample 1" data-caption="Subject matched experts and verified formatting." />
+          <img class="slideImg"    src="images/slide2.png"  alt="Academic sample 2" data-caption="Clear structure and academic tone across disciplines." />
+          <img class="slideImg"    src="images/slide3.png"  alt="Academic sample 3" data-caption="Original research supported by credible sources." />
+          <img class="slideImg"    src="images/slide4.png"  alt="Academic sample 4" data-caption="Accurate citations aligned with academic standards." />
+          <img class="slideImg"    src="images/slide5.png"  alt="Academic sample 5" data-caption="Carefully edited content with coherent flow." />
+          <img class="slideImg"    src="images/slide6.png"  alt="Academic sample 6" data-caption="Professional formatting reviewed by subject experts." />
+          <img class="slideImg"    src="images/slide7.png"  alt="Academic sample 7" data-caption="Clear argumentation and analytical depth." />
+          <img class="slideImg"    src="images/slide8.png"  alt="Academic sample 8" data-caption="Compliance with institutional academic guidelines." />
+          <img class="slideImg"    src="images/slide9.png"  alt="Academic sample 9" data-caption="Consistent structure and academic clarity." />
+          <img class="slideImg"    src="images/slide10.png" alt="Academic sample 10" data-caption="Scholarly writing refined through expert review." />
+          <img class="slideImg"    src="images/slide11.png" alt="Academic sample 11" data-caption="High quality academic work delivered on time." />
+          <img class="slideImg"    src="images/slide12.png" alt="Academic sample 12" data-caption="Revision support supporting academic excellence." />
         </div>
 
         <div class="sliderCaption" id="caption">
@@ -366,7 +397,7 @@
     const yearEl = document.getElementById("year");
     yearEl.textContent = String(new Date().getFullYear());
 
-    const slides = Array.from(document.querySelectorAll(".slide"));
+    const slides = Array.from(document.querySelectorAll(".slideImg"));
     const dotsWrap = document.getElementById("dots");
     const captionEl = document.getElementById("caption");
 
@@ -374,13 +405,13 @@
     let timer = null;
 
     function renderDots() {
+      if (!dotsWrap) return;
       dotsWrap.innerHTML = "";
       slides.forEach((_, i) => {
         const b = document.createElement("button");
         b.type = "button";
         b.className = "dot" + (i === idx ? " on" : "");
         b.setAttribute("aria-label", "Slide " + (i + 1));
-        b.style.cursor = "pointer";
         b.addEventListener("click", () => {
           idx = i;
           showSlide();
@@ -392,7 +423,7 @@
 
     function showSlide() {
       slides.forEach((s, i) => s.classList.toggle("on", i === idx));
-      captionEl.textContent = slides[idx].getAttribute("data-caption") || "";
+      if (captionEl) captionEl.textContent = slides[idx].dataset.caption || "";
       renderDots();
     }
 
