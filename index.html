@@ -1,421 +1,410 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EssaysPros.com | Academic Writing Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EssaysPros | Home</title>
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="Academic writing support with transparent pricing, secure checkout, and fast delivery." />
+  <meta name="description" content="Hire one of our Professors in your field and get high quality, 100% Human written academic support with transparent pricing." />
 
   <style>
     :root{
-      --blue-900:#0b1b46;
-      --blue-800:#0f2a66;
-      --blue-700:#1e3a8a;
-      --blue-600:#2563eb;
-      --blue-500:#4f6ef7;
-      --blue-100:#eaf2ff;
       --ink:#0f172a;
       --muted:#475569;
-      --line:#dbeafe;
+      --line:#e2e8f0;
+      --bg1:#f4f7ff;
+      --bg2:#eef2ff;
       --card:#ffffff;
+      --brand:#0b1b46;
+      --accent:#2563eb;
+      --cta:#f59e0b;
+      --shadow:0 16px 40px rgba(15,23,42,.10);
+      --radius:22px;
     }
 
-    body{ background:var(--blue-100); color:var(--ink); }
+    *{ box-sizing:border-box; }
 
-    .heroWrap{
-      padding: 34px 0 22px;
-      background:
-        radial-gradient(900px 420px at 20% 0%, rgba(79,110,247,.20), transparent 60%),
-        radial-gradient(900px 420px at 90% 10%, rgba(37,99,235,.18), transparent 55%),
-        linear-gradient(180deg, #ffffff, var(--blue-100));
-      border-bottom: 1px solid var(--line);
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background: radial-gradient(900px 700px at 10% 10%, #ffffff 0%, var(--bg1) 45%, var(--bg2) 100%);
+      min-height:100vh;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 18px;
+    }
+
+    header{
+      background:rgba(255,255,255,.80);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+
+    .headerRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      padding:14px 0;
+    }
+
+    .brand{
+      font-weight:900;
+      font-size:24px;
+      letter-spacing:-0.02em;
+      color:var(--brand);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      text-decoration:none;
+      font-weight:800;
+      color:var(--ink);
+      padding:10px 14px;
+      border-radius:999px;
+    }
+
+    nav a.active{
+      background:rgba(37,99,235,.10);
+      color:var(--accent);
+    }
+
+    main{
+      padding:34px 0 54px;
     }
 
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 18px;
-      align-items: stretch;
+      grid-template-columns: 1.1fr .9fr;
+      gap:26px;
+      align-items:stretch;
     }
 
-    .heroCard{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 16px 40px rgba(15,23,42,.08);
+    .heroLeft{
+      padding:12px 2px;
     }
 
     .heroTitle{
-      margin: 0;
-      font-weight: 900;
-      font-size: 42px;
-      line-height: 1.05;
-      color: var(--blue-900);
-      letter-spacing: -0.02em;
+      margin:0 0 14px;
+      font-size:70px;
+      line-height:1.02;
+      letter-spacing:-0.03em;
+      font-weight:900;
+      color:#3f3f52;
     }
 
     .heroSub{
-      margin: 12px 0 0;
-      font-size: 16px;
-      line-height: 1.65;
-      color: var(--muted);
-      max-width: 60ch;
+      margin:0;
+      max-width:760px;
+      font-size:22px;
+      line-height:1.65;
+      color:var(--muted);
+      font-weight:650;
+    }
+
+    .heroSub strong{
+      color:var(--accent);
+      font-weight:900;
     }
 
     .ctaRow{
+      margin-top:28px;
       display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
-      align-items: center;
+      gap:14px;
+      flex-wrap:wrap;
+      align-items:center;
     }
 
-    .pillRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
-    .pill{
+    .ctaBtn{
+      border:0;
+      cursor:pointer;
+      border-radius:16px;
+      padding:18px 26px;
+      font-weight:900;
+      font-size:18px;
+      background:linear-gradient(180deg, #f59e0b, #f97316);
+      color:#ffffff;
+      box-shadow:0 14px 34px rgba(15,23,42,.12);
+      text-decoration:none;
       display:inline-flex;
       align-items:center;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: #f7fbff;
-      color: var(--blue-700);
-      font-weight: 900;
-      font-size: 12px;
-      white-space: nowrap;
+      justify-content:center;
+      min-width:260px;
     }
 
-    .sideCard{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: 0 16px 40px rgba(15,23,42,.08);
-      display:flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .sideTitle{ margin: 0; font-weight: 900; color: var(--blue-900); font-size: 16px; }
-    .stepList{ margin: 8px 0 0; padding: 0; list-style: none; }
-    .stepList li{
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      padding: 10px 0;
-      border-top: 1px solid var(--line);
-    }
-    .stepList li:first-child{ border-top: 0; }
-    .stepNum{
-      width: 28px; height: 28px;
-      border-radius: 999px;
-      background: rgba(79,110,247,.14);
-      border: 1px solid rgba(79,110,247,.30);
-      color: var(--blue-700);
-      display:flex;
+    .ghostBtn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.70);
+      padding:16px 22px;
+      border-radius:16px;
+      font-weight:900;
+      color:var(--ink);
+      text-decoration:none;
+      display:inline-flex;
       align-items:center;
       justify-content:center;
-      font-weight: 900;
-      flex: 0 0 auto;
     }
-    .stepTxt{ color: var(--muted); font-size: 14px; line-height: 1.5; }
-    .stepTxt strong{ color: var(--ink); font-weight: 900; }
 
-    .sectionPad{ padding: 22px 0 38px; }
-    .cards3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-    .card{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 12px 30px rgba(37,99,235,.06);
+    .sliderCard{
+      background:rgba(255,255,255,.75);
+      border:1px solid rgba(226,232,240,.90);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:420px;
     }
-    .card h3{ margin: 0; color: var(--blue-900); font-weight: 900; font-size: 16px; }
-    .card p{ margin: 8px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
 
-    .pricingGrid{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
-    .priceRow{ display:flex; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding: 10px 0; }
-    .priceRow:first-child{ border-top: 0; }
-    .priceK{ font-weight: 900; color: var(--ink); }
-    .priceV{ font-weight: 900; color: var(--blue-700); }
+    .sliderTop{
+      padding:16px 16px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px solid rgba(226,232,240,.90);
+      background:rgba(255,255,255,.70);
+    }
 
-    .contactBar{
-      background: #ffffff;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 14px 0;
+    .sliderTitle{
+      margin:0;
+      font-weight:900;
+      color:var(--brand);
+      font-size:16px;
+      letter-spacing:.02em;
     }
-    .contactRow{ display:flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items:center; }
-    .contactLinks{ display:flex; gap: 14px; flex-wrap: wrap; }
-    .contactLinks a{ font-weight: 900; color: var(--blue-700); }
 
-    /* Support floating icon */
-    .supportFab {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--blue-500);
-      border: 2px solid rgba(255,255,255,.9);
-      box-shadow: 0 14px 34px rgba(15,23,42,.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 1000;
+    .dots{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:flex-end;
     }
-    .supportFab svg { width: 30px; height: 30px; fill: #fff; }
 
-    .supportMenu {
-      position: fixed;
-      right: 18px;
-      bottom: 92px;
-      width: 260px;
-      background: #ffffff;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      box-shadow: 0 14px 34px rgba(15,23,42,.18);
-      padding: 12px;
-      display: none;
-      z-index: 1000;
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background:rgba(15,23,42,.20);
+      border:1px solid rgba(15,23,42,.10);
     }
-    .supportMenu h4 { margin: 0 0 8px; color: var(--ink); font-weight: 900; font-size: 14px; }
-    .supportMenu a {
-      display: block;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: #f3f8ff;
-      color: var(--blue-700);
-      font-weight: 900;
-      text-decoration: none;
-      margin-top: 8px;
+
+    .dot.on{
+      background:rgba(37,99,235,.85);
+      border-color:rgba(37,99,235,.35);
     }
-    .supportMenu .muted { margin-top: 10px; }
+
+    .sliderViewport{
+      position:relative;
+      flex:1;
+      min-height:360px;
+      background:#ffffff;
+    }
+
+    .slide{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transition: opacity .6s ease;
+      background-size:cover;
+      background-position:center;
+      transform: scale(1.02);
+    }
+
+    .slide.on{
+      opacity:1;
+    }
+
+    .sliderCaption{
+      padding:14px 16px 16px;
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.5;
+      background:rgba(255,255,255,.70);
+      border-top:1px solid rgba(226,232,240,.90);
+    }
+
+    footer{
+      margin-top:10px;
+      border-top:1px solid var(--line);
+      background:rgba(255,255,255,.70);
+      padding:18px 0;
+    }
+
+    .footerRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-weight:800;
+    }
+
+    .footerLinks{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .footerLinks a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:900;
+    }
 
     @media (max-width: 980px){
-      .heroGrid{ grid-template-columns: 1fr; }
-      .heroTitle{ font-size: 34px; }
-      .cards3{ grid-template-columns: 1fr; }
-      .pricingGrid{ grid-template-columns: 1fr; }
+      .heroGrid{ grid-template-columns:1fr; }
+      .heroTitle{ font-size:52px; }
+      .sliderCard{ min-height:360px; }
+    }
+
+    @media (max-width: 560px){
+      .heroTitle{ font-size:40px; }
+      .heroSub{ font-size:18px; }
+      .ctaBtn{ min-width:100%; }
+      .ghostBtn{ width:100%; justify-content:center; }
     }
   </style>
 </head>
 
 <body>
-  <header class="siteHeader">
+  <header>
     <div class="container headerRow">
       <a class="brand" href="index.html">EssaysPros</a>
 
-      <nav class="nav">
+      <nav aria-label="Primary">
         <a class="active" href="index.html">Home</a>
         <a href="orders.html">Orders</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
         <a href="refund.html">Refund</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html">Contacts</a>
       </nav>
 
-      <div class="headerActions">
-        <a class="btnOutline" id="loginTop" href="login.html">Log in</a>
-        <button class="btnPrimary" id="getStartedBtn" type="button">Get started</button>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="login.html" style="text-decoration:none;">
+          <span style="display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.70); font-weight:900; color:var(--accent);">
+            Log in
+          </span>
+        </a>
+        <a href="write.html" style="text-decoration:none;">
+          <span style="display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; border:0; background:var(--accent); color:#ffffff; font-weight:900;">
+            Get started
+          </span>
+        </a>
       </div>
     </div>
   </header>
 
-  <section class="heroWrap">
-    <div class="container heroGrid">
-      <div class="heroCard">
-        <h1 class="heroTitle">Academic writing support that meets your deadline</h1>
+  <main class="container">
+    <section class="heroGrid">
+      <div class="heroLeft">
+        <h1 class="heroTitle">From stress to success: essay writing service</h1>
+
         <p class="heroSub">
-          Submit instructions, upload files, and complete checkout. If you are a repeat customer, discounts apply automatically when selected.
+          Hire one of our Professors in your field and get
+          <strong>high quality, original academic work</strong> at
+          <strong>transparent, competitive prices</strong> delivered on time.
         </p>
 
         <div class="ctaRow">
-          <button class="btnPrimary" id="writeBtn" type="button">Write my order</button>
-          <a class="btnOutline" href="orders.html">Track order</a>
-          <a class="btnOutline" href="contact.html">Contact</a>
-        </div>
-
-        <div class="pillRow">
-          <span class="pill">Secure checkout</span>
-          <span class="pill">Clear pricing</span>
-          <span class="pill">Order tracking</span>
-          <span class="pill">Email support</span>
-        </div>
-
-        <div style="margin-top:14px;" class="muted">
-          By continuing you agree to the <a href="terms.html">Terms</a>, <a href="privacy.html">Privacy Policy</a>, and <a href="refund.html">Refund Policy</a>.
+          <a class="ctaBtn" href="write.html">Write my paper</a>
+          <a class="ghostBtn" href="orders.html">Track orders</a>
         </div>
       </div>
 
-      <div class="sideCard">
-        <div>
-          <h2 class="sideTitle">What happens after you get started</h2>
-          <ul class="stepList">
-            <li>
-              <div class="stepNum">1</div>
-              <div class="stepTxt"><strong>Complete the order form</strong> with topic, deadline, and instructions.</div>
-            </li>
-            <li>
-              <div class="stepNum">2</div>
-              <div class="stepTxt"><strong>Upload files</strong> such as rubrics, readings, or templates.</div>
-            </li>
-            <li>
-              <div class="stepNum">3</div>
-              <div class="stepTxt"><strong>Checkout</strong> and receive an order ID for tracking.</div>
-            </li>
-            <li>
-              <div class="stepNum">4</div>
-              <div class="stepTxt"><strong>Request revisions</strong> if needed after delivery.</div>
-            </li>
-          </ul>
+      <aside class="sliderCard" aria-label="Highlights">
+        <div class="sliderTop">
+          <p class="sliderTitle">Recent work and quality signals</p>
+          <div class="dots" id="dots"></div>
         </div>
 
-        <div class="card" style="margin-top:0;">
-          <h3>Logged in status</h3>
-          <p class="muted" style="margin-top:6px;">
-            Active email: <strong><span id="activeEmail">Not set</span></strong>
-          </p>
-          <div class="ctaRow" style="margin-top:10px;">
-            <a class="btnOutline" href="orders.html">My orders</a>
-            <button class="btnOutline" id="logoutBtn" type="button">Log out</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="contactBar">
-    <div class="container contactRow">
-      <div class="muted">Contact emails</div>
-      <div class="contactLinks">
-        <a href="mailto:support@essayspros.com">support@essayspros.com</a>
-        <a href="mailto:orders@essayspros.com">orders@essayspros.com</a>
-        <a href="mailto:billing@essayspros.com">billing@essayspros.com</a>
-      </div>
-    </div>
-  </div>
-
-  <main class="sectionPad">
-    <section class="container">
-      <div class="cards3">
-        <div class="card">
-          <h3>Writing and editing</h3>
-          <p>Essays, reports, literature reviews, and editing aligned with formatting requirements and rubrics.</p>
-        </div>
-        <div class="card">
-          <h3>Slides and presentations</h3>
-          <p>Slides structured with clear points, speaker notes when needed, and timely delivery.</p>
-        </div>
-        <div class="card">
-          <h3>Coding and Excel tasks</h3>
-          <p>Programming support begins at a fixed minimum, and spreadsheet tasks use a clear per task price.</p>
-        </div>
-      </div>
-
-      <div class="pricingGrid">
-        <div class="card">
-          <h3>Standard pricing</h3>
-          <div class="priceRow"><div class="priceK">Paper</div><div class="priceV">$12 per page</div></div>
-          <div class="priceRow"><div class="priceK">Slides</div><div class="priceV">$6 per slide</div></div>
-          <div class="priceRow"><div class="priceK">Excel</div><div class="priceV">$18 per task</div></div>
-          <div class="priceRow"><div class="priceK">Coding</div><div class="priceV">$50 minimum</div></div>
+        <div class="sliderViewport" id="sliderViewport">
+          <!-- Set these file names to match your images folder -->
+          <div class="slide on" style="background-image:url('images/slide1.jpg');" data-caption="Subject matched experts and verified formatting."></div>
+          <div class="slide" style="background-image:url('images/slide2.jpg');" data-caption="Clear structure, citations, and academic tone."></div>
+          <div class="slide" style="background-image:url('images/slide3.jpg');" data-caption="On time delivery with revision support."></div>
+          <div class="slide" style="background-image:url('images/slide4.jpg');" data-caption="Secure submission and file handling."></div>
         </div>
 
-        <div class="card">
-          <h3>Repeat customer discount</h3>
-          <div class="priceRow"><div class="priceK">Paper</div><div class="priceV">$10 per page</div></div>
-          <div class="priceRow"><div class="priceK">Slides</div><div class="priceV">$4 per slide</div></div>
-          <p class="muted" style="margin-top:10px;">
-            The discount is selected during ordering. Coding and Excel tasks remain fixed at their stated minimum or per task pricing.
-          </p>
+        <div class="sliderCaption" id="caption">
+          Subject matched experts and verified formatting.
         </div>
-      </div>
+      </aside>
     </section>
   </main>
 
-  <!-- Support icon and menu -->
-  <button class="supportFab" type="button" id="supportFab" aria-label="Support">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M20 2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3v3a1 1 0 0 0 1.64.77L13.5 20H20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm0 16h-6.9a1 1 0 0 0-.64.23L9 20.9V19a1 1 0 0 0-1-1H4V4h16v14Z"/>
-    </svg>
-  </button>
-
-  <div class="supportMenu" id="supportMenu">
-    <h4>Support</h4>
-    <a id="waLink" href="https://wa.me/254700000000?text=Hello%20EssaysPros%2C%20I%20need%20help%20with%20my%20order." target="_blank" rel="noopener">Chat on WhatsApp</a>
-    <a id="callLink" href="tel:+254700000000">Call now</a>
-    <a href="mailto:support@essayspros.com">Email support</a>
-    <div class="muted" style="margin-top:10px;">Response time depends on message volume.</div>
-  </div>
-
-  <footer class="siteFooter">
+  <footer>
     <div class="container footerRow">
-      <div>
-        <div class="brandSmall">EssaysPros</div>
-        <div class="muted">© <span id="year"></span> EssaysPros.com. All rights reserved.</div>
-        <div class="muted" style="margin-top:6px;">
-          <a href="mailto:support@essayspros.com">support@essayspros.com</a> |
-          <a href="mailto:orders@essayspros.com">orders@essayspros.com</a> |
-          <a href="mailto:billing@essayspros.com">billing@essayspros.com</a>
-        </div>
-      </div>
-
+      <div>© <span id="year"></span> EssaysPros.com</div>
       <div class="footerLinks">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
         <a href="refund.html">Refund</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html">Contacts</a>
       </div>
     </div>
   </footer>
 
   <script>
-    (function () {
-      document.getElementById("year").textContent = String(new Date().getFullYear());
+    const yearEl = document.getElementById("year");
+    yearEl.textContent = String(new Date().getFullYear());
 
-      function activeEmail() {
-        return (localStorage.getItem("essayspros_active_email") || "").trim();
-      }
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const dotsWrap = document.getElementById("dots");
+    const captionEl = document.getElementById("caption");
 
-      function routeToStart() {
-        const email = activeEmail();
-        if (email) window.location.href = "write.html";
-        else window.location.href = "login.html";
-      }
+    let idx = 0;
+    let timer = null;
 
-      const email = activeEmail();
-      document.getElementById("activeEmail").textContent = email ? email : "Not set";
-
-      document.getElementById("getStartedBtn").addEventListener("click", routeToStart);
-      document.getElementById("writeBtn").addEventListener("click", routeToStart);
-
-      document.getElementById("logoutBtn").addEventListener("click", function () {
-        localStorage.removeItem("essayspros_active_email");
-        document.getElementById("activeEmail").textContent = "Not set";
-        window.location.href = "index.html";
+    function renderDots() {
+      dotsWrap.innerHTML = "";
+      slides.forEach((_, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "dot" + (i === idx ? " on" : "");
+        b.setAttribute("aria-label", "Slide " + (i + 1));
+        b.style.cursor = "pointer";
+        b.addEventListener("click", () => {
+          idx = i;
+          showSlide();
+          restart();
+        });
+        dotsWrap.appendChild(b);
       });
+    }
 
-      const fab = document.getElementById("supportFab");
-      const menu = document.getElementById("supportMenu");
+    function showSlide() {
+      slides.forEach((s, i) => s.classList.toggle("on", i === idx));
+      captionEl.textContent = slides[idx].getAttribute("data-caption") || "";
+      renderDots();
+    }
 
-      fab.addEventListener("click", function () {
-        menu.style.display = (menu.style.display === "block") ? "none" : "block";
-      });
+    function next() {
+      idx = (idx + 1) % slides.length;
+      showSlide();
+    }
 
-      document.addEventListener("click", function (e) {
-        if (!menu.contains(e.target) && e.target !== fab && !fab.contains(e.target)) {
-          menu.style.display = "none";
-        }
-      });
-    })();
+    function restart() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(next, 3500);
+    }
+
+    showSlide();
+    restart();
   </script>
 </body>
 </html>
