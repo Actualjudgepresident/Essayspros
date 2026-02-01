@@ -1,11 +1,13 @@
+// pages/auth/google/callback.jsx (or wherever you render the callback page in your site)
+// This is React and stays .jsx, but it should not try to store email.
+// It should only redirect to the correct page after the server sets the cookie.
+
 import { useEffect, useState } from "react";
 
 export default function Callback() {
   const [message, setMessage] = useState("Completing sign in...");
 
   useEffect(() => {
-    const STORAGE_KEY = "essayspros_active_email";
-
     function safeReturnPath() {
       const raw = (localStorage.getItem("returnAfterAuth") || "").trim();
       if (!raw) return "/orders.html";
@@ -14,77 +16,18 @@ export default function Callback() {
       return raw;
     }
 
-    function setEmail(email) {
-      const v = String(email || "").trim();
-      if (v) localStorage.setItem(STORAGE_KEY, v);
-      else localStorage.removeItem(STORAGE_KEY);
-    }
-
-    function extractEmailFromUrl() {
-      const url = new URL(window.location.href);
-
-      const candidates = [
-        url.searchParams.get("email"),
-        url.searchParams.get("user"),
-        url.searchParams.get("username")
-      ];
-
-      const found = candidates.find(Boolean);
-      return (found || "").trim();
-    }
-
-    async function fetchMeEmail() {
-      const endpoints = [
-        "/auth/me",
-        "/api/auth/me",
-        "/auth/user",
-        "/api/user",
-        "/api/me"
-      ];
-
-      for (const ep of endpoints) {
-        try {
-          const res = await fetch(ep, { credentials: "include" });
-          if (!res.ok) continue;
-
-          const data = await res.json();
-
-          const email =
-            String(data?.email || data?.user?.email || data?.profile?.email || "").trim();
-
-          if (email) return email;
-        } catch {
-          continue;
-        }
-      }
-
-      return "";
-    }
-
     async function run() {
       try {
-        setMessage("Finalizing authentication...");
+        setMessage("Verifying session...");
 
-        const fromUrl = extractEmailFromUrl();
-        if (fromUrl) {
-          setEmail(fromUrl);
-          window.location.replace(safeReturnPath());
+        const res = await fetch("/api/me", { credentials: "include" });
+        if (!res.ok) {
+          window.location.replace("/auth/google/login.html");
           return;
         }
 
-        const fromApi = await fetchMeEmail();
-        if (fromApi) {
-          setEmail(fromApi);
-          window.location.replace(safeReturnPath());
-          return;
-        }
-
-        setEmail("");
-        localStorage.setItem("auth_error", "Could not determine signed in email.");
-        window.location.replace("/auth/google/login.html");
+        window.location.replace(safeReturnPath());
       } catch {
-        setEmail("");
-        localStorage.setItem("auth_error", "Callback failed.");
         window.location.replace("/auth/google/login.html");
       }
     }
