@@ -1,3 +1,17 @@
+// functions/api/me.js  (Cloudflare Pages Functions)
+export async function onRequest({ request }) {
+  const cookie = request.headers.get("Cookie") || "";
+  const m = cookie.match(/(?:^|;\s*)ep_session=([^;]+)/);
+  if (!m) {
+    return new Response(JSON.stringify({ error: "unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+    });
+  }
+  return new Response(JSON.stringify({ ok: true }), {
+    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+  });
+}
 export async function onRequest(context) {
   const { request, env } = context;
   const cookies = parseCookies(request.headers.get("Cookie") || "");
