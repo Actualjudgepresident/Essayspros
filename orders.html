@@ -2,195 +2,711 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Orders | EssaysPros.com</title>
-
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="stylesheet" href="/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EssaysPros | My orders</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="description" content="View and manage your orders on EssaysPros.com." />
 
   <style>
-    .pageMain{ padding: 26px 0 46px; }
-    .panel{
+    :root{
+      --blue900:#0b1b46;
+      --blue800:#0f2a66;
+      --blue700:#1e3a8a;
+      --blue600:#2563eb;
+      --blue500:#4f6ef7;
+      --blue100:#eaf2ff;
+
+      --ink:#0f172a;
+      --muted:#475569;
+      --line:#dbeafe;
+      --card:#ffffff;
+
+      --shadow:0 16px 40px rgba(15,23,42,.08);
+      --radius:20px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--blue100);
+      color:var(--ink);
+      min-height:100vh;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:0 auto;
+      padding:0 18px;
+    }
+
+    .siteHeader{
       background:#ffffff;
-      border:1px solid #dbeafe;
-      border-radius:18px;
-      padding:22px;
-      box-shadow:0 10px 30px rgba(37,99,235,0.08);
+      border-bottom:1px solid var(--line);
     }
-    .title{
-      margin:0 0 10px;
-      font-size:40px;
-      font-weight:900;
-      letter-spacing:-0.02em;
-      color:#0b1b46;
-    }
-    .sub{
-      margin:0 0 18px;
-      color:#475569;
-      font-weight:700;
-      line-height:1.5;
-    }
-    .row{
+
+    .headerRow{
       display:flex;
-      gap:12px;
-      flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
-      margin-bottom:18px;
+      padding:14px 0;
+      gap:14px;
+      flex-wrap:wrap;
     }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid #dbeafe;
-      background:#ffffff;
-      color:#475569;
-      font-weight:800;
-      font-size:12px;
+
+    .brand{
+      font-weight:900;
+      font-size:26px;
+      letter-spacing:-0.02em;
+      color:var(--blue900);
+      text-decoration:none;
       white-space:nowrap;
     }
-    .btn{
+
+    .nav{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .nav a{
+      text-decoration:none;
+      font-weight:900;
+      color:var(--ink);
+      padding:8px 14px;
+      border-radius:999px;
+    }
+
+    .nav a.active{
+      background:var(--blue100);
+      color:var(--blue700);
+    }
+
+    .headerActions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btnOutline{
+      border:1px solid var(--line);
+      background:#ffffff;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:900;
+      color:var(--blue700);
+      text-decoration:none;
+      cursor:pointer;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid #dbeafe;
-      background:#ffffff;
-      color:#0f172a;
-      font-weight:800;
-      cursor:pointer;
-      text-decoration:none;
-      user-select:none;
-      gap:8px;
     }
+
     .btnPrimary{
       border:0;
-      background:#2563eb;
-      color:#ffffff;
-    }
-    .btnDanger{
-      border:0;
-      background:#ef4444;
-      color:#ffffff;
-    }
-    .empty{
-      border:1px dashed rgba(15,23,42,.20);
-      border-radius:16px;
-      padding:22px;
-      text-align:center;
-      background:#ffffff;
-    }
-    .empty h2{
-      margin:0 0 10px;
-      font-size:22px;
-      font-weight:900;
-      color:#0f172a;
-    }
-    .empty p{
-      margin:0 0 14px;
-      color:#475569;
-      font-weight:700;
-    }
-    .list{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:14px;
-      margin-top:14px;
-    }
-    .card{
-      border:1px solid #dbeafe;
-      border-radius:16px;
-      padding:16px;
-      background:#ffffff;
-      box-shadow:0 10px 24px rgba(15,23,42,.06);
-    }
-    .cardTop{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
-    .cardTitle{
-      margin:0;
-      font-weight:900;
-      color:#0b1b46;
-      letter-spacing:-0.01em;
-      font-size:18px;
-    }
-    .meta{
-      margin:6px 0 0;
-      color:#475569;
-      font-weight:700;
-      font-size:13px;
-      line-height:1.4;
-    }
-    .badge{
-      border:1px solid #dbeafe;
+      padding:10px 16px;
       border-radius:999px;
-      padding:6px 10px;
+      font-weight:900;
+      color:#ffffff;
+      background:linear-gradient(90deg,var(--blue700),var(--blue500));
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+    }
+
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#ffffff;
+      color:var(--muted);
       font-weight:900;
       font-size:12px;
       white-space:nowrap;
-      background:#ffffff;
-      color:#475569;
     }
-    .badgeOk{ border-color: rgba(22,163,74,.30); color:#16a34a; background: rgba(22,163,74,.08); }
-    .badgeWarn{ border-color: rgba(245,158,11,.35); color:#f59e0b; background: rgba(245,158,11,.10); }
-    .badgeBad{ border-color: rgba(239,68,68,.35); color:#ef4444; background: rgba(239,68,68,.08); }
-    .cardActions{
+
+    .pagePad{
+      padding:22px 0 38px;
+    }
+
+    .topbar{
       display:flex;
-      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .title{
+      font-size:42px;
+      font-weight:900;
+      letter-spacing:-0.02em;
+      margin:0;
+      color:var(--blue900);
+    }
+
+    .tabsRow{
+      display:flex;
+      align-items:flex-end;
+      gap:28px;
+      margin-top:10px;
+    }
+
+    .tabBtn{
+      background:transparent;
+      border:0;
+      cursor:pointer;
+      font-weight:900;
+      font-size:20px;
+      color:var(--muted);
+      padding:12px 0;
+      position:relative;
+    }
+
+    .tabBtn.active{color:var(--blue700)}
+    .tabBtn.active:after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-8px;
+      width:84px;
+      height:2px;
+      background:var(--blue700);
+      border-radius:999px;
+    }
+
+    .tabsLine{
+      height:1px;
+      background:var(--line);
+      margin-top:10px;
+    }
+
+    .controlsRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:18px 0 6px;
       flex-wrap:wrap;
-      margin-top:12px;
     }
-    .note{
-      display:none;
-      margin-top:12px;
+
+    .sortRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-weight:900;
+    }
+
+    select{
+      border:1px solid var(--line);
+      background:#ffffff;
+      border-radius:14px;
       padding:10px 12px;
-      border-radius:12px;
-      border:1px solid #e2e8f0;
-      background:#f8fafc;
-      color:#0f172a;
-      font-weight:700;
-      font-size:13px;
+      font-weight:900;
+      color:var(--ink);
+      outline:none;
+      min-width:220px;
+    }
+
+    .searchBox{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:10px 14px;
+      min-width:320px;
+    }
+
+    .searchBox input{
+      border:0;
+      outline:none;
+      width:100%;
+      font-weight:900;
+      color:var(--ink);
+      background:transparent;
+    }
+
+    .panel{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    .empty{
+      min-height:420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       text-align:center;
+      padding:24px;
     }
-    .adminBox{
-      margin-top:18px;
-      padding-top:18px;
-      border-top:1px solid #dbeafe;
+
+    .emptyInner{max-width:520px}
+
+    .emptyIcon{
+      width:170px;height:170px;
+      margin:0 auto 14px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 40% 35%, rgba(79,110,247,.18), transparent 60%),
+        radial-gradient(circle at 60% 70%, rgba(37,99,235,.14), transparent 62%),
+        #ffffff;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--line);
+    }
+
+    .emptyIcon svg{width:84px;height:84px;fill:#94a3b8}
+
+    .emptyTitle{
+      font-size:36px;
+      margin:0 0 14px;
+      font-weight:900;
+      color:var(--blue800);
+    }
+
+    .ctaRow{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:12px;
+    }
+
+    .ctaBtn{
+      border:0;
+      cursor:pointer;
+      border-radius:16px;
+      padding:14px 18px;
+      font-weight:900;
+      font-size:18px;
+      color:#ffffff;
+      background:linear-gradient(90deg,var(--blue700),var(--blue500));
+      box-shadow:0 14px 34px rgba(15,23,42,.14);
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .ctaBtn .plus{
+      width:42px;height:42px;
+      border-radius:14px;
+      background:rgba(255,255,255,.18);
+      display:grid;
+      place-items:center;
+      font-size:22px;
+      font-weight:900;
+      line-height:1;
+    }
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(15,23,42,.55);
       display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
     }
-    .field{ margin-top:10px; }
-    .field label{
+
+    .modal{
+      width:min(980px,100%);
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:18px 18px 12px;
+      border-bottom:1px solid var(--line);
+      background:#ffffff;
+    }
+
+    .modalTitle{
+      font-size:30px;
+      font-weight:900;
+      letter-spacing:-0.02em;
+      margin:0;
+      color:var(--blue900);
+    }
+
+    .closeBtn{
+      width:46px;height:46px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#ffffff;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      font-size:22px;
+      font-weight:900;
+      color:var(--ink);
+    }
+
+    .modalBody{
+      padding:16px 18px 18px;
+      background:linear-gradient(180deg, #ffffff, var(--blue100));
+    }
+
+    .stepsBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 14px 10px;
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      flex-wrap:wrap;
+    }
+
+    .stepItem{
+      flex:1;
+      min-width:120px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      color:#94a3b8;
+      font-weight:900;
+    }
+
+    .stepDot{
+      width:12px;height:12px;border-radius:50%;
+      background:#cbd5e1;
+    }
+
+    .stepItem.on{color:var(--ink)}
+    .stepItem.on .stepDot{background:var(--blue600)}
+    .stepItem.done{color:var(--muted)}
+    .stepItem.done .stepDot{background:var(--muted)}
+
+    .stage{
+      margin-top:14px;
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+    }
+
+    .stageTitle{
+      margin:0 0 12px;
+      font-size:36px;
+      font-weight:900;
+      letter-spacing:-0.02em;
+      color:var(--blue900);
+    }
+
+    .chipRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .chipBtn{
+      border:1px solid var(--line);
+      cursor:pointer;
+      border-radius:14px;
+      padding:12px 16px;
+      font-weight:900;
+      background:var(--blue100);
+      color:var(--blue700);
+    }
+
+    .chipBtn.active{
+      background:rgba(37,99,235,.12);
+      border-color:rgba(37,99,235,.35);
+      color:var(--blue800);
+    }
+
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      align-items:center;
+      margin-top:12px;
+    }
+
+    .field{
+      min-width:260px;
+      flex:1;
+    }
+
+    .label{
       display:block;
       font-size:13px;
-      color:#475569;
-      margin-bottom:6px;
-      font-weight:700;
+      font-weight:900;
+      color:var(--muted);
+      margin-bottom:8px;
     }
-    .field input{
+
+    .input, .select{
       width:100%;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid #dbeafe;
+      border:1px solid var(--line);
+      background:#f7fbff;
+      border-radius:14px;
+      padding:14px 14px;
+      font-weight:900;
+      font-size:16px;
       outline:none;
-      font-size:15px;
+      color:var(--ink);
+    }
+
+    .input:focus, .select:focus{
+      border-color:rgba(37,99,235,.45);
+      box-shadow:0 0 0 3px rgba(37,99,235,.10);
       background:#ffffff;
-      color:#0f172a;
     }
-    .adminList{
+
+    .twoCol{
       display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-      margin-top:12px;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
     }
+
+    .sizeToggle{
+      display:flex;
+      align-items:center;
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:6px;
+      gap:6px;
+      width:260px;
+    }
+
+    .sizeToggle button{
+      flex:1;
+      border:0;
+      cursor:pointer;
+      border-radius:14px;
+      padding:10px 12px;
+      font-weight:900;
+      background:transparent;
+      color:var(--muted);
+    }
+
+    .sizeToggle button.active{
+      background:var(--ink);
+      color:#ffffff;
+    }
+
+    .counter{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border:1px solid var(--line);
+      background:#f7fbff;
+      border-radius:16px;
+      padding:12px 14px;
+      width:320px;
+    }
+
+    .counter button{
+      width:42px;height:42px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#ffffff;
+      cursor:pointer;
+      font-weight:900;
+      font-size:20px;
+      color:var(--ink);
+    }
+
+    .counter .val{
+      font-weight:900;
+      font-size:20px;
+      color:var(--ink);
+      min-width:36px;
+      text-align:center;
+    }
+
+    .hint{
+      color:var(--muted);
+      font-weight:900;
+      margin-top:8px;
+    }
+
+    textarea{
+      width:100%;
+      min-height:160px;
+      border-radius:14px;
+      border:1px solid rgba(37,99,235,.45);
+      outline:none;
+      padding:14px;
+      font-weight:900;
+      font-size:16px;
+      background:#ffffff;
+      color:var(--ink);
+    }
+
+    .uploadBox{
+      margin-top:12px;
+      border-radius:14px;
+      border:2px dashed rgba(15,23,42,.20);
+      background:#ffffff;
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      cursor:pointer;
+    }
+
+    .uploadBox .left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:var(--ink);
+      font-weight:900;
+    }
+
+    .uploadBox .right{
+      color:var(--muted);
+      font-weight:900;
+    }
+
+    .fileInput{display:none}
+
+    .footerBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+
+    .nextBtn{
+      border:0;
+      cursor:pointer;
+      border-radius:16px;
+      padding:14px 18px;
+      font-weight:900;
+      font-size:18px;
+      background:linear-gradient(90deg,var(--blue700),var(--blue500));
+      color:#ffffff;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .nextBtn:disabled{
+      cursor:not-allowed;
+      filter:grayscale(1);
+      opacity:.45;
+    }
+
+    .nextBtn .arrow{
+      width:44px;height:44px;
+      border-radius:14px;
+      background:rgba(255,255,255,.18);
+      display:grid;
+      place-items:center;
+      font-size:20px;
+      font-weight:900;
+    }
+
+    .backBtn{
+      border:1px solid var(--line);
+      background:#ffffff;
+      cursor:pointer;
+      border-radius:16px;
+      padding:14px 16px;
+      font-weight:900;
+      color:var(--ink);
+    }
+
+    .payCard{
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      display:grid;
+      gap:10px;
+    }
+
+    .payRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-weight:900;
+      color:var(--ink);
+    }
+
+    .payRow .muted{color:var(--muted)}
+
+    .stripeBtn{
+      border:0;
+      cursor:pointer;
+      border-radius:16px;
+      padding:14px 16px;
+      font-weight:900;
+      font-size:18px;
+      background:#635bff;
+      color:#ffffff;
+    }
+
+    .stripeBtn:hover{filter:brightness(1.03)}
+
+    .siteFooter{
+      border-top:1px solid var(--line);
+      background:#ffffff;
+    }
+
+    .footerRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      padding:18px 0;
+      flex-wrap:wrap;
+    }
+
+    .brandSmall{
+      font-weight:900;
+      color:var(--blue900);
+    }
+
+    .mutedText{color:var(--muted);font-weight:700}
+
+    .footerLinks{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .footerLinks a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:900;
+    }
+
     @media (max-width:900px){
-      .title{ font-size:32px; }
-      .list{ grid-template-columns: 1fr; }
+      .title{font-size:34px}
+      .modalTitle{font-size:24px}
+      .stageTitle{font-size:30px}
+      .searchBox{min-width:220px}
+      .twoCol{grid-template-columns:1fr}
+      .stepItem{min-width:140px}
     }
   </style>
 </head>
@@ -198,87 +714,288 @@
 <body>
   <header class="siteHeader">
     <div class="container headerRow">
-      <a class="brand" href="/index.html">EssaysPros</a>
-      <nav class="nav">
-        <a href="/index.html">Home</a>
-        <a class="active" href="/orders.html">Orders</a>
-        <a href="/refund.html">Refund</a>
-        <a href="/contact.html">Contacts</a>
+      <a class="brand" href="index.html">EssaysPros</a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a class="active" href="orders.html">Orders</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refund.html">Refund</a>
+        <a href="contact.html">Contact</a>
       </nav>
+
       <div class="headerActions">
-        <a class="btnOutline" id="headerLogin" href="/auth/google/login.html">Log in</a>
-        <a class="btnPrimary" id="headerSignup" href="/signup.html">Sign up</a>
+        <div class="pill" id="authPill">Signed out</div>
+        <a class="btnOutline" id="loginBtn" href="login.html">Log in</a>
+        <a class="btnOutline" id="signupBtn" href="signup.html">Sign up</a>
+        <button class="btnPrimary" type="button" id="newOrderTopBtn">New order</button>
+        <button class="btnOutline" type="button" id="logoutBtn" style="display:none">Log out</button>
       </div>
     </div>
   </header>
 
-  <main class="pageMain">
-    <section class="container">
-      <div class="panel">
-        <div class="row">
-          <div>
-            <h1 class="title">Orders</h1>
-            <p class="sub" id="subText">Review your orders or start a new one.</p>
+  <main class="container pagePad">
+    <div class="topbar">
+      <h1 class="title">My orders</h1>
+    </div>
+
+    <div class="tabsRow" role="tablist" aria-label="Orders">
+      <button class="tabBtn active" type="button" dataTab="active">Active</button>
+      <button class="tabBtn" type="button" dataTab="drafts">Drafts</button>
+      <button class="tabBtn" type="button" dataTab="closed">Closed</button>
+    </div>
+    <div class="tabsLine"></div>
+
+    <div class="controlsRow">
+      <div class="sortRow">
+        <span>Sort by</span>
+        <select id="sortSelect">
+          <option value="deadlineLatest">Deadline, latest</option>
+          <option value="deadlineSoonest">Deadline, soonest</option>
+          <option value="createdLatest">Created, latest</option>
+          <option value="createdOldest">Created, oldest</option>
+        </select>
+      </div>
+
+      <div class="searchBox">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="#475569" stroke-width="2"/>
+          <path d="M16.5 16.5 21 21" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="searchInput" type="text" placeholder="Search" />
+      </div>
+    </div>
+
+    <div class="panel" id="ordersPanel">
+      <div class="empty" id="emptyState">
+        <div class="emptyInner">
+          <div class="emptyIcon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M6 2h9l3 3v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm8 1.5V6h2.5L14 3.5Z"/>
+              <path d="M7 10h10v1.8H7V10Zm0 4h10v1.8H7V14Z"/>
+            </svg>
           </div>
-
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-            <span class="pill" id="authPill">Checking</span>
-            <button class="btn btnPrimary" type="button" id="newOrderBtn">New order</button>
-            <button class="btn" type="button" id="refreshBtn">Refresh</button>
-            <button class="btn" type="button" id="adminToggleBtn">Admin</button>
-            <button class="btn btnDanger" type="button" id="logoutBtn" style="display:none;">Log out</button>
+          <h2 class="emptyTitle" id="emptyTitle">You have no active orders</h2>
+          <div class="ctaRow">
+            <button class="ctaBtn" type="button" id="newOrderBtn">
+              New order
+              <span class="plus">+</span>
+            </button>
           </div>
-        </div>
-
-        <div class="note" id="note"></div>
-
-        <div class="empty" id="signedOutBox" style="display:none;">
-          <h2>Sign in required</h2>
-          <p>To view your orders and place a new order, please sign in.</p>
-          <a class="btn btnPrimary" id="goLoginBtn" href="/auth/google/login.html">Log in</a>
-        </div>
-
-        <div class="empty" id="emptyBox" style="display:none;">
-          <h2>No orders yet</h2>
-          <p>Start by creating your first order.</p>
-          <button class="btn btnPrimary" type="button" id="newOrderBtn2">New order</button>
-        </div>
-
-        <div id="ordersWrap" style="display:none;">
-          <div class="list" id="ordersList"></div>
-        </div>
-
-        <div class="adminBox" id="adminBox">
-          <h2 style="margin:0 0 10px; font-size:18px; font-weight:900; color:#0b1b46;">Admin panel</h2>
-          <p class="sub" style="margin-bottom:10px;">
-            View all customer orders and upload solutions.
-          </p>
-
-          <div class="field">
-            <label for="adminKey">Admin key</label>
-            <input id="adminKey" placeholder="Enter admin key" />
-          </div>
-
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-            <button class="btn btnPrimary" type="button" id="adminLoadBtn">Load orders</button>
-          </div>
-
-          <div class="adminList" id="adminList"></div>
         </div>
       </div>
-    </section>
+
+      <div id="listState" style="display:none"></div>
+    </div>
   </main>
+
+  <div class="overlay" id="orderOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="New order">
+      <div class="modalTop">
+        <h2 class="modalTitle">New order</h2>
+        <button class="closeBtn" id="closeOrder" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="modalBody">
+        <div class="stepsBar" id="stepsBar">
+          <div class="stepItem on" dataStep="1"><span class="stepDot"></span><span>Service</span></div>
+          <div class="stepItem" dataStep="2"><span class="stepDot"></span><span>Details</span></div>
+          <div class="stepItem" dataStep="3"><span class="stepDot"></span><span>Academic</span></div>
+          <div class="stepItem" dataStep="4"><span class="stepDot"></span><span>Size</span></div>
+          <div class="stepItem" dataStep="5"><span class="stepDot"></span><span>Deadline</span></div>
+          <div class="stepItem" dataStep="6"><span class="stepDot"></span><span>Instructions</span></div>
+          <div class="stepItem" dataStep="7"><span class="stepDot"></span><span>Payment</span></div>
+        </div>
+
+        <div class="stage" dataStage="1">
+          <h3 class="stageTitle">Service</h3>
+          <div class="chipRow" id="serviceRow">
+            <button class="chipBtn" type="button" dataValue="writing">Writing</button>
+            <button class="chipBtn" type="button" dataValue="rewriting">Rewriting</button>
+            <button class="chipBtn" type="button" dataValue="editing">Editing</button>
+            <button class="chipBtn" type="button" dataValue="proofreading">Proofreading</button>
+            <button class="chipBtn" type="button" dataValue="problemSolving">Problem solving</button>
+            <button class="chipBtn" type="button" dataValue="calculations">Calculations</button>
+            <button class="chipBtn" type="button" dataValue="reviewWork">Review my work</button>
+          </div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="cancelOrder1">Cancel</button>
+            <button class="nextBtn" type="button" id="next1" disabled>
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="stage" dataStage="2" style="display:none">
+          <h3 class="stageTitle">Assignment type</h3>
+
+          <div class="row">
+            <div class="field">
+              <label class="label" for="assignmentType">Select assignment</label>
+              <select class="select" id="assignmentType">
+                <option value="">Select assignment</option>
+                <option value="essay">Essay</option>
+                <option value="discussionPost">Discussion post</option>
+                <option value="researchPaper">Research paper</option>
+                <option value="coursework">Coursework</option>
+                <option value="caseStudy">Case study</option>
+                <option value="presentation">Presentation</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label class="label" for="subject">Subject</label>
+              <input class="input" id="subject" type="text" placeholder="Select or enter subject" />
+            </div>
+          </div>
+
+          <div class="hint">Subject is required for order creation.</div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back2">Back</button>
+            <button class="nextBtn" type="button" id="next2" disabled>
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="stage" dataStage="3" style="display:none">
+          <h3 class="stageTitle">Academic level</h3>
+
+          <div class="chipRow" id="levelRow">
+            <button class="chipBtn" type="button" dataValue="highSchool">High school</button>
+            <button class="chipBtn" type="button" dataValue="college">College</button>
+            <button class="chipBtn" type="button" dataValue="university">University</button>
+            <button class="chipBtn" type="button" dataValue="masters">Masters</button>
+            <button class="chipBtn" type="button" dataValue="phd">PhD</button>
+          </div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back3">Back</button>
+            <button class="nextBtn" type="button" id="next3" disabled>
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="stage" dataStage="4" style="display:none">
+          <h3 class="stageTitle">Size</h3>
+
+          <div class="row">
+            <div class="field">
+              <label class="label">Pages</label>
+              <div class="counter">
+                <button type="button" id="pagesMinus">−</button>
+                <div class="val" id="pagesVal">1</div>
+                <button type="button" id="pagesPlus">+</button>
+              </div>
+              <div class="hint">One page approximates 275 words.</div>
+            </div>
+
+            <div class="field">
+              <label class="label">Spacing</label>
+              <div class="sizeToggle" id="spacingToggle">
+                <button type="button" dataValue="double" class="active">Double</button>
+                <button type="button" dataValue="single">Single</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back4">Back</button>
+            <button class="nextBtn" type="button" id="next4">
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="stage" dataStage="5" style="display:none">
+          <h3 class="stageTitle">Deadline</h3>
+
+          <div class="twoCol">
+            <div class="field">
+              <label class="label" for="deadlineDate">Date</label>
+              <input class="input" id="deadlineDate" type="date" />
+            </div>
+            <div class="field">
+              <label class="label" for="deadlineTime">Time</label>
+              <input class="input" id="deadlineTime" type="time" />
+            </div>
+          </div>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back5">Back</button>
+            <button class="nextBtn" type="button" id="next5" disabled>
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="stage" dataStage="6" style="display:none">
+          <h3 class="stageTitle">Instructions</h3>
+
+          <label class="label" for="instructions">Order instructions</label>
+          <textarea id="instructions" placeholder="Provide precise requirements, sources, formatting, and any constraints."></textarea>
+
+          <label class="label" style="margin-top:12px;">Files</label>
+          <label class="uploadBox" for="fileUpload">
+            <span class="left">
+              <span aria-hidden="true">📎</span>
+              <span>Attach files</span>
+            </span>
+            <span class="right">Click to upload</span>
+            <input class="fileInput" id="fileUpload" type="file" multiple />
+          </label>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back6">Back</button>
+            <button class="nextBtn" type="button" id="next6">
+              Next <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="stage" dataStage="7" style="display:none">
+          <h3 class="stageTitle">Payment</h3>
+
+          <div class="payCard">
+            <div class="payRow"><span class="muted">Service</span><span id="sumService">Not selected</span></div>
+            <div class="payRow"><span class="muted">Type</span><span id="sumType">Not selected</span></div>
+            <div class="payRow"><span class="muted">Subject</span><span id="sumSubject">Not provided</span></div>
+            <div class="payRow"><span class="muted">Academic</span><span id="sumLevel">Not selected</span></div>
+            <div class="payRow"><span class="muted">Pages</span><span id="sumPages">1</span></div>
+            <div class="payRow"><span class="muted">Spacing</span><span id="sumSpacing">Double</span></div>
+            <div class="payRow"><span class="muted">Deadline</span><span id="sumDeadline">Not set</span></div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <button class="stripeBtn" type="button" id="payNowBtn">Proceed to payment</button>
+
+          <div class="footerBar">
+            <button class="backBtn" type="button" id="back7">Back</button>
+            <button class="backBtn" type="button" id="finishBtn">Finish</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <footer class="siteFooter">
     <div class="container footerRow">
       <div>
         <div class="brandSmall">EssaysPros</div>
-        <div class="muted">© <span id="year"></span> EssaysPros.com. All rights reserved.</div>
+        <div class="mutedText">© <span id="year"></span> EssaysPros.com. All rights reserved.</div>
       </div>
       <div class="footerLinks">
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/refund.html">Refund</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refund.html">Refund</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </footer>
@@ -286,365 +1003,240 @@
   <script>
     document.getElementById("year").textContent = String(new Date().getFullYear());
 
-    const authPill = document.getElementById("authPill");
-    const subText = document.getElementById("subText");
-    const note = document.getElementById("note");
+    const overlay = document.getElementById("orderOverlay");
+    const openButtons = [document.getElementById("newOrderBtn"), document.getElementById("newOrderTopBtn")].filter(Boolean);
+    const closeButton = document.getElementById("closeOrder");
+    const cancelButton = document.getElementById("cancelOrder1");
 
-    const signedOutBox = document.getElementById("signedOutBox");
-    const emptyBox = document.getElementById("emptyBox");
-    const ordersWrap = document.getElementById("ordersWrap");
-    const ordersList = document.getElementById("ordersList");
-
-    const newOrderBtn = document.getElementById("newOrderBtn");
-    const newOrderBtn2 = document.getElementById("newOrderBtn2");
-    const refreshBtn = document.getElementById("refreshBtn");
-
-    const headerLogin = document.getElementById("headerLogin");
-    const headerSignup = document.getElementById("headerSignup");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const goLoginBtn = document.getElementById("goLoginBtn");
-
-    const adminToggleBtn = document.getElementById("adminToggleBtn");
-    const adminBox = document.getElementById("adminBox");
-    const adminKey = document.getElementById("adminKey");
-    const adminLoadBtn = document.getElementById("adminLoadBtn");
-    const adminList = document.getElementById("adminList");
-
-    let signedIn = false;
-    let me = null;
-
-    function showNote(message){
-      note.textContent = message || "";
-      note.style.display = message ? "block" : "none";
+    function openModal(){
+      overlay.style.display = "flex";
+      overlay.setAttribute("aria-hidden","false");
+      showStage(1);
+      syncSummary();
     }
 
-    function returnAfterAuth(path){
-      localStorage.setItem("returnAfterAuth", path);
+    function closeModal(){
+      overlay.style.display = "none";
+      overlay.setAttribute("aria-hidden","true");
     }
 
-    function gotoLogin(afterPath){
-      returnAfterAuth(afterPath || "/orders.html");
-      window.location.href = "/auth/google/login.html";
-    }
+    openButtons.forEach(btn => btn.addEventListener("click", openModal));
+    closeButton.addEventListener("click", closeModal);
+    cancelButton.addEventListener("click", closeModal);
 
-    function setSignedOutUI(){
-      signedIn = false;
-      me = null;
-
-      authPill.textContent = "Signed out";
-      subText.textContent = "To view orders and place a new order, please sign in.";
-
-      headerLogin.style.display = "inline-flex";
-      headerSignup.style.display = "inline-flex";
-      logoutBtn.style.display = "none";
-
-      signedOutBox.style.display = "block";
-      emptyBox.style.display = "none";
-      ordersWrap.style.display = "none";
-      ordersList.innerHTML = "";
-    }
-
-    function setSignedInUI(){
-      signedIn = true;
-
-      authPill.textContent = "Signed in";
-      subText.textContent = "Review your orders or start a new one.";
-
-      headerLogin.style.display = "none";
-      headerSignup.style.display = "none";
-      logoutBtn.style.display = "inline-flex";
-
-      signedOutBox.style.display = "none";
-    }
-
-    async function detectAuth(){
-      authPill.textContent = "Checking";
-      showNote("");
-
-      try{
-        const r = await fetch("/api/me", { credentials: "include" });
-        const j = await r.json().catch(()=> ({}));
-
-        if(r.ok && j && j.authenticated === true){
-          me = j.user || null;
-          setSignedInUI();
-          return true;
-        }
-
-        setSignedOutUI();
-        return false;
-      }catch(e){
-        setSignedOutUI();
-        return false;
-      }
-    }
-
-    function badgeFor(order){
-      const paid = order && order.paid === true;
-      const status = String((order && order.status) || "").toLowerCase();
-
-      if(paid) return { cls: "badge badgeOk", text: "Paid" };
-      if(status.includes("completed")) return { cls: "badge badgeOk", text: "Completed" };
-      if(status.includes("submitted")) return { cls: "badge badgeWarn", text: "Submitted" };
-      if(status.includes("created")) return { cls: "badge badgeWarn", text: "Created" };
-      if(status.includes("cancel")) return { cls: "badge badgeBad", text: "Canceled" };
-      return { cls: "badge", text: order && order.status ? String(order.status) : "Pending" };
-    }
-
-    function safeText(v){
-      return (v === null || v === undefined) ? "" : String(v);
-    }
-
-    function formatDate(iso){
-      try{
-        const d = new Date(iso);
-        if(Number.isNaN(d.getTime())) return safeText(iso);
-        return d.toLocaleString();
-      }catch(e){
-        return safeText(iso);
-      }
-    }
-
-    async function loadOrdersFromServer(){
-      const r = await fetch("/api/orders", { credentials: "include" });
-      if(!r.ok) return null;
-      const j = await r.json().catch(()=> null);
-      if(Array.isArray(j)) return j;
-      if(j && Array.isArray(j.orders)) return j.orders;
-      return null;
-    }
-
-    function loadOrdersFromLocal(){
-      try{
-        const raw = localStorage.getItem("orders");
-        const data = raw ? JSON.parse(raw) : [];
-        return Array.isArray(data) ? data : [];
-      }catch(e){
-        return [];
-      }
-    }
-
-    function renderOrders(orders){
-      ordersList.innerHTML = "";
-
-      if(!orders || !orders.length){
-        emptyBox.style.display = "block";
-        ordersWrap.style.display = "none";
-        return;
-      }
-
-      emptyBox.style.display = "none";
-      ordersWrap.style.display = "block";
-
-      const reversed = orders.slice().reverse();
-
-      for(const o of reversed){
-        const id = safeText(o.id || o.orderId || "");
-        const createdAt = formatDate(o.createdAt || o.date || "");
-        const subject = safeText(o.subjectShown || ((o.subject === "Other") ? o.subjectOther : o.subject));
-        const assignmentType = safeText(o.assignmentType);
-        const academicLevel = safeText(o.academicLevel);
-        const language = safeText(o.language);
-        const pages = safeText(o.pages);
-        const words = safeText(o.words);
-        const deadline = safeText(o.deadline);
-        const paid = o && o.paid === true;
-
-        const badge = badgeFor(o);
-
-        const lines = [];
-        if(id) lines.push("Order id: " + id);
-        if(createdAt) lines.push("Created: " + createdAt);
-        if(assignmentType) lines.push("Type: " + assignmentType);
-        if(academicLevel) lines.push("Level: " + academicLevel);
-        if(language) lines.push("Language: " + language);
-        if(pages) lines.push("Pages: " + pages);
-        if(words) lines.push("Words: " + words);
-        if(deadline) lines.push("Deadline: " + deadline);
-        if(paid) lines.push("Payment: Paid");
-
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML =
-          '<div class="cardTop">' +
-            '<div>' +
-              '<p class="cardTitle">' + (subject || "Order") + "</p>" +
-              '<p class="meta">' + lines.join("<br>") + "</p>" +
-            "</div>" +
-            '<span class="' + badge.cls + '">' + badge.text + "</span>" +
-          "</div>" +
-          '<div class="cardActions">' +
-            '<button class="btn btnPrimary" type="button">Open</button>' +
-          "</div>";
-
-        const openBtn = card.querySelector("button");
-        openBtn.addEventListener("click", function(){
-          if(id) localStorage.setItem("activeOrderId", id);
-          window.location.href = "/write.html";
-        });
-
-        ordersList.appendChild(card);
-      }
-    }
-
-    async function refresh(){
-      showNote("");
-
-      const ok = await detectAuth();
-      if(!ok) return;
-
-      const serverOrders = await loadOrdersFromServer();
-      if(serverOrders){
-        renderOrders(serverOrders);
-        return;
-      }
-
-      const localOrders = loadOrdersFromLocal();
-      renderOrders(localOrders);
-      showNote("Orders endpoint not found. Showing local orders, if any.");
-    }
-
-    newOrderBtn.addEventListener("click", function(){
-      if(!signedIn){ gotoLogin("/write.html"); return; }
-      window.location.href = "/write.html";
+    overlay.addEventListener("click", (e) => {
+      if(e.target === overlay) closeModal();
     });
 
-    if(newOrderBtn2){
-      newOrderBtn2.addEventListener("click", function(){
-        if(!signedIn){ gotoLogin("/write.html"); return; }
-        window.location.href = "/write.html";
+    const stages = Array.from(document.querySelectorAll(".stage"));
+    const stepItems = Array.from(document.querySelectorAll(".stepItem"));
+
+    let state = {
+      service: "",
+      assignmentType: "",
+      subject: "",
+      level: "",
+      pages: 1,
+      spacing: "double",
+      deadlineDate: "",
+      deadlineTime: "",
+      instructions: ""
+    };
+
+    function showStage(n){
+      stages.forEach(s => {
+        const sN = Number(s.getAttribute("dataStage"));
+        s.style.display = (sN === n) ? "" : "none";
+      });
+
+      stepItems.forEach(item => {
+        const sN = Number(item.getAttribute("dataStep"));
+        item.classList.remove("on","done");
+        if(sN < n) item.classList.add("done");
+        if(sN === n) item.classList.add("on");
+      });
+
+      validateStage(n);
+      syncSummary();
+    }
+
+    function setChipActive(rowEl, value){
+      Array.from(rowEl.querySelectorAll(".chipBtn")).forEach(b => {
+        b.classList.toggle("active", b.getAttribute("dataValue") === value);
       });
     }
 
-    refreshBtn.addEventListener("click", refresh);
+    const serviceRow = document.getElementById("serviceRow");
+    const next1 = document.getElementById("next1");
 
-    logoutBtn.addEventListener("click", function(){
-      showNote("Log out requires a server endpoint. Redirecting to log in.");
-      window.location.href = "/auth/google/login.html";
+    serviceRow.addEventListener("click",(e)=>{
+      const btn = e.target.closest("button");
+      if(!btn) return;
+      state.service = btn.getAttribute("dataValue") || "";
+      setChipActive(serviceRow, state.service);
+      validateStage(1);
+      syncSummary();
     });
 
-    goLoginBtn.addEventListener("click", function(){
-      returnAfterAuth("/orders.html");
+    next1.addEventListener("click", ()=> showStage(2));
+
+    const assignmentType = document.getElementById("assignmentType");
+    const subject = document.getElementById("subject");
+    const back2 = document.getElementById("back2");
+    const next2 = document.getElementById("next2");
+
+    assignmentType.addEventListener("change", ()=>{
+      state.assignmentType = assignmentType.value;
+      validateStage(2);
+      syncSummary();
     });
 
-    adminToggleBtn.addEventListener("click", function(){
-      adminBox.style.display = (adminBox.style.display === "block") ? "none" : "block";
+    subject.addEventListener("input", ()=>{
+      state.subject = subject.value.trim();
+      validateStage(2);
+      syncSummary();
     });
 
-    async function adminLoad(){
-      try{
-        showNote("");
-        adminList.innerHTML = "";
+    back2.addEventListener("click", ()=> showStage(1));
+    next2.addEventListener("click", ()=> showStage(3));
 
-        const key = String(adminKey.value || "").trim();
-        if(!key){
-          showNote("Admin key is required.");
-          return;
-        }
+    const levelRow = document.getElementById("levelRow");
+    const back3 = document.getElementById("back3");
+    const next3 = document.getElementById("next3");
 
-        const r = await fetch("/api/admin/orders", {
-          headers: { "x-admin-key": key },
-          credentials: "include"
-        });
+    levelRow.addEventListener("click",(e)=>{
+      const btn = e.target.closest("button");
+      if(!btn) return;
+      state.level = btn.getAttribute("dataValue") || "";
+      setChipActive(levelRow, state.level);
+      validateStage(3);
+      syncSummary();
+    });
 
-        const j = await r.json().catch(()=> ({}));
-        const data = Array.isArray(j) ? j : (Array.isArray(j.orders) ? j.orders : null);
+    back3.addEventListener("click", ()=> showStage(2));
+    next3.addEventListener("click", ()=> showStage(4));
 
-        if(!r.ok || !data){
-          showNote("Admin orders endpoint not found or access denied.");
-          return;
-        }
+    const pagesVal = document.getElementById("pagesVal");
+    const pagesMinus = document.getElementById("pagesMinus");
+    const pagesPlus = document.getElementById("pagesPlus");
+    const spacingToggle = document.getElementById("spacingToggle");
+    const back4 = document.getElementById("back4");
+    const next4 = document.getElementById("next4");
 
-        data.slice().reverse().forEach(function(o){
-          const id = safeText(o.id || "");
-          const subject = safeText(o.data && o.data.subjectShown ? o.data.subjectShown : (o.subjectShown || ""));
-          const createdAt = safeText(o.createdAt || "");
-          const paid = o && o.paid === true;
+    function renderPages(){
+      pagesVal.textContent = String(state.pages);
+      syncSummary();
+    }
 
-          const item = document.createElement("div");
-          item.style.border = "1px solid #dbeafe";
-          item.style.borderRadius = "14px";
-          item.style.padding = "12px 14px";
-          item.style.background = "#ffffff";
+    pagesMinus.addEventListener("click", ()=>{
+      state.pages = Math.max(1, state.pages - 1);
+      renderPages();
+    });
 
-          const title = document.createElement("div");
-          title.style.fontWeight = "900";
-          title.style.color = "#0b1b46";
-          title.style.marginBottom = "6px";
-          title.textContent = "Order " + (id || "");
+    pagesPlus.addEventListener("click", ()=>{
+      state.pages = Math.min(200, state.pages + 1);
+      renderPages();
+    });
 
-          const meta = document.createElement("div");
-          meta.className = "sub";
-          meta.style.margin = "0 0 10px";
-          meta.style.fontSize = "13px";
-          meta.innerHTML =
-            "Subject: " + (subject || "Not set") + "<br>" +
-            "Created: " + (createdAt || "Not set") + "<br>" +
-            "Payment: " + (paid ? "Paid" : "Not paid");
+    spacingToggle.addEventListener("click",(e)=>{
+      const btn = e.target.closest("button");
+      if(!btn) return;
+      const val = btn.getAttribute("dataValue");
+      if(val !== "double" && val !== "single") return;
+      state.spacing = val;
+      Array.from(spacingToggle.querySelectorAll("button")).forEach(b=>{
+        b.classList.toggle("active", b.getAttribute("dataValue") === state.spacing);
+      });
+      syncSummary();
+    });
 
-          const upLabel = document.createElement("div");
-          upLabel.style.fontWeight = "800";
-          upLabel.style.color = "#475569";
-          upLabel.style.fontSize = "13px";
-          upLabel.style.marginBottom = "6px";
-          upLabel.textContent = "Upload solution files";
+    back4.addEventListener("click", ()=> showStage(3));
+    next4.addEventListener("click", ()=> showStage(5));
 
-          const up = document.createElement("input");
-          up.type = "file";
-          up.multiple = true;
+    const deadlineDate = document.getElementById("deadlineDate");
+    const deadlineTime = document.getElementById("deadlineTime");
+    const back5 = document.getElementById("back5");
+    const next5 = document.getElementById("next5");
 
-          const upBtn = document.createElement("button");
-          upBtn.type = "button";
-          upBtn.className = "btn btnPrimary";
-          upBtn.style.marginTop = "10px";
-          upBtn.textContent = "Upload solution";
+    function updateDeadlineState(){
+      state.deadlineDate = deadlineDate.value;
+      state.deadlineTime = deadlineTime.value;
+      validateStage(5);
+      syncSummary();
+    }
 
-          upBtn.addEventListener("click", async function(){
-            const files = Array.from(up.files || []);
-            if(!files.length){
-              showNote("Select solution files.");
-              return;
-            }
+    deadlineDate.addEventListener("change", updateDeadlineState);
+    deadlineTime.addEventListener("change", updateDeadlineState);
 
-            const form = new FormData();
-            files.forEach(function(f){ form.append("solutionFiles", f); });
+    back5.addEventListener("click", ()=> showStage(4));
+    next5.addEventListener("click", ()=> showStage(6));
 
-            const rr = await fetch("/api/admin/orders/" + encodeURIComponent(id) + "/solution", {
-              method: "POST",
-              headers: { "x-admin-key": key },
-              credentials: "include",
-              body: form
-            });
+    const instructions = document.getElementById("instructions");
+    const back6 = document.getElementById("back6");
+    const next6 = document.getElementById("next6");
 
-            if(!rr.ok){
-              showNote("Solution upload endpoint not found or access denied.");
-              return;
-            }
+    instructions.addEventListener("input", ()=>{
+      state.instructions = instructions.value;
+    });
 
-            showNote("Solution uploaded for order " + id + ".");
-          });
+    back6.addEventListener("click", ()=> showStage(5));
+    next6.addEventListener("click", ()=> showStage(7));
 
-          item.appendChild(title);
-          item.appendChild(meta);
-          item.appendChild(upLabel);
-          item.appendChild(up);
-          item.appendChild(upBtn);
+    const back7 = document.getElementById("back7");
+    const finishBtn = document.getElementById("finishBtn");
+    const payNowBtn = document.getElementById("payNowBtn");
 
-          adminList.appendChild(item);
-        });
+    back7.addEventListener("click", ()=> showStage(6));
 
-        showNote("Admin orders loaded.");
-      }catch(e){
-        showNote("Admin orders could not be loaded.");
+    finishBtn.addEventListener("click", ()=>{
+      closeModal();
+      alert("Order draft saved locally for demonstration purposes.");
+    });
+
+    payNowBtn.addEventListener("click", ()=>{
+      alert("Payment integration should be connected to your payments function.");
+    });
+
+    function validateStage(n){
+      if(n === 1){
+        next1.disabled = !state.service;
+      }
+      if(n === 2){
+        next2.disabled = !(state.assignmentType && state.subject);
+      }
+      if(n === 3){
+        next3.disabled = !state.level;
+      }
+      if(n === 5){
+        next5.disabled = !(state.deadlineDate && state.deadlineTime);
       }
     }
 
-    adminLoadBtn.addEventListener("click", adminLoad);
+    function syncSummary(){
+      document.getElementById("sumService").textContent = state.service || "Not selected";
+      document.getElementById("sumType").textContent = state.assignmentType || "Not selected";
+      document.getElementById("sumSubject").textContent = state.subject || "Not provided";
+      document.getElementById("sumLevel").textContent = state.level || "Not selected";
+      document.getElementById("sumPages").textContent = String(state.pages);
+      document.getElementById("sumSpacing").textContent = state.spacing === "single" ? "Single" : "Double";
 
-    (function init(){
-      returnAfterAuth("/orders.html");
-      refresh();
-    })();
+      const d = state.deadlineDate && state.deadlineTime ? (state.deadlineDate + " " + state.deadlineTime) : "Not set";
+      document.getElementById("sumDeadline").textContent = d;
+    }
+
+    const tabButtons = Array.from(document.querySelectorAll(".tabBtn"));
+    const emptyTitle = document.getElementById("emptyTitle");
+
+    tabButtons.forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        tabButtons.forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        const tab = btn.getAttribute("dataTab");
+        if(tab === "active") emptyTitle.textContent = "You have no active orders";
+        if(tab === "drafts") emptyTitle.textContent = "You have no drafts";
+        if(tab === "closed") emptyTitle.textContent = "You have no closed orders";
+      });
+    });
   </script>
 </body>
 </html>
