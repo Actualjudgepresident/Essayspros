@@ -1,40 +1,34 @@
-// functions/api/me.js  (Cloudflare Pages Functions)
-// Use .js (or .ts). Do not use React here.
-
-export async function onRequest(context) {
-  const { request, env } = context;
-
-  const cookies = parseCookies(request.headers.get("Cookie") || "");
-  const token = cookies.essayspros_session || cookies.ep_session;
-
-  if (!token) return json({ authenticated: false }, 401);
+export async function onRequest({ request, env }) {
+  const token = getCookie(request.headers.get("Cookie") || "", "essayspros_session");
+  if (!token) return json({ authenticated: false }, 200);
 
   const payload = await verifyJwt(token, env.SESSION_SECRET);
-  if (!payload) return json({ authenticated: false }, 401);
+  if (!payload) return json({ authenticated: false }, 200);
 
   return json({ authenticated: true, user: payload }, 200);
 }
 
-function json(obj, status) {
+function json(obj, status = 200) {
   return new Response(JSON.stringify(obj), {
     status,
     headers: {
-      "content-type": "application/json",
-      "cache-control": "no-store"
-    }
+      "content-type": "application/json; charset=utf-8",
+      "cache-control": "no-store",
+    },
   });
 }
 
-function parseCookies(cookieHeader) {
-  const out = {};
-  cookieHeader.split(";").forEach((part) => {
-    const i = part.indexOf("=");
-    if (i === -1) return;
-    const k = part.slice(0, i).trim();
-    const v = part.slice(i + 1).trim();
-    out[k] = decodeURIComponent(v);
-  });
-  return out;
+function getCookie(cookieHeader, name) {
+  const parts = cookieHeader.split(";").map(s => s.trim());
+  for (const p of parts) {
+    if (!p) continue;
+    const i = p.indexOf("=");
+    if (i === -1) continue;
+    const k = p.slice(0, i).trim();
+    const v = p.slice(i + 1).trim();
+    if (k === name) return decodeURIComponent(v);
+  }
+  return "";
 }
 
 async function verifyJwt(token, secret) {
@@ -52,8 +46,7 @@ async function verifyJwt(token, secret) {
     ["verify"]
   );
 
-  const sigBytes = base64UrlDecodeToBytes(sig);
-
+  const sigBytes = base64UrlToBytes(sig);
   const ok = await crypto.subtle.verify(
     "HMAC",
     key,
@@ -63,7 +56,7 @@ async function verifyJwt(token, secret) {
 
   if (!ok) return null;
 
-  const payloadJson = new TextDecoder().decode(base64UrlDecodeToBytes(parts[1]));
+  const payloadJson = new TextDecoder().decode(base64UrlToBytes(parts[1]));
   const payload = JSON.parse(payloadJson);
 
   const now = Math.floor(Date.now() / 1000);
@@ -72,9 +65,10 @@ async function verifyJwt(token, secret) {
   return payload;
 }
 
-function base64UrlDecodeToBytes(s) {
-  const b64 = s.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((s.length + 3) % 4);
-  const bin = atob(b64);
+function base64UrlToBytes(s) {
+  const b64 = s.replace(/-/g, "+").replace(/_/g, "/");
+  const padded = b64 + "===".slice((b64.length + 3) % 4);
+  const bin = atob(padded);
   const bytes = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
   return bytes;
