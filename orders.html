@@ -3,470 +3,418 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EssaysPros | Write my paper</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <title>Orders | EssaysPros.com</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="stylesheet" href="/style.css" />
 
   <style>
-    :root{
-      --bg:#eef4ff;
-      --card:#ffffff;
-      --ink:#0f172a;
-      --muted:#475569;
-      --line:#dbeafe;
-      --brand:#0b1b46;
-      --accent:#2563eb;
-      --shadow:0 16px 40px rgba(15,23,42,.08);
-      --radius:18px;
-      --ok:#16a34a;
-      --bad:#ef4444;
-      --warn:#f59e0b;
-    }
-
-    *{ box-sizing:border-box; }
-
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--ink);
-      background:var(--bg);
-      min-height:100vh;
-    }
-
-    a{ color:inherit; }
-
-    .container{ max-width:1100px; margin:0 auto; padding:0 18px; }
-
-    header{ background:var(--card); border-bottom:1px solid var(--line); }
-
-    .headerRow{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding:14px 0; flex-wrap:wrap;
-    }
-
-    .brand{
-      text-decoration:none; font-weight:900; font-size:24px;
-      color:var(--brand); letter-spacing:-0.02em; white-space:nowrap;
-    }
-
-    nav{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-
-    nav a{
-      text-decoration:none; font-weight:800; color:var(--ink);
-      padding:10px 14px; border-radius:999px;
-    }
-
-    nav a.active{ background:rgba(37,99,235,.10); color:var(--accent); }
-
-    .actions{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-
-    .pill{
-      padding:8px 12px; border-radius:999px; border:1px solid var(--line);
-      background:var(--card); color:var(--muted); font-weight:800; font-size:12px;
-      white-space:nowrap;
-    }
-
-    .btn{
-      border:1px solid var(--line);
-      background:var(--card);
-      color:var(--ink);
-      padding:10px 14px;
-      border-radius:999px;
-      font-weight:800;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      user-select:none;
-      gap:8px;
-    }
-
-    .btnPrimary{ border:0; background:var(--accent); color:#ffffff; }
-    .btnGhost{ background:transparent; }
-    .btnDanger{ border:0; background:var(--bad); color:#ffffff; }
-    .btnDisabled{ opacity:.55; cursor:not-allowed; }
-
-    main{ padding:26px 0 46px; }
-
+    .pageMain{ padding: 26px 0 46px; }
     .panel{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      background:#ffffff;
+      border:1px solid #dbeafe;
+      border-radius:18px;
       padding:22px;
+      box-shadow:0 10px 30px rgba(37,99,235,0.08);
     }
-
     .title{
       margin:0 0 10px;
       font-size:40px;
       font-weight:900;
       letter-spacing:-0.02em;
-      color:var(--brand);
+      color:#0b1b46;
     }
-
-    .sub{ margin:0 0 18px; color:var(--muted); font-weight:700; line-height:1.5; }
-
-    .topRow{
-      display:flex; align-items:flex-start; justify-content:space-between;
-      gap:14px; flex-wrap:wrap;
-      margin-bottom:10px;
+    .sub{
+      margin:0 0 18px;
+      color:#475569;
+      font-weight:700;
+      line-height:1.5;
     }
-
-    .stepsBar{
-      display:flex; gap:8px; flex-wrap:wrap;
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
       align-items:center;
-      margin:12px 0 18px;
+      justify-content:space-between;
+      margin-bottom:18px;
     }
-
-    .stepDot{
-      width:34px; height:34px;
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding:8px 12px;
       border-radius:999px;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:900;
-      border:1px solid var(--line);
+      border:1px solid #dbeafe;
       background:#ffffff;
-      color:var(--muted);
-    }
-
-    .stepDot.active{
-      background:rgba(37,99,235,.10);
-      border-color:rgba(37,99,235,.35);
-      color:var(--accent);
-    }
-
-    .stepDot.done{
-      background:rgba(22,163,74,.10);
-      border-color:rgba(22,163,74,.35);
-      color:var(--ok);
-    }
-
-    .stepLabel{
+      color:#475569;
       font-weight:800;
-      color:var(--muted);
       font-size:12px;
-      margin-right:10px;
+      white-space:nowrap;
     }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:14px;
-      align-items:start;
-    }
-
-    .card{
-      border:1px solid var(--line);
-      border-radius:16px;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid #dbeafe;
       background:#ffffff;
+      color:#0f172a;
+      font-weight:800;
+      cursor:pointer;
+      text-decoration:none;
+      user-select:none;
+      gap:8px;
+    }
+    .btnPrimary{
+      border:0;
+      background:#2563eb;
+      color:#ffffff;
+    }
+    .btnDanger{
+      border:0;
+      background:#ef4444;
+      color:#ffffff;
+    }
+    .empty{
+      border:1px dashed rgba(15,23,42,.20);
+      border-radius:16px;
+      padding:22px;
+      text-align:center;
+      background:#ffffff;
+    }
+    .empty h2{
+      margin:0 0 10px;
+      font-size:22px;
+      font-weight:900;
+      color:#0f172a;
+    }
+    .empty p{
+      margin:0 0 14px;
+      color:#475569;
+      font-weight:700;
+    }
+    .list{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .card{
+      border:1px solid #dbeafe;
+      border-radius:16px;
       padding:16px;
+      background:#ffffff;
       box-shadow:0 10px 24px rgba(15,23,42,.06);
     }
-
-    .cardTitle{
-      margin:0 0 10px;
-      font-weight:900;
-      font-size:18px;
-      color:var(--brand);
-      letter-spacing:-0.01em;
-    }
-
-    .field{ margin:12px 0; }
-
-    .label{
-      display:block;
-      font-weight:900;
-      font-size:12px;
-      color:var(--muted);
-      margin-bottom:8px;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-    }
-
-    .input, select, textarea{
-      width:100%;
-      padding:12px 14px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      outline:none;
-      font-weight:750;
-      background:#ffffff;
-      color:var(--ink);
-    }
-
-    textarea{ min-height:120px; resize:vertical; }
-
-    .chips{ display:flex; gap:10px; flex-wrap:wrap; }
-
-    .chip{
-      border:1px solid var(--line);
-      background:#ffffff;
-      padding:10px 12px;
-      border-radius:999px;
-      font-weight:900;
-      cursor:pointer;
-      user-select:none;
-      color:var(--ink);
-    }
-
-    .chip.active{
-      background:rgba(37,99,235,.10);
-      border-color:rgba(37,99,235,.35);
-      color:var(--accent);
-    }
-
-    .helpBox{
-      border:1px solid rgba(37,99,235,.25);
-      background:rgba(37,99,235,.06);
-      border-radius:14px;
-      padding:12px 14px;
-      color:var(--muted);
-      font-weight:750;
-      line-height:1.5;
-      margin-top:10px;
-    }
-
-    .errorBox{
-      border:1px solid rgba(239,68,68,.28);
-      background:rgba(239,68,68,.06);
-      border-radius:14px;
-      padding:12px 14px;
-      color:var(--ink);
-      font-weight:800;
-      line-height:1.5;
-      margin-top:10px;
-      display:none;
-    }
-
-    .okBox{
-      border:1px solid rgba(22,163,74,.28);
-      background:rgba(22,163,74,.06);
-      border-radius:14px;
-      padding:12px 14px;
-      color:var(--ink);
-      font-weight:800;
-      line-height:1.5;
-      margin-top:10px;
-      display:none;
-    }
-
-    .summaryLine{
+    .cardTop{
       display:flex;
+      align-items:flex-start;
       justify-content:space-between;
       gap:10px;
-      padding:8px 0;
-      border-bottom:1px dashed rgba(15,23,42,.15);
-      font-weight:800;
-      color:var(--muted);
-      font-size:13px;
+      margin-bottom:10px;
     }
-
-    .summaryLine strong{ color:var(--ink); }
-
-    .actionsRow{
+    .cardTitle{
+      margin:0;
+      font-weight:900;
+      color:#0b1b46;
+      letter-spacing:-0.01em;
+      font-size:18px;
+    }
+    .meta{
+      margin:6px 0 0;
+      color:#475569;
+      font-weight:700;
+      font-size:13px;
+      line-height:1.4;
+    }
+    .badge{
+      border:1px solid #dbeafe;
+      border-radius:999px;
+      padding:6px 10px;
+      font-weight:900;
+      font-size:12px;
+      white-space:nowrap;
+      background:#ffffff;
+      color:#475569;
+    }
+    .badgeOk{ border-color: rgba(22,163,74,.30); color:#16a34a; background: rgba(22,163,74,.08); }
+    .badgeWarn{ border-color: rgba(245,158,11,.35); color:#f59e0b; background: rgba(245,158,11,.10); }
+    .badgeBad{ border-color: rgba(239,68,68,.35); color:#ef4444; background: rgba(239,68,68,.08); }
+    .cardActions{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      justify-content:flex-end;
-      margin-top:14px;
+      margin-top:12px;
     }
-
-    .small{ font-size:12px; color:var(--muted); font-weight:750; }
-
-    .adminToggle{
+    .note{
       display:none;
-      margin-top:10px;
+      margin-top:12px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid #e2e8f0;
+      background:#f8fafc;
+      color:#0f172a;
+      font-weight:700;
+      font-size:13px;
+      text-align:center;
     }
-
+    .adminBox{
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid #dbeafe;
+      display:none;
+    }
+    .field{ margin-top:10px; }
+    .field label{
+      display:block;
+      font-size:13px;
+      color:#475569;
+      margin-bottom:6px;
+      font-weight:700;
+    }
+    .field input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid #dbeafe;
+      outline:none;
+      font-size:15px;
+      background:#ffffff;
+      color:#0f172a;
+    }
     .adminList{
       display:grid;
       grid-template-columns: 1fr;
       gap:12px;
       margin-top:12px;
     }
-
-    .adminItem{
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:12px 14px;
-      background:#ffffff;
-    }
-
     @media (max-width:900px){
       .title{ font-size:32px; }
-      .grid{ grid-template-columns: 1fr; }
+      .list{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
-  <header>
+  <header class="siteHeader">
     <div class="container headerRow">
-      <a class="brand" href="index.html">EssaysPros</a>
-
-      <nav aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a class="active" href="orders.html">Order</a>
-        <a href="refund.html">Refund</a>
-        <a href="contact.html">Contacts</a>
+      <a class="brand" href="/index.html">EssaysPros</a>
+      <nav class="nav">
+        <a href="/index.html">Home</a>
+        <a class="active" href="/orders.html">Orders</a>
+        <a href="/refund.html">Refund</a>
+        <a href="/contact.html">Contacts</a>
       </nav>
-
-      <div class="actions">
-        <div class="pill" id="authPill">Checking</div>
-        <a class="btn" id="loginBtn" href="login.html">Log in</a>
-        <a class="btn" id="signupBtn" href="signup.html">Sign up</a>
-        <button class="btn" id="logoutBtn" type="button" style="display:none">Log out</button>
+      <div class="headerActions">
+        <a class="btnOutline" id="headerLogin" href="/auth/google/login.html">Log in</a>
+        <a class="btnPrimary" id="headerSignup" href="/signup.html">Sign up</a>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <div class="panel">
-      <div class="topRow">
-        <div>
-          <h1 class="title">Write my paper</h1>
-          <p class="sub" id="subtitle">Step by step order form.</p>
-        </div>
-
-        <div class="actions">
-          <button class="btn" type="button" id="adminBtn">Admin</button>
-          <button class="btn btnPrimary" type="button" id="goOrdersBtn">My orders</button>
-        </div>
-      </div>
-
-      <div class="stepsBar" id="stepsBar"></div>
-
-      <div class="grid">
-        <div class="card">
-          <div class="cardTitle" id="stepTitle">Step</div>
-
-          <div id="stepBody"></div>
-
-          <div class="errorBox" id="errorBox"></div>
-          <div class="okBox" id="okBox"></div>
-
-          <div class="actionsRow">
-            <button class="btn" type="button" id="backBtn">Back</button>
-            <button class="btn btnPrimary" type="button" id="nextBtn">Next</button>
+  <main class="pageMain">
+    <section class="container">
+      <div class="panel">
+        <div class="row">
+          <div>
+            <h1 class="title">Orders</h1>
+            <p class="sub" id="subText">Review your orders or start a new one.</p>
           </div>
 
-          <div class="adminToggle" id="adminPanel">
-            <div style="height:1px;background:var(--line);margin:16px 0;"></div>
-            <p class="cardTitle">Admin orders</p>
-            <div class="field">
-              <label class="label">Admin key</label>
-              <input class="input" id="adminKey" placeholder="Enter admin key" />
-            </div>
-            <div class="actionsRow" style="justify-content:flex-start;">
-              <button class="btn btnPrimary" type="button" id="adminLoadBtn">Load orders</button>
-            </div>
-            <div class="adminList" id="adminList"></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <span class="pill" id="authPill">Checking</span>
+            <button class="btn btnPrimary" type="button" id="newOrderBtn">New order</button>
+            <button class="btn" type="button" id="refreshBtn">Refresh</button>
+            <button class="btn" type="button" id="adminToggleBtn">Admin</button>
+            <button class="btn btnDanger" type="button" id="logoutBtn" style="display:none;">Log out</button>
           </div>
         </div>
 
-        <div class="card">
-          <p class="cardTitle">Order summary</p>
-          <div id="summary"></div>
+        <div class="note" id="note"></div>
 
-          <div class="helpBox">
-            <div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Service contacts</div>
-            <div style="margin-bottom:6px;">
-              <a href="mailto:support@essayspros.com">support@essayspros.com</a><br />
-              <a href="mailto:orders@essayspros.com">orders@essayspros.com</a><br />
-              <a href="mailto:billing@essayspros.com">billing@essayspros.com</a>
-            </div>
-            <div>
-              <a id="waLink" href="https://wa.me/19295923759?text=Hello%20EssaysPros%2C%20I%20need%20help%20with%20my%20order" target="_blank" rel="noreferrer">WhatsApp message</a>
-            </div>
-          </div>
+        <div class="empty" id="signedOutBox" style="display:none;">
+          <h2>Sign in required</h2>
+          <p>To view your orders and place a new order, please sign in.</p>
+          <a class="btn btnPrimary" id="goLoginBtn" href="/auth/google/login.html">Log in</a>
+        </div>
 
-          <p class="small" style="margin-top:12px;">
-            Payment uses Stripe Checkout and requires a server endpoint.
+        <div class="empty" id="emptyBox" style="display:none;">
+          <h2>No orders yet</h2>
+          <p>Start by creating your first order.</p>
+          <button class="btn btnPrimary" type="button" id="newOrderBtn2">New order</button>
+        </div>
+
+        <div id="ordersWrap" style="display:none;">
+          <div class="list" id="ordersList"></div>
+        </div>
+
+        <div class="adminBox" id="adminBox">
+          <h2 style="margin:0 0 10px; font-size:18px; font-weight:900; color:#0b1b46;">Admin panel</h2>
+          <p class="sub" style="margin-bottom:10px;">
+            View all customer orders and upload solutions.
           </p>
+
+          <div class="field">
+            <label for="adminKey">Admin key</label>
+            <input id="adminKey" placeholder="Enter admin key" />
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+            <button class="btn btnPrimary" type="button" id="adminLoadBtn">Load orders</button>
+          </div>
+
+          <div class="adminList" id="adminList"></div>
         </div>
       </div>
-    </div>
+    </section>
   </main>
 
+  <footer class="siteFooter">
+    <div class="container footerRow">
+      <div>
+        <div class="brandSmall">EssaysPros</div>
+        <div class="muted">© <span id="year"></span> EssaysPros.com. All rights reserved.</div>
+      </div>
+      <div class="footerLinks">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/refund.html">Refund</a>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    const ENDPOINTS = {
-      createOrder: "/api/orders",
-      createStripeSession: "/api/stripe/create-checkout-session",
-      adminOrders: "/api/admin/orders",
-      adminUploadSolution: (id) => "/api/admin/orders/" + encodeURIComponent(id) + "/solution"
-    };
-
-    const subjects = [
-      "Accounting","Anthropology","Architecture","Art","Biology","Business and management",
-      "Chemistry","Communications","Computer science","Criminology","Economics","Education",
-      "Engineering","English","Finance","Healthcare","History","Law","Marketing","Mathematics",
-      "Nursing","Philosophy","Physics","Political science","Psychology","Public health",
-      "Social work","Sociology","Statistics"
-    ].sort((a,b)=>a.localeCompare(b));
-
-    const assignmentTypes = [
-      "Annotated bibliography","Argumentative essay","Article review","Book review","Business plan",
-      "Case study","Coursework","Critical analysis","Discussion post","Dissertation",
-      "Essay","Lab report","Literature review","Presentation","Reaction paper","Reflective essay",
-      "Report","Research paper","Resume or CV","Term paper","Thesis"
-    ].sort((a,b)=>a.localeCompare(b));
+    document.getElementById("year").textContent = String(new Date().getFullYear());
 
     const authPill = document.getElementById("authPill");
-    const loginBtn = document.getElementById("loginBtn");
-    const signupBtn = document.getElementById("signupBtn");
+    const subText = document.getElementById("subText");
+    const note = document.getElementById("note");
+
+    const signedOutBox = document.getElementById("signedOutBox");
+    const emptyBox = document.getElementById("emptyBox");
+    const ordersWrap = document.getElementById("ordersWrap");
+    const ordersList = document.getElementById("ordersList");
+
+    const newOrderBtn = document.getElementById("newOrderBtn");
+    const newOrderBtn2 = document.getElementById("newOrderBtn2");
+    const refreshBtn = document.getElementById("refreshBtn");
+
+    const headerLogin = document.getElementById("headerLogin");
+    const headerSignup = document.getElementById("headerSignup");
     const logoutBtn = document.getElementById("logoutBtn");
-    const goOrdersBtn = document.getElementById("goOrdersBtn");
+    const goLoginBtn = document.getElementById("goLoginBtn");
 
-    const stepsBar = document.getElementById("stepsBar");
-    const stepTitle = document.getElementById("stepTitle");
-    const stepBody = document.getElementById("stepBody");
-
-    const errorBox = document.getElementById("errorBox");
-    const okBox = document.getElementById("okBox");
-
-    const backBtn = document.getElementById("backBtn");
-    const nextBtn = document.getElementById("nextBtn");
-
-    const summary = document.getElementById("summary");
-    const subtitle = document.getElementById("subtitle");
-
-    const adminBtn = document.getElementById("adminBtn");
-    const adminPanel = document.getElementById("adminPanel");
+    const adminToggleBtn = document.getElementById("adminToggleBtn");
+    const adminBox = document.getElementById("adminBox");
     const adminKey = document.getElementById("adminKey");
     const adminLoadBtn = document.getElementById("adminLoadBtn");
     const adminList = document.getElementById("adminList");
 
-    function isSignedIn(){
-      return localStorage.getItem("auth") === "true";
+    let signedIn = false;
+    let me = null;
+
+    function showNote(message){
+      note.textContent = message || "";
+      note.style.display = message ? "block" : "none";
     }
 
-    function requireSignIn(){
-      if(isSignedIn()) return true;
-      localStorage.setItem("postLoginRedirect", window.location.href);
-      window.location.href = "login.html";
-      return false;
+    function returnAfterAuth(path){
+      localStorage.setItem("returnAfterAuth", path);
     }
 
-    function setAuthUI(){
-      const signedIn = isSignedIn();
-      authPill.textContent = signedIn ? "Signed in" : "Signed out";
-      loginBtn.style.display = signedIn ? "none" : "inline-flex";
-      signupBtn.style.display = signedIn ? "none" : "inline-flex";
-      logoutBtn.style.display = signedIn ? "inline-flex" : "none";
-      subtitle.textContent = signedIn ? "Step by step order form." : "Sign in is required to place an order.";
+    function gotoLogin(afterPath){
+      returnAfterAuth(afterPath || "/orders.html");
+      window.location.href = "/auth/google/login.html";
     }
 
-    logoutBtn.addEventListener("click", () => {
-      localStorage.setItem("auth", "false");
-      setAuthUI();
-      window.location.href = "login.html";
-    });
+    function setSignedOutUI(){
+      signedIn = false;
+      me = null;
 
-    goOrdersBtn.addEventListener("click", () => {
-      if(!requireSignIn()) return;
-      window.location.href = "orders.html";
-    });
+      authPill.textContent = "Signed out";
+      subText.textContent = "To view orders and place a new order, please sign in.";
 
-    function getOrders(){
+      headerLogin.style.display = "inline-flex";
+      headerSignup.style.display = "inline-flex";
+      logoutBtn.style.display = "none";
+
+      signedOutBox.style.display = "block";
+      emptyBox.style.display = "none";
+      ordersWrap.style.display = "none";
+      ordersList.innerHTML = "";
+    }
+
+    function setSignedInUI(){
+      signedIn = true;
+
+      authPill.textContent = "Signed in";
+      subText.textContent = "Review your orders or start a new one.";
+
+      headerLogin.style.display = "none";
+      headerSignup.style.display = "none";
+      logoutBtn.style.display = "inline-flex";
+
+      signedOutBox.style.display = "none";
+    }
+
+    async function detectAuth(){
+      authPill.textContent = "Checking";
+      showNote("");
+
+      try{
+        const r = await fetch("/api/me", { credentials: "include" });
+        const j = await r.json().catch(()=> ({}));
+
+        if(r.ok && j && j.authenticated === true){
+          me = j.user || null;
+          setSignedInUI();
+          return true;
+        }
+
+        setSignedOutUI();
+        return false;
+      }catch(e){
+        setSignedOutUI();
+        return false;
+      }
+    }
+
+    function badgeFor(order){
+      const paid = order && order.paid === true;
+      const status = String((order && order.status) || "").toLowerCase();
+
+      if(paid) return { cls: "badge badgeOk", text: "Paid" };
+      if(status.includes("completed")) return { cls: "badge badgeOk", text: "Completed" };
+      if(status.includes("submitted")) return { cls: "badge badgeWarn", text: "Submitted" };
+      if(status.includes("created")) return { cls: "badge badgeWarn", text: "Created" };
+      if(status.includes("cancel")) return { cls: "badge badgeBad", text: "Canceled" };
+      return { cls: "badge", text: order && order.status ? String(order.status) : "Pending" };
+    }
+
+    function safeText(v){
+      return (v === null || v === undefined) ? "" : String(v);
+    }
+
+    function formatDate(iso){
+      try{
+        const d = new Date(iso);
+        if(Number.isNaN(d.getTime())) return safeText(iso);
+        return d.toLocaleString();
+      }catch(e){
+        return safeText(iso);
+      }
+    }
+
+    async function loadOrdersFromServer(){
+      const r = await fetch("/api/orders", { credentials: "include" });
+      if(!r.ok) return null;
+      const j = await r.json().catch(()=> null);
+      if(Array.isArray(j)) return j;
+      if(j && Array.isArray(j.orders)) return j.orders;
+      return null;
+    }
+
+    function loadOrdersFromLocal(){
       try{
         const raw = localStorage.getItem("orders");
         const data = raw ? JSON.parse(raw) : [];
@@ -476,795 +424,227 @@
       }
     }
 
-    function saveOrders(arr){
-      localStorage.setItem("orders", JSON.stringify(arr));
-    }
+    function renderOrders(orders){
+      ordersList.innerHTML = "";
 
-    function setActiveOrderId(id){
-      localStorage.setItem("activeOrderId", id);
-    }
-
-    function setError(msg){
-      errorBox.style.display = msg ? "block" : "none";
-      errorBox.textContent = msg || "";
-    }
-
-    function setOk(msg){
-      okBox.style.display = msg ? "block" : "none";
-      okBox.textContent = msg || "";
-    }
-
-    const STEPS = [
-      { key:"service", title:"Service" },
-      { key:"subject", title:"Subject" },
-      { key:"assignmentType", title:"Assignment type" },
-      { key:"academicLevel", title:"Academic level" },
-      { key:"language", title:"Language" },
-      { key:"size", title:"Size" },
-      { key:"deadline", title:"Deadline" },
-      { key:"instructions", title:"Instructions and files" },
-      { key:"payment", title:"Payment" },
-      { key:"post", title:"Post order" }
-    ];
-
-    let stepIndex = 0;
-
-    const state = {
-      serviceChoice: "",
-      serviceHelpOpen: false,
-
-      subject: "",
-      subjectOther: "",
-
-      assignmentType: "",
-      academicLevel: "",
-
-      language: "",
-
-      sizeMode: "pages",
-      pages: 1,
-      words: 275,
-
-      deadline: "",
-
-      instructions: "",
-      files: [],
-
-      pricingUsd: 0,
-      orderId: "",
-      paid: false,
-      stripeCheckoutUrl: ""
-    };
-
-    function calcPrice(){
-      const base = 12;
-      const pages = Number(state.pages || 1);
-      const level = String(state.academicLevel || "").toLowerCase();
-      let levelMult = 1;
-      if(level.includes("high")) levelMult = 0.9;
-      if(level.includes("college")) levelMult = 1.0;
-      if(level.includes("bachelor")) levelMult = 1.15;
-      if(level.includes("master")) levelMult = 1.35;
-      if(level.includes("doctor")) levelMult = 1.55;
-
-      let deadlineMult = 1.0;
-      if(state.deadline){
-        const now = Date.now();
-        const d = new Date(state.deadline).getTime();
-        const hours = Math.max(1, (d - now) / 36e5);
-        if(hours <= 24) deadlineMult = 1.8;
-        else if(hours <= 48) deadlineMult = 1.55;
-        else if(hours <= 72) deadlineMult = 1.35;
-        else if(hours <= 168) deadlineMult = 1.15;
+      if(!orders || !orders.length){
+        emptyBox.style.display = "block";
+        ordersWrap.style.display = "none";
+        return;
       }
 
-      let typeMult = 1.0;
-      const t = String(state.assignmentType || "").toLowerCase();
-      if(t.includes("dissertation") || t.includes("thesis")) typeMult = 2.0;
-      else if(t.includes("research")) typeMult = 1.35;
-      else if(t.includes("case")) typeMult = 1.25;
-      else if(t.includes("presentation")) typeMult = 1.15;
+      emptyBox.style.display = "none";
+      ordersWrap.style.display = "block";
 
-      const raw = base * pages * levelMult * deadlineMult * typeMult;
-      state.pricingUsd = Math.max(15, Math.round(raw));
-    }
+      const reversed = orders.slice().reverse();
 
-    function renderStepsBar(){
-      stepsBar.innerHTML = "";
-      STEPS.forEach((s, i) => {
-        const dot = document.createElement("div");
-        dot.className = "stepDot" + (i === stepIndex ? " active" : (i < stepIndex ? " done" : ""));
-        dot.textContent = String(i + 1);
-        stepsBar.appendChild(dot);
+      for(const o of reversed){
+        const id = safeText(o.id || o.orderId || "");
+        const createdAt = formatDate(o.createdAt || o.date || "");
+        const subject = safeText(o.subjectShown || ((o.subject === "Other") ? o.subjectOther : o.subject));
+        const assignmentType = safeText(o.assignmentType);
+        const academicLevel = safeText(o.academicLevel);
+        const language = safeText(o.language);
+        const pages = safeText(o.pages);
+        const words = safeText(o.words);
+        const deadline = safeText(o.deadline);
+        const paid = o && o.paid === true;
 
-        const label = document.createElement("div");
-        label.className = "stepLabel";
-        label.textContent = s.title;
-        stepsBar.appendChild(label);
-      });
-    }
+        const badge = badgeFor(o);
 
-    function summaryValue(v){
-      return v ? String(v) : "Not set";
-    }
+        const lines = [];
+        if(id) lines.push("Order id: " + id);
+        if(createdAt) lines.push("Created: " + createdAt);
+        if(assignmentType) lines.push("Type: " + assignmentType);
+        if(academicLevel) lines.push("Level: " + academicLevel);
+        if(language) lines.push("Language: " + language);
+        if(pages) lines.push("Pages: " + pages);
+        if(words) lines.push("Words: " + words);
+        if(deadline) lines.push("Deadline: " + deadline);
+        if(paid) lines.push("Payment: Paid");
 
-    function renderSummary(){
-      const subjectShown = (state.subject === "Other") ? state.subjectOther : state.subject;
-      const sizeShown = state.sizeMode === "pages" ? (state.pages + " pages") : (state.words + " words");
-
-      const lines = [
-        ["Service", summaryValue(state.serviceChoice)],
-        ["Subject", summaryValue(subjectShown)],
-        ["Type", summaryValue(state.assignmentType)],
-        ["Level", summaryValue(state.academicLevel)],
-        ["Language", summaryValue(state.language)],
-        ["Size", summaryValue(sizeShown)],
-        ["Deadline", summaryValue(state.deadline)],
-        ["Files", state.files.length ? (state.files.length + " files") : "No files"],
-        ["Price", state.pricingUsd ? ("$" + state.pricingUsd) : "Not set"],
-        ["Payment", state.paid ? "Paid" : "Not paid"]
-      ];
-
-      summary.innerHTML = lines.map(([k,v]) => {
-        return '<div class="summaryLine"><span>' + k + '</span><strong>' + v + '</strong></div>';
-      }).join("");
-    }
-
-    function chipGroup(items, selected, onPick){
-      const wrap = document.createElement("div");
-      wrap.className = "chips";
-      items.forEach(label => {
-        const c = document.createElement("div");
-        c.className = "chip" + (label === selected ? " active" : "");
-        c.textContent = label;
-        c.addEventListener("click", () => onPick(label));
-        wrap.appendChild(c);
-      });
-      return wrap;
-    }
-
-    function renderStep(){
-      if(!requireSignIn()) return;
-
-      setError("");
-      setOk("");
-      calcPrice();
-      renderStepsBar();
-      renderSummary();
-
-      const step = STEPS[stepIndex];
-      stepTitle.textContent = step.title;
-      stepBody.innerHTML = "";
-
-      backBtn.style.display = stepIndex === 0 ? "none" : "inline-flex";
-      nextBtn.textContent = stepIndex === STEPS.length - 1 ? "Finish" : "Next";
-
-      if(step.key === "service"){
-        const p = document.createElement("p");
-        p.className = "sub";
-        p.textContent = "Select one option.";
-        stepBody.appendChild(p);
-
-        const options = ["Writing","Rewriting","Editing","Proofreading","Problem solving","Calculations","Service"];
-        stepBody.appendChild(chipGroup(options, state.serviceChoice, (v) => {
-          state.serviceChoice = v;
-          state.serviceHelpOpen = (v === "Service");
-          renderStep();
-        }));
-
-        const help = document.createElement("div");
-        help.className = "helpBox";
-        help.style.display = state.serviceHelpOpen ? "block" : "none";
-        help.innerHTML =
-          '<div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Contact options</div>' +
-          '<div style="margin-bottom:6px;">' +
-          '<a href="mailto:support@essayspros.com">support@essayspros.com</a><br />' +
-          '<a href="mailto:orders@essayspros.com">orders@essayspros.com</a><br />' +
-          '<a href="mailto:billing@essayspros.com">billing@essayspros.com</a>' +
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML =
+          '<div class="cardTop">' +
+            '<div>' +
+              '<p class="cardTitle">' + (subject || "Order") + "</p>" +
+              '<p class="meta">' + lines.join("<br>") + "</p>" +
+            "</div>" +
+            '<span class="' + badge.cls + '">' + badge.text + "</span>" +
           "</div>" +
-          '<div><a href="https://wa.me/19295923759?text=Hello%20EssaysPros%2C%20I%20need%20help%20with%20my%20order" target="_blank" rel="noreferrer">WhatsApp message</a></div>';
-        stepBody.appendChild(help);
+          '<div class="cardActions">' +
+            '<button class="btn btnPrimary" type="button">Open</button>' +
+          "</div>";
 
-        return;
-      }
-
-      if(step.key === "subject"){
-        const field = document.createElement("div");
-        field.className = "field";
-        field.innerHTML = '<label class="label">Choose your subject</label>';
-        const sel = document.createElement("select");
-        sel.className = "input";
-        const opt0 = document.createElement("option");
-        opt0.value = "";
-        opt0.textContent = "Choose your subject";
-        sel.appendChild(opt0);
-
-        subjects.forEach(s => {
-          const o = document.createElement("option");
-          o.value = s;
-          o.textContent = s;
-          sel.appendChild(o);
+        const openBtn = card.querySelector("button");
+        openBtn.addEventListener("click", function(){
+          if(id) localStorage.setItem("activeOrderId", id);
+          window.location.href = "/write.html";
         });
 
-        const otherOpt = document.createElement("option");
-        otherOpt.value = "Other";
-        otherOpt.textContent = "Other";
-        sel.appendChild(otherOpt);
-
-        sel.value = state.subject;
-        sel.addEventListener("change", () => {
-          state.subject = sel.value;
-          renderStep();
-        });
-
-        field.appendChild(sel);
-        stepBody.appendChild(field);
-
-        const otherWrap = document.createElement("div");
-        otherWrap.className = "field";
-        otherWrap.style.display = state.subject === "Other" ? "block" : "none";
-        otherWrap.innerHTML = '<label class="label">Type your subject</label>';
-        const otherInput = document.createElement("input");
-        otherInput.className = "input";
-        otherInput.placeholder = "Type your subject";
-        otherInput.value = state.subjectOther;
-        otherInput.addEventListener("input", () => {
-          state.subjectOther = otherInput.value;
-        });
-        otherWrap.appendChild(otherInput);
-        stepBody.appendChild(otherWrap);
-        return;
-      }
-
-      if(step.key === "assignmentType"){
-        const field = document.createElement("div");
-        field.className = "field";
-        field.innerHTML = '<label class="label">Select assignment type</label>';
-        const sel = document.createElement("select");
-        sel.className = "input";
-
-        const opt0 = document.createElement("option");
-        opt0.value = "";
-        opt0.textContent = "Select assignment type";
-        sel.appendChild(opt0);
-
-        assignmentTypes.forEach(t => {
-          const o = document.createElement("option");
-          o.value = t;
-          o.textContent = t;
-          sel.appendChild(o);
-        });
-
-        sel.value = state.assignmentType;
-        sel.addEventListener("change", () => {
-          state.assignmentType = sel.value;
-          renderSummary();
-        });
-
-        field.appendChild(sel);
-        stepBody.appendChild(field);
-        return;
-      }
-
-      if(step.key === "academicLevel"){
-        const p = document.createElement("p");
-        p.className = "sub";
-        p.textContent = "Select one option.";
-        stepBody.appendChild(p);
-
-        const options = ["High school","College","Bachelor's","Master's","Doctorate"];
-        stepBody.appendChild(chipGroup(options, state.academicLevel, (v) => {
-          state.academicLevel = v;
-          renderSummary();
-          renderStep();
-        }));
-        return;
-      }
-
-      if(step.key === "language"){
-        const p = document.createElement("p");
-        p.className = "sub";
-        p.textContent = "Select one option.";
-        stepBody.appendChild(p);
-
-        const options = ["English (US)","English (UK)"];
-        stepBody.appendChild(chipGroup(options, state.language, (v) => {
-          state.language = v;
-          renderSummary();
-          renderStep();
-        }));
-        return;
-      }
-
-      if(step.key === "size"){
-        const row = document.createElement("div");
-        row.className = "field";
-
-        const modeWrap = document.createElement("div");
-        modeWrap.className = "chips";
-        const pagesChip = document.createElement("div");
-        pagesChip.className = "chip" + (state.sizeMode === "pages" ? " active" : "");
-        pagesChip.textContent = "Pages";
-        const wordsChip = document.createElement("div");
-        wordsChip.className = "chip" + (state.sizeMode === "words" ? " active" : "");
-        wordsChip.textContent = "Words";
-
-        pagesChip.addEventListener("click", () => { state.sizeMode = "pages"; renderStep(); });
-        wordsChip.addEventListener("click", () => { state.sizeMode = "words"; renderStep(); });
-
-        modeWrap.appendChild(pagesChip);
-        modeWrap.appendChild(wordsChip);
-
-        row.innerHTML = '<label class="label">Size</label>';
-        row.appendChild(modeWrap);
-
-        const inputWrap = document.createElement("div");
-        inputWrap.className = "field";
-
-        if(state.sizeMode === "pages"){
-          inputWrap.innerHTML = '<label class="label">Pages</label>';
-          const inp = document.createElement("input");
-          inp.className = "input";
-          inp.type = "number";
-          inp.min = "1";
-          inp.max = "200";
-          inp.value = String(state.pages);
-          inp.addEventListener("input", () => {
-            state.pages = Math.max(1, Math.min(200, Number(inp.value || 1)));
-            state.words = state.pages * 275;
-            renderSummary();
-          });
-          inputWrap.appendChild(inp);
-
-          const note = document.createElement("div");
-          note.className = "small";
-          note.textContent = "Estimated words: " + (state.pages * 275);
-          inputWrap.appendChild(note);
-        } else {
-          inputWrap.innerHTML = '<label class="label">Words</label>';
-          const inp = document.createElement("input");
-          inp.className = "input";
-          inp.type = "number";
-          inp.min = "275";
-          inp.max = "55000";
-          inp.step = "25";
-          inp.value = String(state.words);
-          inp.addEventListener("input", () => {
-            state.words = Math.max(275, Math.min(55000, Number(inp.value || 275)));
-            state.pages = Math.max(1, Math.round(state.words / 275));
-            renderSummary();
-          });
-          inputWrap.appendChild(inp);
-
-          const note = document.createElement("div");
-          note.className = "small";
-          note.textContent = "Estimated pages: " + Math.max(1, Math.round(state.words / 275));
-          inputWrap.appendChild(note);
-        }
-
-        stepBody.appendChild(row);
-        stepBody.appendChild(inputWrap);
-        return;
-      }
-
-      if(step.key === "deadline"){
-        const field = document.createElement("div");
-        field.className = "field";
-        field.innerHTML = '<label class="label">Deadline</label>';
-        const inp = document.createElement("input");
-        inp.className = "input";
-        inp.type = "datetime-local";
-        inp.value = state.deadline || "";
-        inp.addEventListener("change", () => {
-          state.deadline = inp.value;
-          renderSummary();
-        });
-        field.appendChild(inp);
-
-        const note = document.createElement("div");
-        note.className = "small";
-        note.textContent = "Earlier deadlines increase price.";
-        field.appendChild(note);
-
-        stepBody.appendChild(field);
-        return;
-      }
-
-      if(step.key === "instructions"){
-        const field1 = document.createElement("div");
-        field1.className = "field";
-        field1.innerHTML = '<label class="label">Instructions</label>';
-        const ta = document.createElement("textarea");
-        ta.className = "input";
-        ta.placeholder = "Provide detailed instructions.";
-        ta.value = state.instructions;
-        ta.addEventListener("input", () => {
-          state.instructions = ta.value;
-        });
-        field1.appendChild(ta);
-
-        const field2 = document.createElement("div");
-        field2.className = "field";
-        field2.innerHTML = '<label class="label">Upload files</label>';
-        const fi = document.createElement("input");
-        fi.className = "input";
-        fi.type = "file";
-        fi.multiple = true;
-        fi.accept = ".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png";
-        fi.addEventListener("change", () => {
-          state.files = Array.from(fi.files || []);
-          renderSummary();
-        });
-        field2.appendChild(fi);
-
-        const note = document.createElement("div");
-        note.className = "small";
-        note.textContent = "Multiple files are supported.";
-        field2.appendChild(note);
-
-        stepBody.appendChild(field1);
-        stepBody.appendChild(field2);
-        return;
-      }
-
-      if(step.key === "payment"){
-        const box = document.createElement("div");
-        box.className = "helpBox";
-        box.innerHTML =
-          '<div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Stripe payment</div>' +
-          '<div style="margin-bottom:10px;">Amount: <strong>$' + state.pricingUsd + "</strong></div>";
-
-        const payBtn = document.createElement("button");
-        payBtn.className = "btn btnPrimary";
-        payBtn.type = "button";
-        payBtn.textContent = state.paid ? "Paid" : "Pay with Stripe";
-        payBtn.disabled = state.paid;
-        if(state.paid) payBtn.classList.add("btnDisabled");
-
-        payBtn.addEventListener("click", async () => {
-          try{
-            setError("");
-            setOk("");
-
-            const payload = {
-              orderId: state.orderId || "",
-              amountUsd: state.pricingUsd
-            };
-
-            const r = await fetch(ENDPOINTS.createStripeSession, {
-              method:"POST",
-              headers:{ "Content-Type":"application/json" },
-              body: JSON.stringify(payload)
-            });
-
-            const j = await r.json().catch(()=> ({}));
-            if(!r.ok || !j || !j.url){
-              setError("Payment could not be started. Check Stripe endpoint.");
-              return;
-            }
-
-            state.stripeCheckoutUrl = j.url;
-            window.location.href = j.url;
-          }catch(e){
-            setError("Payment could not be started.");
-          }
-        });
-
-        box.appendChild(payBtn);
-
-        const note = document.createElement("div");
-        note.className = "small";
-        note.style.marginTop = "10px";
-        note.textContent = "After successful payment, return to this page and continue.";
-        box.appendChild(note);
-
-        stepBody.appendChild(box);
-
-        const paidWrap = document.createElement("div");
-        paidWrap.className = "field";
-        paidWrap.innerHTML = '<label class="label">Payment status</label>';
-        const paidChipWrap = document.createElement("div");
-        paidChipWrap.className = "chips";
-
-        const c1 = document.createElement("div");
-        c1.className = "chip" + (!state.paid ? " active" : "");
-        c1.textContent = "Not paid";
-
-        const c2 = document.createElement("div");
-        c2.className = "chip" + (state.paid ? " active" : "");
-        c2.textContent = "Paid";
-
-        c1.addEventListener("click", () => { state.paid = false; renderStep(); });
-        c2.addEventListener("click", () => { state.paid = true; renderStep(); });
-
-        paidChipWrap.appendChild(c1);
-        paidChipWrap.appendChild(c2);
-        paidWrap.appendChild(paidChipWrap);
-
-        stepBody.appendChild(paidWrap);
-        return;
-      }
-
-      if(step.key === "post"){
-        const box = document.createElement("div");
-        box.className = "helpBox";
-        box.innerHTML =
-          '<div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Post order</div>' +
-          "<div>Posting creates the order and sends you a notification through the server endpoint.</div>";
-
-        const postBtn = document.createElement("button");
-        postBtn.className = "btn btnPrimary";
-        postBtn.type = "button";
-        postBtn.textContent = "Post order";
-
-        postBtn.addEventListener("click", async () => {
-          try{
-            setError("");
-            setOk("");
-
-            const subjectShown = (state.subject === "Other") ? state.subjectOther : state.subject;
-
-            const data = {
-              service: state.serviceChoice,
-              subject: state.subject,
-              subjectOther: state.subjectOther,
-              subjectShown,
-              assignmentType: state.assignmentType,
-              academicLevel: state.academicLevel,
-              language: state.language,
-              sizeMode: state.sizeMode,
-              pages: state.pages,
-              words: state.words,
-              deadline: state.deadline,
-              instructions: state.instructions,
-              amountUsd: state.pricingUsd
-            };
-
-            if(!state.paid){
-              setError("Payment is required before posting.");
-              return;
-            }
-
-            const form = new FormData();
-            form.append("data", JSON.stringify(data));
-            state.files.forEach(f => form.append("files", f));
-
-            const r = await fetch(ENDPOINTS.createOrder, { method:"POST", body: form });
-            const j = await r.json().catch(()=> ({}));
-            if(!r.ok || !j || !j.id){
-              setError("Order could not be posted. Check server endpoint.");
-              return;
-            }
-
-            state.orderId = j.id;
-
-            const orderLocal = {
-              id: j.id,
-              createdAt: new Date().toISOString(),
-              status: "submitted",
-              paid: true,
-              subject: state.subject,
-              subjectOther: state.subjectOther,
-              assignmentType: state.assignmentType,
-              academicLevel: state.academicLevel,
-              language: state.language,
-              pages: state.pages,
-              words: state.words,
-              deadline: state.deadline
-            };
-
-            const all = getOrders();
-            all.push(orderLocal);
-            saveOrders(all);
-            setActiveOrderId(j.id);
-
-            setOk("Order posted. You have been notified through the server.");
-          }catch(e){
-            setError("Order could not be posted.");
-          }
-        });
-
-        box.appendChild(document.createElement("div")).style.height = "10px";
-        box.appendChild(postBtn);
-
-        stepBody.appendChild(box);
-        return;
+        ordersList.appendChild(card);
       }
     }
 
-    function validateStep(){
-      const step = STEPS[stepIndex];
+    async function refresh(){
+      showNote("");
 
-      if(step.key === "service"){
-        if(!state.serviceChoice) return "Select a service.";
-        return "";
-      }
+      const ok = await detectAuth();
+      if(!ok) return;
 
-      if(step.key === "subject"){
-        if(!state.subject) return "Select a subject.";
-        if(state.subject === "Other" && !String(state.subjectOther || "").trim()) return "Type your subject.";
-        return "";
-      }
-
-      if(step.key === "assignmentType"){
-        if(!state.assignmentType) return "Select assignment type.";
-        return "";
-      }
-
-      if(step.key === "academicLevel"){
-        if(!state.academicLevel) return "Select academic level.";
-        return "";
-      }
-
-      if(step.key === "language"){
-        if(!state.language) return "Select language.";
-        return "";
-      }
-
-      if(step.key === "size"){
-        if(state.sizeMode === "pages" && (!state.pages || Number(state.pages) < 1)) return "Enter pages.";
-        if(state.sizeMode === "words" && (!state.words || Number(state.words) < 275)) return "Enter words.";
-        return "";
-      }
-
-      if(step.key === "deadline"){
-        if(!state.deadline) return "Select deadline.";
-        return "";
-      }
-
-      if(step.key === "instructions"){
-        if(!String(state.instructions || "").trim() && state.files.length === 0) return "Provide instructions or upload files.";
-        return "";
-      }
-
-      if(step.key === "payment"){
-        if(!state.paid) return "Complete payment to continue.";
-        return "";
-      }
-
-      return "";
-    }
-
-    backBtn.addEventListener("click", () => {
-      setError("");
-      setOk("");
-      stepIndex = Math.max(0, stepIndex - 1);
-      renderStep();
-    });
-
-    nextBtn.addEventListener("click", () => {
-      setError("");
-      setOk("");
-      const msg = validateStep();
-      if(msg){
-        setError(msg);
+      const serverOrders = await loadOrdersFromServer();
+      if(serverOrders){
+        renderOrders(serverOrders);
         return;
       }
-      if(stepIndex < STEPS.length - 1){
-        stepIndex += 1;
-        renderStep();
-      }
-    });
 
-    function readQuery(){
-      const q = new URLSearchParams(window.location.search);
-
-      if(q.get("paid") === "1"){
-        state.paid = true;
-      }
-
-      const openAdmin = q.get("admin") === "1";
-      if(openAdmin) adminPanel.style.display = "block";
+      const localOrders = loadOrdersFromLocal();
+      renderOrders(localOrders);
+      showNote("Orders endpoint not found. Showing local orders, if any.");
     }
 
-    adminBtn.addEventListener("click", () => {
-      adminPanel.style.display = (adminPanel.style.display === "block") ? "none" : "block";
+    newOrderBtn.addEventListener("click", function(){
+      if(!signedIn){ gotoLogin("/write.html"); return; }
+      window.location.href = "/write.html";
     });
 
-    adminLoadBtn.addEventListener("click", async () => {
+    if(newOrderBtn2){
+      newOrderBtn2.addEventListener("click", function(){
+        if(!signedIn){ gotoLogin("/write.html"); return; }
+        window.location.href = "/write.html";
+      });
+    }
+
+    refreshBtn.addEventListener("click", refresh);
+
+    logoutBtn.addEventListener("click", function(){
+      showNote("Log out requires a server endpoint. Redirecting to log in.");
+      window.location.href = "/auth/google/login.html";
+    });
+
+    goLoginBtn.addEventListener("click", function(){
+      returnAfterAuth("/orders.html");
+    });
+
+    adminToggleBtn.addEventListener("click", function(){
+      adminBox.style.display = (adminBox.style.display === "block") ? "none" : "block";
+    });
+
+    async function adminLoad(){
       try{
-        setError("");
-        setOk("");
+        showNote("");
         adminList.innerHTML = "";
 
         const key = String(adminKey.value || "").trim();
         if(!key){
-          setError("Admin key is required.");
+          showNote("Admin key is required.");
           return;
         }
 
-        const r = await fetch(ENDPOINTS.adminOrders, {
-          headers: { "x-admin-key": key }
+        const r = await fetch("/api/admin/orders", {
+          headers: { "x-admin-key": key },
+          credentials: "include"
         });
 
         const j = await r.json().catch(()=> ({}));
-        if(!r.ok || !j || !Array.isArray(j.orders)){
-          setError("Admin orders could not be loaded.");
+        const data = Array.isArray(j) ? j : (Array.isArray(j.orders) ? j.orders : null);
+
+        if(!r.ok || !data){
+          showNote("Admin orders endpoint not found or access denied.");
           return;
         }
 
-        j.orders.slice().reverse().forEach(o => {
-          const wrap = document.createElement("div");
-          wrap.className = "adminItem";
-
-          const id = (o && o.id) ? String(o.id) : "";
-          const subj = o && o.data && o.data.subjectShown ? String(o.data.subjectShown) : "";
-          const created = o && o.createdAt ? String(o.createdAt) : "";
+        data.slice().reverse().forEach(function(o){
+          const id = safeText(o.id || "");
+          const subject = safeText(o.data && o.data.subjectShown ? o.data.subjectShown : (o.subjectShown || ""));
+          const createdAt = safeText(o.createdAt || "");
           const paid = o && o.paid === true;
 
-          wrap.innerHTML =
-            '<div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Order ' + id + "</div>" +
-            '<div class="small" style="margin-bottom:8px;">Subject: ' + (subj || "Not set") + "</div>" +
-            '<div class="small" style="margin-bottom:8px;">Created: ' + (created || "Not set") + "</div>" +
-            '<div class="small" style="margin-bottom:10px;">Payment: ' + (paid ? "Paid" : "Not paid") + "</div>";
+          const item = document.createElement("div");
+          item.style.border = "1px solid #dbeafe";
+          item.style.borderRadius = "14px";
+          item.style.padding = "12px 14px";
+          item.style.background = "#ffffff";
+
+          const title = document.createElement("div");
+          title.style.fontWeight = "900";
+          title.style.color = "#0b1b46";
+          title.style.marginBottom = "6px";
+          title.textContent = "Order " + (id || "");
+
+          const meta = document.createElement("div");
+          meta.className = "sub";
+          meta.style.margin = "0 0 10px";
+          meta.style.fontSize = "13px";
+          meta.innerHTML =
+            "Subject: " + (subject || "Not set") + "<br>" +
+            "Created: " + (createdAt || "Not set") + "<br>" +
+            "Payment: " + (paid ? "Paid" : "Not paid");
 
           const upLabel = document.createElement("div");
-          upLabel.className = "small";
+          upLabel.style.fontWeight = "800";
+          upLabel.style.color = "#475569";
+          upLabel.style.fontSize = "13px";
           upLabel.style.marginBottom = "6px";
           upLabel.textContent = "Upload solution files";
 
           const up = document.createElement("input");
           up.type = "file";
           up.multiple = true;
-          up.className = "input";
 
           const upBtn = document.createElement("button");
           upBtn.type = "button";
           upBtn.className = "btn btnPrimary";
+          upBtn.style.marginTop = "10px";
           upBtn.textContent = "Upload solution";
 
-          upBtn.addEventListener("click", async () => {
-            try{
-              const files = Array.from(up.files || []);
-              if(!files.length){
-                setError("Select solution files.");
-                return;
-              }
-
-              const form = new FormData();
-              files.forEach(f => form.append("solutionFiles", f));
-
-              const rr = await fetch(ENDPOINTS.adminUploadSolution(id), {
-                method:"POST",
-                headers: { "x-admin-key": key },
-                body: form
-              });
-
-              const jj = await rr.json().catch(()=> ({}));
-              if(!rr.ok || !jj || jj.ok !== true){
-                setError("Solution upload failed.");
-                return;
-              }
-
-              setOk("Solution uploaded for order " + id + ".");
-            }catch(e){
-              setError("Solution upload failed.");
+          upBtn.addEventListener("click", async function(){
+            const files = Array.from(up.files || []);
+            if(!files.length){
+              showNote("Select solution files.");
+              return;
             }
+
+            const form = new FormData();
+            files.forEach(function(f){ form.append("solutionFiles", f); });
+
+            const rr = await fetch("/api/admin/orders/" + encodeURIComponent(id) + "/solution", {
+              method: "POST",
+              headers: { "x-admin-key": key },
+              credentials: "include",
+              body: form
+            });
+
+            if(!rr.ok){
+              showNote("Solution upload endpoint not found or access denied.");
+              return;
+            }
+
+            showNote("Solution uploaded for order " + id + ".");
           });
 
-          wrap.appendChild(upLabel);
-          wrap.appendChild(up);
-          wrap.appendChild(document.createElement("div")).style.height = "10px";
-          wrap.appendChild(upBtn);
+          item.appendChild(title);
+          item.appendChild(meta);
+          item.appendChild(upLabel);
+          item.appendChild(up);
+          item.appendChild(upBtn);
 
-          adminList.appendChild(wrap);
+          adminList.appendChild(item);
         });
 
-        setOk("Admin orders loaded.");
+        showNote("Admin orders loaded.");
       }catch(e){
-        setError("Admin orders could not be loaded.");
+        showNote("Admin orders could not be loaded.");
       }
-    });
-
-    function init(){
-      setAuthUI();
-      if(!requireSignIn()) return;
-      readQuery();
-      renderStepsBar();
-      renderStep();
     }
 
-    init();
+    adminLoadBtn.addEventListener("click", adminLoad);
+
+    (function init(){
+      returnAfterAuth("/orders.html");
+      refresh();
+    })();
   </script>
 </body>
 </html>
