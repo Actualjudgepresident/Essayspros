@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EssaysPros | Order</title>
+  <title>EssaysPros | Write my paper</title>
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
@@ -17,6 +17,9 @@
       --accent:#2563eb;
       --shadow:0 16px 40px rgba(15,23,42,.08);
       --radius:18px;
+      --ok:#16a34a;
+      --bad:#ef4444;
+      --warn:#f59e0b;
     }
 
     *{ box-sizing:border-box; }
@@ -31,70 +34,34 @@
 
     a{ color:inherit; }
 
-    .container{
-      max-width:1100px;
-      margin:0 auto;
-      padding:0 18px;
-    }
+    .container{ max-width:1100px; margin:0 auto; padding:0 18px; }
 
-    header{
-      background:var(--card);
-      border-bottom:1px solid var(--line);
-    }
+    header{ background:var(--card); border-bottom:1px solid var(--line); }
 
     .headerRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding:14px 0;
-      flex-wrap:wrap;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:14px 0; flex-wrap:wrap;
     }
 
     .brand{
-      text-decoration:none;
-      font-weight:900;
-      font-size:24px;
-      color:var(--brand);
-      letter-spacing:-0.02em;
-      white-space:nowrap;
+      text-decoration:none; font-weight:900; font-size:24px;
+      color:var(--brand); letter-spacing:-0.02em; white-space:nowrap;
     }
 
-    nav{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-    }
+    nav{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 
     nav a{
-      text-decoration:none;
-      font-weight:800;
-      color:var(--ink);
-      padding:10px 14px;
-      border-radius:999px;
+      text-decoration:none; font-weight:800; color:var(--ink);
+      padding:10px 14px; border-radius:999px;
     }
 
-    nav a.active{
-      background:rgba(37,99,235,.10);
-      color:var(--accent);
-    }
+    nav a.active{ background:rgba(37,99,235,.10); color:var(--accent); }
 
-    .actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-    }
+    .actions{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 
     .pill{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:var(--card);
-      color:var(--muted);
-      font-weight:800;
-      font-size:12px;
+      padding:8px 12px; border-radius:999px; border:1px solid var(--line);
+      background:var(--card); color:var(--muted); font-weight:800; font-size:12px;
       white-space:nowrap;
     }
 
@@ -110,17 +77,16 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
+      user-select:none;
+      gap:8px;
     }
 
-    .btnPrimary{
-      border:0;
-      background:var(--accent);
-      color:#ffffff;
-    }
+    .btnPrimary{ border:0; background:var(--accent); color:#ffffff; }
+    .btnGhost{ background:transparent; }
+    .btnDanger{ border:0; background:var(--bad); color:#ffffff; }
+    .btnDisabled{ opacity:.55; cursor:not-allowed; }
 
-    main{
-      padding:26px 0 46px;
-    }
+    main{ padding:26px 0 46px; }
 
     .panel{
       background:var(--card);
@@ -131,43 +97,203 @@
     }
 
     .title{
-      margin:0 0 14px;
+      margin:0 0 10px;
       font-size:40px;
       font-weight:900;
       letter-spacing:-0.02em;
       color:var(--brand);
     }
 
-    .sub{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-weight:700;
-      line-height:1.5;
+    .sub{ margin:0 0 18px; color:var(--muted); font-weight:700; line-height:1.5; }
+
+    .topRow{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap:14px; flex-wrap:wrap;
+      margin-bottom:10px;
     }
 
-    .empty{
-      border:1px dashed rgba(15,23,42,.20);
-      border-radius:16px;
-      padding:22px;
-      text-align:center;
-      background:#ffffff;
+    .stepsBar{
+      display:flex; gap:8px; flex-wrap:wrap;
+      align-items:center;
+      margin:12px 0 18px;
     }
 
-    .empty h2{
-      margin:0 0 10px;
-      font-size:22px;
+    .stepDot{
+      width:34px; height:34px;
+      border-radius:999px;
+      display:flex; align-items:center; justify-content:center;
       font-weight:900;
+      border:1px solid var(--line);
+      background:#ffffff;
+      color:var(--muted);
+    }
+
+    .stepDot.active{
+      background:rgba(37,99,235,.10);
+      border-color:rgba(37,99,235,.35);
+      color:var(--accent);
+    }
+
+    .stepDot.done{
+      background:rgba(22,163,74,.10);
+      border-color:rgba(22,163,74,.35);
+      color:var(--ok);
+    }
+
+    .stepLabel{
+      font-weight:800;
+      color:var(--muted);
+      font-size:12px;
+      margin-right:10px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+      align-items:start;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#ffffff;
+      padding:16px;
+      box-shadow:0 10px 24px rgba(15,23,42,.06);
+    }
+
+    .cardTitle{
+      margin:0 0 10px;
+      font-weight:900;
+      font-size:18px;
+      color:var(--brand);
+      letter-spacing:-0.01em;
+    }
+
+    .field{ margin:12px 0; }
+
+    .label{
+      display:block;
+      font-weight:900;
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:8px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .input, select, textarea{
+      width:100%;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      outline:none;
+      font-weight:750;
+      background:#ffffff;
       color:var(--ink);
     }
 
-    .empty p{
-      margin:0 0 14px;
+    textarea{ min-height:120px; resize:vertical; }
+
+    .chips{ display:flex; gap:10px; flex-wrap:wrap; }
+
+    .chip{
+      border:1px solid var(--line);
+      background:#ffffff;
+      padding:10px 12px;
+      border-radius:999px;
+      font-weight:900;
+      cursor:pointer;
+      user-select:none;
+      color:var(--ink);
+    }
+
+    .chip.active{
+      background:rgba(37,99,235,.10);
+      border-color:rgba(37,99,235,.35);
+      color:var(--accent);
+    }
+
+    .helpBox{
+      border:1px solid rgba(37,99,235,.25);
+      background:rgba(37,99,235,.06);
+      border-radius:14px;
+      padding:12px 14px;
       color:var(--muted);
-      font-weight:700;
+      font-weight:750;
+      line-height:1.5;
+      margin-top:10px;
+    }
+
+    .errorBox{
+      border:1px solid rgba(239,68,68,.28);
+      background:rgba(239,68,68,.06);
+      border-radius:14px;
+      padding:12px 14px;
+      color:var(--ink);
+      font-weight:800;
+      line-height:1.5;
+      margin-top:10px;
+      display:none;
+    }
+
+    .okBox{
+      border:1px solid rgba(22,163,74,.28);
+      background:rgba(22,163,74,.06);
+      border-radius:14px;
+      padding:12px 14px;
+      color:var(--ink);
+      font-weight:800;
+      line-height:1.5;
+      margin-top:10px;
+      display:none;
+    }
+
+    .summaryLine{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px 0;
+      border-bottom:1px dashed rgba(15,23,42,.15);
+      font-weight:800;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .summaryLine strong{ color:var(--ink); }
+
+    .actionsRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      margin-top:14px;
+    }
+
+    .small{ font-size:12px; color:var(--muted); font-weight:750; }
+
+    .adminToggle{
+      display:none;
+      margin-top:10px;
+    }
+
+    .adminList{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .adminItem{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 14px;
+      background:#ffffff;
     }
 
     @media (max-width:900px){
       .title{ font-size:32px; }
+      .grid{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -185,57 +311,960 @@
       </nav>
 
       <div class="actions">
-        <div class="pill" id="authPill">Signed out</div>
+        <div class="pill" id="authPill">Checking</div>
         <a class="btn" id="loginBtn" href="login.html">Log in</a>
         <a class="btn" id="signupBtn" href="signup.html">Sign up</a>
-        <button class="btn btnPrimary" type="button" id="newOrderTopBtn">New order</button>
-        <button class="btn" type="button" id="logoutBtn" style="display:none">Log out</button>
+        <button class="btn" id="logoutBtn" type="button" style="display:none">Log out</button>
       </div>
     </div>
   </header>
 
   <main class="container">
     <div class="panel">
-      <h1 class="title">My orders</h1>
-      <p class="sub">Create a new order, or review existing ones.</p>
+      <div class="topRow">
+        <div>
+          <h1 class="title">Write my paper</h1>
+          <p class="sub" id="subtitle">Step by step order form.</p>
+        </div>
 
-      <div class="empty" id="emptyState">
-        <h2>No orders yet</h2>
-        <p>Start by creating your first order.</p>
-        <button class="btn btnPrimary" type="button" id="newOrderBtn">New order</button>
+        <div class="actions">
+          <button class="btn" type="button" id="adminBtn">Admin</button>
+          <button class="btn btnPrimary" type="button" id="goOrdersBtn">My orders</button>
+        </div>
       </div>
 
-      <div id="ordersList" style="display:none"></div>
+      <div class="stepsBar" id="stepsBar"></div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="cardTitle" id="stepTitle">Step</div>
+
+          <div id="stepBody"></div>
+
+          <div class="errorBox" id="errorBox"></div>
+          <div class="okBox" id="okBox"></div>
+
+          <div class="actionsRow">
+            <button class="btn" type="button" id="backBtn">Back</button>
+            <button class="btn btnPrimary" type="button" id="nextBtn">Next</button>
+          </div>
+
+          <div class="adminToggle" id="adminPanel">
+            <div style="height:1px;background:var(--line);margin:16px 0;"></div>
+            <p class="cardTitle">Admin orders</p>
+            <div class="field">
+              <label class="label">Admin key</label>
+              <input class="input" id="adminKey" placeholder="Enter admin key" />
+            </div>
+            <div class="actionsRow" style="justify-content:flex-start;">
+              <button class="btn btnPrimary" type="button" id="adminLoadBtn">Load orders</button>
+            </div>
+            <div class="adminList" id="adminList"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <p class="cardTitle">Order summary</p>
+          <div id="summary"></div>
+
+          <div class="helpBox">
+            <div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Service contacts</div>
+            <div style="margin-bottom:6px;">
+              <a href="mailto:support@essayspros.com">support@essayspros.com</a><br />
+              <a href="mailto:orders@essayspros.com">orders@essayspros.com</a><br />
+              <a href="mailto:billing@essayspros.com">billing@essayspros.com</a>
+            </div>
+            <div>
+              <a id="waLink" href="https://wa.me/19295923759?text=Hello%20EssaysPros%2C%20I%20need%20help%20with%20my%20order" target="_blank" rel="noreferrer">WhatsApp message</a>
+            </div>
+          </div>
+
+          <p class="small" style="margin-top:12px;">
+            Payment uses Stripe Checkout and requires a server endpoint.
+          </p>
+        </div>
+      </div>
     </div>
   </main>
 
   <script>
+    const ENDPOINTS = {
+      createOrder: "/api/orders",
+      createStripeSession: "/api/stripe/create-checkout-session",
+      adminOrders: "/api/admin/orders",
+      adminUploadSolution: (id) => "/api/admin/orders/" + encodeURIComponent(id) + "/solution"
+    };
+
+    const subjects = [
+      "Accounting","Anthropology","Architecture","Art","Biology","Business and management",
+      "Chemistry","Communications","Computer science","Criminology","Economics","Education",
+      "Engineering","English","Finance","Healthcare","History","Law","Marketing","Mathematics",
+      "Nursing","Philosophy","Physics","Political science","Psychology","Public health",
+      "Social work","Sociology","Statistics"
+    ].sort((a,b)=>a.localeCompare(b));
+
+    const assignmentTypes = [
+      "Annotated bibliography","Argumentative essay","Article review","Book review","Business plan",
+      "Case study","Coursework","Critical analysis","Discussion post","Dissertation",
+      "Essay","Lab report","Literature review","Presentation","Reaction paper","Reflective essay",
+      "Report","Research paper","Resume or CV","Term paper","Thesis"
+    ].sort((a,b)=>a.localeCompare(b));
+
     const authPill = document.getElementById("authPill");
     const loginBtn = document.getElementById("loginBtn");
     const signupBtn = document.getElementById("signupBtn");
     const logoutBtn = document.getElementById("logoutBtn");
-    const newOrderTopBtn = document.getElementById("newOrderTopBtn");
-    const newOrderBtn = document.getElementById("newOrderBtn");
+    const goOrdersBtn = document.getElementById("goOrdersBtn");
 
-    function setAuthUI(isSignedIn){
-      authPill.textContent = isSignedIn ? "Signed in" : "Signed out";
-      loginBtn.style.display = isSignedIn ? "none" : "inline-flex";
-      signupBtn.style.display = isSignedIn ? "none" : "inline-flex";
-      logoutBtn.style.display = isSignedIn ? "inline-flex" : "none";
+    const stepsBar = document.getElementById("stepsBar");
+    const stepTitle = document.getElementById("stepTitle");
+    const stepBody = document.getElementById("stepBody");
+
+    const errorBox = document.getElementById("errorBox");
+    const okBox = document.getElementById("okBox");
+
+    const backBtn = document.getElementById("backBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    const summary = document.getElementById("summary");
+    const subtitle = document.getElementById("subtitle");
+
+    const adminBtn = document.getElementById("adminBtn");
+    const adminPanel = document.getElementById("adminPanel");
+    const adminKey = document.getElementById("adminKey");
+    const adminLoadBtn = document.getElementById("adminLoadBtn");
+    const adminList = document.getElementById("adminList");
+
+    function isSignedIn(){
+      return localStorage.getItem("auth") === "true";
     }
 
-    setAuthUI(false);
-
-    function goToNewOrder(){
-      window.location.href = "index.html#order";
+    function requireSignIn(){
+      if(isSignedIn()) return true;
+      localStorage.setItem("postLoginRedirect", window.location.href);
+      window.location.href = "login.html";
+      return false;
     }
 
-    newOrderTopBtn.addEventListener("click", goToNewOrder);
-    newOrderBtn.addEventListener("click", goToNewOrder);
+    function setAuthUI(){
+      const signedIn = isSignedIn();
+      authPill.textContent = signedIn ? "Signed in" : "Signed out";
+      loginBtn.style.display = signedIn ? "none" : "inline-flex";
+      signupBtn.style.display = signedIn ? "none" : "inline-flex";
+      logoutBtn.style.display = signedIn ? "inline-flex" : "none";
+      subtitle.textContent = signedIn ? "Step by step order form." : "Sign in is required to place an order.";
+    }
 
     logoutBtn.addEventListener("click", () => {
-      setAuthUI(false);
+      localStorage.setItem("auth", "false");
+      setAuthUI();
+      window.location.href = "login.html";
     });
+
+    goOrdersBtn.addEventListener("click", () => {
+      if(!requireSignIn()) return;
+      window.location.href = "orders.html";
+    });
+
+    function getOrders(){
+      try{
+        const raw = localStorage.getItem("orders");
+        const data = raw ? JSON.parse(raw) : [];
+        return Array.isArray(data) ? data : [];
+      }catch(e){
+        return [];
+      }
+    }
+
+    function saveOrders(arr){
+      localStorage.setItem("orders", JSON.stringify(arr));
+    }
+
+    function setActiveOrderId(id){
+      localStorage.setItem("activeOrderId", id);
+    }
+
+    function setError(msg){
+      errorBox.style.display = msg ? "block" : "none";
+      errorBox.textContent = msg || "";
+    }
+
+    function setOk(msg){
+      okBox.style.display = msg ? "block" : "none";
+      okBox.textContent = msg || "";
+    }
+
+    const STEPS = [
+      { key:"service", title:"Service" },
+      { key:"subject", title:"Subject" },
+      { key:"assignmentType", title:"Assignment type" },
+      { key:"academicLevel", title:"Academic level" },
+      { key:"language", title:"Language" },
+      { key:"size", title:"Size" },
+      { key:"deadline", title:"Deadline" },
+      { key:"instructions", title:"Instructions and files" },
+      { key:"payment", title:"Payment" },
+      { key:"post", title:"Post order" }
+    ];
+
+    let stepIndex = 0;
+
+    const state = {
+      serviceChoice: "",
+      serviceHelpOpen: false,
+
+      subject: "",
+      subjectOther: "",
+
+      assignmentType: "",
+      academicLevel: "",
+
+      language: "",
+
+      sizeMode: "pages",
+      pages: 1,
+      words: 275,
+
+      deadline: "",
+
+      instructions: "",
+      files: [],
+
+      pricingUsd: 0,
+      orderId: "",
+      paid: false,
+      stripeCheckoutUrl: ""
+    };
+
+    function calcPrice(){
+      const base = 12;
+      const pages = Number(state.pages || 1);
+      const level = String(state.academicLevel || "").toLowerCase();
+      let levelMult = 1;
+      if(level.includes("high")) levelMult = 0.9;
+      if(level.includes("college")) levelMult = 1.0;
+      if(level.includes("bachelor")) levelMult = 1.15;
+      if(level.includes("master")) levelMult = 1.35;
+      if(level.includes("doctor")) levelMult = 1.55;
+
+      let deadlineMult = 1.0;
+      if(state.deadline){
+        const now = Date.now();
+        const d = new Date(state.deadline).getTime();
+        const hours = Math.max(1, (d - now) / 36e5);
+        if(hours <= 24) deadlineMult = 1.8;
+        else if(hours <= 48) deadlineMult = 1.55;
+        else if(hours <= 72) deadlineMult = 1.35;
+        else if(hours <= 168) deadlineMult = 1.15;
+      }
+
+      let typeMult = 1.0;
+      const t = String(state.assignmentType || "").toLowerCase();
+      if(t.includes("dissertation") || t.includes("thesis")) typeMult = 2.0;
+      else if(t.includes("research")) typeMult = 1.35;
+      else if(t.includes("case")) typeMult = 1.25;
+      else if(t.includes("presentation")) typeMult = 1.15;
+
+      const raw = base * pages * levelMult * deadlineMult * typeMult;
+      state.pricingUsd = Math.max(15, Math.round(raw));
+    }
+
+    function renderStepsBar(){
+      stepsBar.innerHTML = "";
+      STEPS.forEach((s, i) => {
+        const dot = document.createElement("div");
+        dot.className = "stepDot" + (i === stepIndex ? " active" : (i < stepIndex ? " done" : ""));
+        dot.textContent = String(i + 1);
+        stepsBar.appendChild(dot);
+
+        const label = document.createElement("div");
+        label.className = "stepLabel";
+        label.textContent = s.title;
+        stepsBar.appendChild(label);
+      });
+    }
+
+    function summaryValue(v){
+      return v ? String(v) : "Not set";
+    }
+
+    function renderSummary(){
+      const subjectShown = (state.subject === "Other") ? state.subjectOther : state.subject;
+      const sizeShown = state.sizeMode === "pages" ? (state.pages + " pages") : (state.words + " words");
+
+      const lines = [
+        ["Service", summaryValue(state.serviceChoice)],
+        ["Subject", summaryValue(subjectShown)],
+        ["Type", summaryValue(state.assignmentType)],
+        ["Level", summaryValue(state.academicLevel)],
+        ["Language", summaryValue(state.language)],
+        ["Size", summaryValue(sizeShown)],
+        ["Deadline", summaryValue(state.deadline)],
+        ["Files", state.files.length ? (state.files.length + " files") : "No files"],
+        ["Price", state.pricingUsd ? ("$" + state.pricingUsd) : "Not set"],
+        ["Payment", state.paid ? "Paid" : "Not paid"]
+      ];
+
+      summary.innerHTML = lines.map(([k,v]) => {
+        return '<div class="summaryLine"><span>' + k + '</span><strong>' + v + '</strong></div>';
+      }).join("");
+    }
+
+    function chipGroup(items, selected, onPick){
+      const wrap = document.createElement("div");
+      wrap.className = "chips";
+      items.forEach(label => {
+        const c = document.createElement("div");
+        c.className = "chip" + (label === selected ? " active" : "");
+        c.textContent = label;
+        c.addEventListener("click", () => onPick(label));
+        wrap.appendChild(c);
+      });
+      return wrap;
+    }
+
+    function renderStep(){
+      if(!requireSignIn()) return;
+
+      setError("");
+      setOk("");
+      calcPrice();
+      renderStepsBar();
+      renderSummary();
+
+      const step = STEPS[stepIndex];
+      stepTitle.textContent = step.title;
+      stepBody.innerHTML = "";
+
+      backBtn.style.display = stepIndex === 0 ? "none" : "inline-flex";
+      nextBtn.textContent = stepIndex === STEPS.length - 1 ? "Finish" : "Next";
+
+      if(step.key === "service"){
+        const p = document.createElement("p");
+        p.className = "sub";
+        p.textContent = "Select one option.";
+        stepBody.appendChild(p);
+
+        const options = ["Writing","Rewriting","Editing","Proofreading","Problem solving","Calculations","Service"];
+        stepBody.appendChild(chipGroup(options, state.serviceChoice, (v) => {
+          state.serviceChoice = v;
+          state.serviceHelpOpen = (v === "Service");
+          renderStep();
+        }));
+
+        const help = document.createElement("div");
+        help.className = "helpBox";
+        help.style.display = state.serviceHelpOpen ? "block" : "none";
+        help.innerHTML =
+          '<div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Contact options</div>' +
+          '<div style="margin-bottom:6px;">' +
+          '<a href="mailto:support@essayspros.com">support@essayspros.com</a><br />' +
+          '<a href="mailto:orders@essayspros.com">orders@essayspros.com</a><br />' +
+          '<a href="mailto:billing@essayspros.com">billing@essayspros.com</a>' +
+          "</div>" +
+          '<div><a href="https://wa.me/19295923759?text=Hello%20EssaysPros%2C%20I%20need%20help%20with%20my%20order" target="_blank" rel="noreferrer">WhatsApp message</a></div>';
+        stepBody.appendChild(help);
+
+        return;
+      }
+
+      if(step.key === "subject"){
+        const field = document.createElement("div");
+        field.className = "field";
+        field.innerHTML = '<label class="label">Choose your subject</label>';
+        const sel = document.createElement("select");
+        sel.className = "input";
+        const opt0 = document.createElement("option");
+        opt0.value = "";
+        opt0.textContent = "Choose your subject";
+        sel.appendChild(opt0);
+
+        subjects.forEach(s => {
+          const o = document.createElement("option");
+          o.value = s;
+          o.textContent = s;
+          sel.appendChild(o);
+        });
+
+        const otherOpt = document.createElement("option");
+        otherOpt.value = "Other";
+        otherOpt.textContent = "Other";
+        sel.appendChild(otherOpt);
+
+        sel.value = state.subject;
+        sel.addEventListener("change", () => {
+          state.subject = sel.value;
+          renderStep();
+        });
+
+        field.appendChild(sel);
+        stepBody.appendChild(field);
+
+        const otherWrap = document.createElement("div");
+        otherWrap.className = "field";
+        otherWrap.style.display = state.subject === "Other" ? "block" : "none";
+        otherWrap.innerHTML = '<label class="label">Type your subject</label>';
+        const otherInput = document.createElement("input");
+        otherInput.className = "input";
+        otherInput.placeholder = "Type your subject";
+        otherInput.value = state.subjectOther;
+        otherInput.addEventListener("input", () => {
+          state.subjectOther = otherInput.value;
+        });
+        otherWrap.appendChild(otherInput);
+        stepBody.appendChild(otherWrap);
+        return;
+      }
+
+      if(step.key === "assignmentType"){
+        const field = document.createElement("div");
+        field.className = "field";
+        field.innerHTML = '<label class="label">Select assignment type</label>';
+        const sel = document.createElement("select");
+        sel.className = "input";
+
+        const opt0 = document.createElement("option");
+        opt0.value = "";
+        opt0.textContent = "Select assignment type";
+        sel.appendChild(opt0);
+
+        assignmentTypes.forEach(t => {
+          const o = document.createElement("option");
+          o.value = t;
+          o.textContent = t;
+          sel.appendChild(o);
+        });
+
+        sel.value = state.assignmentType;
+        sel.addEventListener("change", () => {
+          state.assignmentType = sel.value;
+          renderSummary();
+        });
+
+        field.appendChild(sel);
+        stepBody.appendChild(field);
+        return;
+      }
+
+      if(step.key === "academicLevel"){
+        const p = document.createElement("p");
+        p.className = "sub";
+        p.textContent = "Select one option.";
+        stepBody.appendChild(p);
+
+        const options = ["High school","College","Bachelor's","Master's","Doctorate"];
+        stepBody.appendChild(chipGroup(options, state.academicLevel, (v) => {
+          state.academicLevel = v;
+          renderSummary();
+          renderStep();
+        }));
+        return;
+      }
+
+      if(step.key === "language"){
+        const p = document.createElement("p");
+        p.className = "sub";
+        p.textContent = "Select one option.";
+        stepBody.appendChild(p);
+
+        const options = ["English (US)","English (UK)"];
+        stepBody.appendChild(chipGroup(options, state.language, (v) => {
+          state.language = v;
+          renderSummary();
+          renderStep();
+        }));
+        return;
+      }
+
+      if(step.key === "size"){
+        const row = document.createElement("div");
+        row.className = "field";
+
+        const modeWrap = document.createElement("div");
+        modeWrap.className = "chips";
+        const pagesChip = document.createElement("div");
+        pagesChip.className = "chip" + (state.sizeMode === "pages" ? " active" : "");
+        pagesChip.textContent = "Pages";
+        const wordsChip = document.createElement("div");
+        wordsChip.className = "chip" + (state.sizeMode === "words" ? " active" : "");
+        wordsChip.textContent = "Words";
+
+        pagesChip.addEventListener("click", () => { state.sizeMode = "pages"; renderStep(); });
+        wordsChip.addEventListener("click", () => { state.sizeMode = "words"; renderStep(); });
+
+        modeWrap.appendChild(pagesChip);
+        modeWrap.appendChild(wordsChip);
+
+        row.innerHTML = '<label class="label">Size</label>';
+        row.appendChild(modeWrap);
+
+        const inputWrap = document.createElement("div");
+        inputWrap.className = "field";
+
+        if(state.sizeMode === "pages"){
+          inputWrap.innerHTML = '<label class="label">Pages</label>';
+          const inp = document.createElement("input");
+          inp.className = "input";
+          inp.type = "number";
+          inp.min = "1";
+          inp.max = "200";
+          inp.value = String(state.pages);
+          inp.addEventListener("input", () => {
+            state.pages = Math.max(1, Math.min(200, Number(inp.value || 1)));
+            state.words = state.pages * 275;
+            renderSummary();
+          });
+          inputWrap.appendChild(inp);
+
+          const note = document.createElement("div");
+          note.className = "small";
+          note.textContent = "Estimated words: " + (state.pages * 275);
+          inputWrap.appendChild(note);
+        } else {
+          inputWrap.innerHTML = '<label class="label">Words</label>';
+          const inp = document.createElement("input");
+          inp.className = "input";
+          inp.type = "number";
+          inp.min = "275";
+          inp.max = "55000";
+          inp.step = "25";
+          inp.value = String(state.words);
+          inp.addEventListener("input", () => {
+            state.words = Math.max(275, Math.min(55000, Number(inp.value || 275)));
+            state.pages = Math.max(1, Math.round(state.words / 275));
+            renderSummary();
+          });
+          inputWrap.appendChild(inp);
+
+          const note = document.createElement("div");
+          note.className = "small";
+          note.textContent = "Estimated pages: " + Math.max(1, Math.round(state.words / 275));
+          inputWrap.appendChild(note);
+        }
+
+        stepBody.appendChild(row);
+        stepBody.appendChild(inputWrap);
+        return;
+      }
+
+      if(step.key === "deadline"){
+        const field = document.createElement("div");
+        field.className = "field";
+        field.innerHTML = '<label class="label">Deadline</label>';
+        const inp = document.createElement("input");
+        inp.className = "input";
+        inp.type = "datetime-local";
+        inp.value = state.deadline || "";
+        inp.addEventListener("change", () => {
+          state.deadline = inp.value;
+          renderSummary();
+        });
+        field.appendChild(inp);
+
+        const note = document.createElement("div");
+        note.className = "small";
+        note.textContent = "Earlier deadlines increase price.";
+        field.appendChild(note);
+
+        stepBody.appendChild(field);
+        return;
+      }
+
+      if(step.key === "instructions"){
+        const field1 = document.createElement("div");
+        field1.className = "field";
+        field1.innerHTML = '<label class="label">Instructions</label>';
+        const ta = document.createElement("textarea");
+        ta.className = "input";
+        ta.placeholder = "Provide detailed instructions.";
+        ta.value = state.instructions;
+        ta.addEventListener("input", () => {
+          state.instructions = ta.value;
+        });
+        field1.appendChild(ta);
+
+        const field2 = document.createElement("div");
+        field2.className = "field";
+        field2.innerHTML = '<label class="label">Upload files</label>';
+        const fi = document.createElement("input");
+        fi.className = "input";
+        fi.type = "file";
+        fi.multiple = true;
+        fi.accept = ".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png";
+        fi.addEventListener("change", () => {
+          state.files = Array.from(fi.files || []);
+          renderSummary();
+        });
+        field2.appendChild(fi);
+
+        const note = document.createElement("div");
+        note.className = "small";
+        note.textContent = "Multiple files are supported.";
+        field2.appendChild(note);
+
+        stepBody.appendChild(field1);
+        stepBody.appendChild(field2);
+        return;
+      }
+
+      if(step.key === "payment"){
+        const box = document.createElement("div");
+        box.className = "helpBox";
+        box.innerHTML =
+          '<div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Stripe payment</div>' +
+          '<div style="margin-bottom:10px;">Amount: <strong>$' + state.pricingUsd + "</strong></div>";
+
+        const payBtn = document.createElement("button");
+        payBtn.className = "btn btnPrimary";
+        payBtn.type = "button";
+        payBtn.textContent = state.paid ? "Paid" : "Pay with Stripe";
+        payBtn.disabled = state.paid;
+        if(state.paid) payBtn.classList.add("btnDisabled");
+
+        payBtn.addEventListener("click", async () => {
+          try{
+            setError("");
+            setOk("");
+
+            const payload = {
+              orderId: state.orderId || "",
+              amountUsd: state.pricingUsd
+            };
+
+            const r = await fetch(ENDPOINTS.createStripeSession, {
+              method:"POST",
+              headers:{ "Content-Type":"application/json" },
+              body: JSON.stringify(payload)
+            });
+
+            const j = await r.json().catch(()=> ({}));
+            if(!r.ok || !j || !j.url){
+              setError("Payment could not be started. Check Stripe endpoint.");
+              return;
+            }
+
+            state.stripeCheckoutUrl = j.url;
+            window.location.href = j.url;
+          }catch(e){
+            setError("Payment could not be started.");
+          }
+        });
+
+        box.appendChild(payBtn);
+
+        const note = document.createElement("div");
+        note.className = "small";
+        note.style.marginTop = "10px";
+        note.textContent = "After successful payment, return to this page and continue.";
+        box.appendChild(note);
+
+        stepBody.appendChild(box);
+
+        const paidWrap = document.createElement("div");
+        paidWrap.className = "field";
+        paidWrap.innerHTML = '<label class="label">Payment status</label>';
+        const paidChipWrap = document.createElement("div");
+        paidChipWrap.className = "chips";
+
+        const c1 = document.createElement("div");
+        c1.className = "chip" + (!state.paid ? " active" : "");
+        c1.textContent = "Not paid";
+
+        const c2 = document.createElement("div");
+        c2.className = "chip" + (state.paid ? " active" : "");
+        c2.textContent = "Paid";
+
+        c1.addEventListener("click", () => { state.paid = false; renderStep(); });
+        c2.addEventListener("click", () => { state.paid = true; renderStep(); });
+
+        paidChipWrap.appendChild(c1);
+        paidChipWrap.appendChild(c2);
+        paidWrap.appendChild(paidChipWrap);
+
+        stepBody.appendChild(paidWrap);
+        return;
+      }
+
+      if(step.key === "post"){
+        const box = document.createElement("div");
+        box.className = "helpBox";
+        box.innerHTML =
+          '<div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Post order</div>' +
+          "<div>Posting creates the order and sends you a notification through the server endpoint.</div>";
+
+        const postBtn = document.createElement("button");
+        postBtn.className = "btn btnPrimary";
+        postBtn.type = "button";
+        postBtn.textContent = "Post order";
+
+        postBtn.addEventListener("click", async () => {
+          try{
+            setError("");
+            setOk("");
+
+            const subjectShown = (state.subject === "Other") ? state.subjectOther : state.subject;
+
+            const data = {
+              service: state.serviceChoice,
+              subject: state.subject,
+              subjectOther: state.subjectOther,
+              subjectShown,
+              assignmentType: state.assignmentType,
+              academicLevel: state.academicLevel,
+              language: state.language,
+              sizeMode: state.sizeMode,
+              pages: state.pages,
+              words: state.words,
+              deadline: state.deadline,
+              instructions: state.instructions,
+              amountUsd: state.pricingUsd
+            };
+
+            if(!state.paid){
+              setError("Payment is required before posting.");
+              return;
+            }
+
+            const form = new FormData();
+            form.append("data", JSON.stringify(data));
+            state.files.forEach(f => form.append("files", f));
+
+            const r = await fetch(ENDPOINTS.createOrder, { method:"POST", body: form });
+            const j = await r.json().catch(()=> ({}));
+            if(!r.ok || !j || !j.id){
+              setError("Order could not be posted. Check server endpoint.");
+              return;
+            }
+
+            state.orderId = j.id;
+
+            const orderLocal = {
+              id: j.id,
+              createdAt: new Date().toISOString(),
+              status: "submitted",
+              paid: true,
+              subject: state.subject,
+              subjectOther: state.subjectOther,
+              assignmentType: state.assignmentType,
+              academicLevel: state.academicLevel,
+              language: state.language,
+              pages: state.pages,
+              words: state.words,
+              deadline: state.deadline
+            };
+
+            const all = getOrders();
+            all.push(orderLocal);
+            saveOrders(all);
+            setActiveOrderId(j.id);
+
+            setOk("Order posted. You have been notified through the server.");
+          }catch(e){
+            setError("Order could not be posted.");
+          }
+        });
+
+        box.appendChild(document.createElement("div")).style.height = "10px";
+        box.appendChild(postBtn);
+
+        stepBody.appendChild(box);
+        return;
+      }
+    }
+
+    function validateStep(){
+      const step = STEPS[stepIndex];
+
+      if(step.key === "service"){
+        if(!state.serviceChoice) return "Select a service.";
+        return "";
+      }
+
+      if(step.key === "subject"){
+        if(!state.subject) return "Select a subject.";
+        if(state.subject === "Other" && !String(state.subjectOther || "").trim()) return "Type your subject.";
+        return "";
+      }
+
+      if(step.key === "assignmentType"){
+        if(!state.assignmentType) return "Select assignment type.";
+        return "";
+      }
+
+      if(step.key === "academicLevel"){
+        if(!state.academicLevel) return "Select academic level.";
+        return "";
+      }
+
+      if(step.key === "language"){
+        if(!state.language) return "Select language.";
+        return "";
+      }
+
+      if(step.key === "size"){
+        if(state.sizeMode === "pages" && (!state.pages || Number(state.pages) < 1)) return "Enter pages.";
+        if(state.sizeMode === "words" && (!state.words || Number(state.words) < 275)) return "Enter words.";
+        return "";
+      }
+
+      if(step.key === "deadline"){
+        if(!state.deadline) return "Select deadline.";
+        return "";
+      }
+
+      if(step.key === "instructions"){
+        if(!String(state.instructions || "").trim() && state.files.length === 0) return "Provide instructions or upload files.";
+        return "";
+      }
+
+      if(step.key === "payment"){
+        if(!state.paid) return "Complete payment to continue.";
+        return "";
+      }
+
+      return "";
+    }
+
+    backBtn.addEventListener("click", () => {
+      setError("");
+      setOk("");
+      stepIndex = Math.max(0, stepIndex - 1);
+      renderStep();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      setError("");
+      setOk("");
+      const msg = validateStep();
+      if(msg){
+        setError(msg);
+        return;
+      }
+      if(stepIndex < STEPS.length - 1){
+        stepIndex += 1;
+        renderStep();
+      }
+    });
+
+    function readQuery(){
+      const q = new URLSearchParams(window.location.search);
+
+      if(q.get("paid") === "1"){
+        state.paid = true;
+      }
+
+      const openAdmin = q.get("admin") === "1";
+      if(openAdmin) adminPanel.style.display = "block";
+    }
+
+    adminBtn.addEventListener("click", () => {
+      adminPanel.style.display = (adminPanel.style.display === "block") ? "none" : "block";
+    });
+
+    adminLoadBtn.addEventListener("click", async () => {
+      try{
+        setError("");
+        setOk("");
+        adminList.innerHTML = "";
+
+        const key = String(adminKey.value || "").trim();
+        if(!key){
+          setError("Admin key is required.");
+          return;
+        }
+
+        const r = await fetch(ENDPOINTS.adminOrders, {
+          headers: { "x-admin-key": key }
+        });
+
+        const j = await r.json().catch(()=> ({}));
+        if(!r.ok || !j || !Array.isArray(j.orders)){
+          setError("Admin orders could not be loaded.");
+          return;
+        }
+
+        j.orders.slice().reverse().forEach(o => {
+          const wrap = document.createElement("div");
+          wrap.className = "adminItem";
+
+          const id = (o && o.id) ? String(o.id) : "";
+          const subj = o && o.data && o.data.subjectShown ? String(o.data.subjectShown) : "";
+          const created = o && o.createdAt ? String(o.createdAt) : "";
+          const paid = o && o.paid === true;
+
+          wrap.innerHTML =
+            '<div style="font-weight:900;color:var(--brand);margin-bottom:6px;">Order ' + id + "</div>" +
+            '<div class="small" style="margin-bottom:8px;">Subject: ' + (subj || "Not set") + "</div>" +
+            '<div class="small" style="margin-bottom:8px;">Created: ' + (created || "Not set") + "</div>" +
+            '<div class="small" style="margin-bottom:10px;">Payment: ' + (paid ? "Paid" : "Not paid") + "</div>";
+
+          const upLabel = document.createElement("div");
+          upLabel.className = "small";
+          upLabel.style.marginBottom = "6px";
+          upLabel.textContent = "Upload solution files";
+
+          const up = document.createElement("input");
+          up.type = "file";
+          up.multiple = true;
+          up.className = "input";
+
+          const upBtn = document.createElement("button");
+          upBtn.type = "button";
+          upBtn.className = "btn btnPrimary";
+          upBtn.textContent = "Upload solution";
+
+          upBtn.addEventListener("click", async () => {
+            try{
+              const files = Array.from(up.files || []);
+              if(!files.length){
+                setError("Select solution files.");
+                return;
+              }
+
+              const form = new FormData();
+              files.forEach(f => form.append("solutionFiles", f));
+
+              const rr = await fetch(ENDPOINTS.adminUploadSolution(id), {
+                method:"POST",
+                headers: { "x-admin-key": key },
+                body: form
+              });
+
+              const jj = await rr.json().catch(()=> ({}));
+              if(!rr.ok || !jj || jj.ok !== true){
+                setError("Solution upload failed.");
+                return;
+              }
+
+              setOk("Solution uploaded for order " + id + ".");
+            }catch(e){
+              setError("Solution upload failed.");
+            }
+          });
+
+          wrap.appendChild(upLabel);
+          wrap.appendChild(up);
+          wrap.appendChild(document.createElement("div")).style.height = "10px";
+          wrap.appendChild(upBtn);
+
+          adminList.appendChild(wrap);
+        });
+
+        setOk("Admin orders loaded.");
+      }catch(e){
+        setError("Admin orders could not be loaded.");
+      }
+    });
+
+    function init(){
+      setAuthUI();
+      if(!requireSignIn()) return;
+      readQuery();
+      renderStepsBar();
+      renderStep();
+    }
+
+    init();
   </script>
 </body>
 </html>
