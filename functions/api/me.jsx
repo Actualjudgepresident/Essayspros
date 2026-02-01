@@ -1,32 +1,27 @@
 // functions/api/me.js  (Cloudflare Pages Functions)
-export async function onRequest({ request }) {
-  const cookie = request.headers.get("Cookie") || "";
-  const m = cookie.match(/(?:^|;\s*)ep_session=([^;]+)/);
-  if (!m) {
-    return new Response(JSON.stringify({ error: "unauthorized" }), {
-      status: 401,
-      headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-    });
-  }
-  return new Response(JSON.stringify({ ok: true }), {
-    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-  });
-}
+// Use .js (or .ts). Do not use React here.
+
 export async function onRequest(context) {
   const { request, env } = context;
+
   const cookies = parseCookies(request.headers.get("Cookie") || "");
-  const token = cookies.essayspros_session;
-  if (!token) return json({ authenticated: false });
+  const token = cookies.essayspros_session || cookies.ep_session;
+
+  if (!token) return json({ authenticated: false }, 401);
 
   const payload = await verifyJwt(token, env.SESSION_SECRET);
-  if (!payload) return json({ authenticated: false });
+  if (!payload) return json({ authenticated: false }, 401);
 
-  return json({ authenticated: true, user: payload });
+  return json({ authenticated: true, user: payload }, 200);
 }
 
-function json(obj) {
+function json(obj, status) {
   return new Response(JSON.stringify(obj), {
-    headers: { "content-type": "application/json" },
+    status,
+    headers: {
+      "content-type": "application/json",
+      "cache-control": "no-store"
+    }
   });
 }
 
@@ -58,6 +53,7 @@ async function verifyJwt(token, secret) {
   );
 
   const sigBytes = base64UrlDecodeToBytes(sig);
+
   const ok = await crypto.subtle.verify(
     "HMAC",
     key,
@@ -77,7 +73,7 @@ async function verifyJwt(token, secret) {
 }
 
 function base64UrlDecodeToBytes(s) {
-  const b64 = s.replace(/0/g, "+").replace(/1/g, "/") + "===".slice((s.length + 3) % 4);
+  const b64 = s.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((s.length + 3) % 4);
   const bin = atob(b64);
   const bytes = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
