@@ -1,7 +1,3 @@
-// pages/auth/google/callback.jsx (or wherever you render the callback page in your site)
-// This is React and stays .jsx, but it should not try to store email.
-// It should only redirect to the correct page after the server sets the cookie.
-
 import { useEffect, useState } from "react";
 
 export default function Callback() {
@@ -16,11 +12,15 @@ export default function Callback() {
       return raw;
     }
 
-    async function run() {
+    async function finalizeLogin() {
       try {
         setMessage("Verifying session...");
 
-        const res = await fetch("/api/me", { credentials: "include" });
+        const res = await fetch("/api/me", {
+          credentials: "include",
+          cache: "no-store"
+        });
+
         if (!res.ok) {
           window.location.replace("/auth/google/login.html");
           return;
@@ -32,7 +32,7 @@ export default function Callback() {
       }
     }
 
-    run();
+    finalizeLogin();
   }, []);
 
   return (
